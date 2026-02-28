@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة ثانية ثانوي الرسمية  </title>
-   <script type="module">
+  <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
+        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
@@ -21,20 +21,32 @@
         const app = initializeApp(firebaseConfig);
         const messaging = getMessaging(app);
 
-        // ده السطر اللي هيشغل الرسالة للطلاب
-        getToken(messaging, { vapidKey: "BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4HO5o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo" })
-        .then((currentToken) => {
-            if (currentToken) {
-                console.log("المنصة جاهزة للإشعارات");
-            } else {
-                Notification.requestPermission();
-            }
-        }).catch((err) => {
-            console.log("حصل خطأ: ", err);
+        // أهم حتة: تسجيل الـ Service Worker عشان يستلم الرسايل
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/firebase-messaging-sw.js')
+            .then((registration) => {
+                console.log('Service Worker registered');
+                
+                // طلب التوكن والاذن
+                getToken(messaging, { 
+                    serviceWorkerRegistration: registration,
+                    vapidKey: "BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4HO5o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo" 
+                })
+                .then((currentToken) => {
+                    if (currentToken) {
+                        console.log("المنصة جاهزة تماماً!");
+                    } else {
+                        console.log("مفيش توكن، اطلب إذن");
+                    }
+                });
+            });
+        }
+
+        // لو باعت رسالة وأنت فاتح الموقع تظهر لك برضه
+        onMessage(messaging, (payload) => {
+            alert("إشعار جديد: " + payload.notification.body);
         });
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -514,6 +526,7 @@
 </body>
 
 </html>
+
 
 
 
