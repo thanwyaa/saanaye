@@ -21,10 +21,16 @@
         const app = initializeApp(firebaseConfig);
         const messaging = getMessaging(app);
 
-        Notification.requestPermission().then((permission) => {
-            if (permission === 'granted') {
-                console.log('جاهز لاستقبال الإشعارات');
+        // ده السطر اللي هيشغل الرسالة للطلاب
+        getToken(messaging, { vapidKey: "BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4HO5o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo" })
+        .then((currentToken) => {
+            if (currentToken) {
+                console.log("المنصة جاهزة للإشعارات");
+            } else {
+                Notification.requestPermission();
             }
+        }).catch((err) => {
+            console.log("حصل خطأ: ", err);
         });
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -508,6 +514,7 @@
 </body>
 
 </html>
+
 
 
 
