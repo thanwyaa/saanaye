@@ -4,15 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة ثانية ثانوي الرسمية  </title>
-   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "6c17afb8-033f-444e-9132-9ec51a66e542",
-    });
-  });
-</script>
+   <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
+            authDomain: "sanaayee.firebaseapp.com",
+            projectId: "sanaayee",
+            storageBucket: "sanaayee.firebasestorage.app",
+            messagingSenderId: "1048456368002",
+            appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
+            measurementId: "G-XCYY1H22CQ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging(app);
+
+        Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+                console.log('جاهز لاستقبال الإشعارات');
+            }
+        });
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -494,5 +508,6 @@
 </body>
 
 </html>
+
 
 
