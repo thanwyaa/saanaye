@@ -6,29 +6,10 @@
     <meta name="google-site-verification" content="YuRTJkOHmI3UcoW281V1_bLG-DV4C_pynQsIxyeEnfI">
     <link rel="manifest" href="manifest.json">
     <title>منصة ثانية ثانوي الرسمية</title>
-    <meta name="description" content="دروس وملخصات واختبارات تفاعلية لطلاب الصف الثاني الثانوي">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-            authDomain: "sanaayee.firebaseapp.com",
-            projectId: "sanaayee",
-            storageBucket: "sanaayee.firebasestorage.app",
-            messagingSenderId: "1048456368002",
-            appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
-            measurementId: "G-XCYY1H22CQ"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const messaging = getMessaging(app);
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('firebase-messaging-sw.js')
-            .then((registration) => {
-                getToken(messaging, { 
-                    serviceWorkerRegistration: registration,
-                    vapidKey: "BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4HO5o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo" 
-                })
-                .then((currentToken) => {
+                               .then((currentToken) => {
                     if (currentToken) {
                         console.log("المنصة جاهزة للإشعارات!");
                     }
@@ -539,6 +520,7 @@
 </body>
 
 </html>
+
 
 
 
