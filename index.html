@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة ثانية ثانوي الرسمية  </title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module">
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
 
@@ -22,32 +24,27 @@
         const app = initializeApp(firebaseConfig);
         const messaging = getMessaging(app);
 
-        // أهم حتة: تسجيل الـ Service Worker عشان يستلم الرسايل
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/firebase-messaging-sw.js')
+            navigator.serviceWorker.register('firebase-messaging-sw.js')
             .then((registration) => {
-                console.log('Service Worker registered');
-                
-                // طلب التوكن والاذن
                 getToken(messaging, { 
                     serviceWorkerRegistration: registration,
                     vapidKey: "BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4HO5o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo" 
                 })
                 .then((currentToken) => {
                     if (currentToken) {
-                        console.log("المنصة جاهزة تماماً!");
-                    } else {
-                        console.log("مفيش توكن، اطلب إذن");
+                        console.log("المنصة جاهزة للإشعارات!");
                     }
                 });
             });
         }
 
-        // لو باعت رسالة وأنت فاتح الموقع تظهر لك برضه
         onMessage(messaging, (payload) => {
             alert("إشعار جديد: " + payload.notification.body);
         });
     </script>
+
+    <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -72,6 +69,24 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        html.dark body { background-color: #0f172a; color: #f8fafc; }
+        html:not(.dark) body { background-color: #f8fafc; color: #0f172a; }
+        .premium-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(148, 163, 184, 0.2); }
+        html.dark .premium-card { background-color: #1e293b; }
+        html:not(.dark) .premium-card { background-color: #ffffff; }
+        .premium-card:hover { transform: translateY(-5px); border-color: #3b82f6; }
+        .book-cover { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); position: relative; overflow: hidden; }
+        .btn-main { background: linear-gradient(to right, #1e40af, #2563eb); color: white !important; transition: all 0.3s; }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .glass-header { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    </style>
+</head>
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
@@ -527,6 +542,7 @@
 </body>
 
 </html>
+
 
 
 
