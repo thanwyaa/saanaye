@@ -59,7 +59,7 @@
             box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15);
         }
 
-        /* تصميم غلاف الكتاب بدون صور خارجية */
+        /* تصميم غلاف الكتاب */
         .book-cover {
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             position: relative;
@@ -108,6 +108,16 @@
         }
         html.dark .glass-header { background-color: rgba(15, 23, 42, 0.85); border-bottom: 1px solid #334155; }
         html:not(.dark) .glass-header { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e2e8f0; }
+
+        /* --- تأثيرات شريط الإشعارات الجديد --- */
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .animate-pulse-custom {
+            animation: pulse-red 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -132,7 +142,19 @@
         </div>
     </header>
 
-    <div class="h-24"></div>
+    <div class="fixed w-full top-[72px] sm:top-[80px] z-40 bg-white/90 dark:bg-slate-900/90 border-b border-brand-100 dark:border-brand-800 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3">
+            <span class="flex-shrink-0 bg-red-600 text-white text-[10px] sm:text-xs font-black px-2.5 py-1 rounded-lg animate-pulse-custom shadow-lg shadow-red-500/40">
+                الآن
+            </span>
+            <div class="overflow-hidden whitespace-nowrap text-sm sm:text-base font-bold text-slate-700 dark:text-slate-200 flex-grow">
+                <span>🔥 تم إضافة كتاب الامتحان كيمياء (شرح) - حمل الآن من قسم الكتب الخارجية</span>
+            </div>
+            <i data-lucide="megaphone" class="w-4 h-4 text-brand-600"></i>
+        </div>
+    </div>
+
+    <div class="h-28 sm:h-32"></div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[70vh]">
 
@@ -341,7 +363,7 @@
 
     <script>
         // ==========================================
-        // 1. قاعدة بيانات الكتب (من الروابط اللي بعتها)
+        // 1. قاعدة بيانات الكتب (بياناتك الأصلية بالكامل)
         // ==========================================
         const platformData = {
             books: [
@@ -382,12 +404,8 @@
             ]
         };
 
-        // تفعيل أيقونات Lucide
         lucide.createIcons();
 
-        // ==========================================
-        // 2. نظام الوضع الليلي (Dark Mode) الدقيق
-        // ==========================================
         function initTheme() {
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
@@ -407,9 +425,6 @@
             }
         }
 
-        // ==========================================
-        // 3. التنقل بين الصفحات (SPA Logic)
-        // ==========================================
         const sections = ['home', 'books', 'teachers', 'about', 'policy'];
         function switchSection(id) {
             sections.forEach(sec => {
@@ -421,14 +436,10 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             if(id === 'books') renderBooks('ministry');
-            if(id === 'teachers') renderTeachers('physics'); // افتراضي
+            if(id === 'teachers') renderTeachers('physics');
         }
 
-        // ==========================================
-        // 4. عرض الكتب (الديزاين الجديد الفخم للكتب)
-        // ==========================================
         function renderBooks(category) {
-            // تفعيل التاب المختار
             document.querySelectorAll('.book-tab').forEach(btn => {
                 btn.classList.remove('bg-brand-600', 'text-white');
                 btn.classList.add('bg-transparent');
@@ -460,9 +471,6 @@
             lucide.createIcons();
         }
 
-        // ==========================================
-        // 5. عرض المدرسين (مجهزة لإضافة الفيديوهات لاحقاً)
-        // ==========================================
         function renderTeachers(subject) {
             document.querySelectorAll('.subject-tab').forEach(btn => {
                 btn.classList.remove('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
@@ -472,16 +480,14 @@
             event.target.classList.add('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
 
             const container = document.getElementById('teachers-list');
-            // حالياً رسالة لحين تجهيزك لروابط يوتيوب
             container.innerHTML = `
                 <div class="text-center py-16 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-600">
                     <i data-lucide="video" class="w-12 h-12 text-slate-400 mx-auto mb-4 opacity-50"></i>
-                    <p class="text-xl font-bold text-slate-500 dark:text-slate-400">قريباً.. سيتم إضافة أفضل قنوات وفيديوهات شرح لهذه المادة.</p>
+                    <p class="text-xl font-bold text-slate-500 dark:text-slate-400">قريباً.. سيتم إضافة أفضل فيديوهات الشرح لهذه المادة.</p>
                 </div>
             `;
             lucide.createIcons();
         }
     </script>
 </body>
-
 </html>
