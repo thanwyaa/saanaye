@@ -1,13 +1,11 @@
-importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-    apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
-    authDomain: "sanaayee.firebaseapp.com",
-    projectId: "sanaayee",
-    storageBucket: "sanaayee.firebasestorage.app",
-    messagingSenderId: "1048456368002",
-    appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b"
+  apiKey: "AIzaSy...", // مش لازم تحط بياناتك هنا عادي
+  projectId: "sanaayee",
+  messagingSenderId: "777421869818",
+  appId: "1:777421869818:web:..."
 });
 
 const messaging = firebase.messaging();
