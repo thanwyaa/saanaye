@@ -40,7 +40,7 @@
         .glass-effect { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
         .dark .glass-effect { background: rgba(15, 23, 42, 0.8); }
 
-        /* تنسيق شريط الإشعارات النباض */
+        /* حركة النبض لشريط الإشعارات */
         .pulse-tag {
             animation: pulse-animation 0.8s infinite;
             display: inline-block;
@@ -76,7 +76,7 @@
     <div class="fixed w-full top-20 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-2 overflow-hidden shadow-sm">
       <div class="max-w-7xl mx-auto flex items-center px-4">
         <span class="pulse-tag bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-full ml-4 whitespace-nowrap">جديد 🔥</span>
-        <marquee behavior="scroll" direction="right" scrollamount="4" class="text-sm font-bold text-slate-700 dark:text-slate-200">
+        <marquee behavior="scroll" direction="right" scrollamount="5" class="text-sm font-bold text-slate-700 dark:text-slate-200">
            يا بطل! تم إضافة مذكرات الكيمياء والفيزياء لعام 2026.. حملها الآن من قسم الكتب 📚 
            &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; 
            📢 تنبيه: الامتحان التجريبي الأول متاح الآن في قسم الاختبارات.. بالتوفيق!
@@ -84,7 +84,8 @@
       </div>
     </div>
 
-    <main class="pt-40 pb-20 max-w-7xl mx-auto px-4">
+    <main class="pt-44 pb-20 max-w-7xl mx-auto px-4">
+        
         <div class="text-center space-y-6 mb-20 relative">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-brand-500/10 blur-[100px] -z-10"></div>
             <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 dark:bg-brand-900/30 rounded-full border border-brand-100 dark:border-brand-800 mb-4">
@@ -111,10 +112,19 @@
         </div>
 
         <div id="books-section" class="mt-20">
-            </div>
+             </div>
 
         <div id="teachers-section" class="mt-20">
-            </div>
+             </div>
+
+        <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl border border-red-200 dark:border-red-900/50 mb-8 mt-20">
+            <h4 class="text-xl font-bold text-red-700 dark:text-red-400 mb-2 flex items-center gap-2">
+                <i data-lucide="alert-triangle"></i> تنبيه وموافقة إلزامية
+            </h4>
+            <p class="text-red-900 dark:text-red-200 font-medium leading-relaxed text-sm sm:text-base">
+                باستخدامك لهذه المنصة، فإنك تقر تماماً بموافقتك على كافة الشروط المذكورة أعناه وتتعهد بالالتزام بها. المنصة صُممت للمساعدة المجانية ولا تسعى لأي أهداف ربحية.
+            </p>
+        </div>
 
     </main>
 
@@ -128,29 +138,22 @@
             if(el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
+        // --- كود تفعيل الإشعارات بالـ VAPID Key الخاص بك ---
+        // السطر 290 من الصورة التي أرفقتها
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof getToken !== 'undefined') {
+                getToken(messaging, { 
+                    vapidKey: "BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4HO5o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo" 
+                }).then((currentToken) => {
+                    if (currentToken) {
+                        console.log("المنصة جاهزة لاستقبال الإشعارات!");
+                    }
+                });
+            }
         });
-
-        // --- كود تفعيل الإشعارات بـ Firebase (معدل ومحمي) ---
-        if (typeof getToken !== 'undefined') {
-            getToken(messaging, { 
-                vapidKey: "BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4HO5o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo" 
-            }).then((currentToken) => {
-                if (currentToken) {
-                    console.log("المنصة جاهزة لاستقبال الإشعارات!");
-                }
-            }).catch((err) => {
-                console.log('An error occurred while retrieving token. ', err);
-            });
-        }
     </script>
 </body>
 </html>
-
-
 
 
 
