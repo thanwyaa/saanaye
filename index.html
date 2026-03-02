@@ -9,14 +9,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-     <div style="background: linear-gradient(90deg, #ff0000, #ffcc00); color: white; padding: 12px 0; font-weight: bold; font-family: 'Tajawal', sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-bottom: 3px solid #000; position: relative; z-index: 9999;">
-  <marquee behavior="scroll" direction="right" scrollamount="8" onmouseover="this.stop();" onmouseout="this.start();">
-    <span style="background: #fff; color: #ff0000; padding: 2px 8px; border-radius: 5px; margin-left: 15px;">🔥 جديد</span> 
-    يا بطل! تم إضافة مذكرات لغة عربية ومراجعات نهائية 2026.. حملها الآن من قسم الكتب 📚 
-    &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; 
-    📢 تنبيه: سيتم رفع امتحان الفيزياء غداً الساعة 8 مساءً.. استعد! ✍️
-  </marquee>
-</div>                 
+  <div class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 py-2 overflow-hidden shadow-sm">
+  <div style="display: flex; align-items: center;">
+    <span class="pulse-button" style="margin-left: 10px; margin-right: 10px; px-2; py-1; background: #ef4444; color: white; font-size: 12px; font-weight: bold; border-radius: 50px; padding: 4px 10px; white-space: nowrap; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);">
+      جديد 🔥
+    </span>
+    
+    <marquee behavior="scroll" direction="right" scrollamount="4" style="width: 100%; color: inherit; font-weight: 500;">
+       يا بطل! تم إضافة مذكرات الكيمياء والفيزياء لعام 2026.. حملها الآن من قسم الكتب 📚 
+       &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; 
+       📢 تنبيه: الامتحان التجريبي الأول متاح الآن.. بالتوفيق!
+    </marquee>
+  </div>
+</div>
+
+<style>
+  /* كود حركة النبض (الخبط) لكلمة جديد */
+  @keyframes pulse-animation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .pulse-button {
+    animation: pulse-animation 0.8s infinite;
+    display: inline-block;
+  }
+  /* تنسيق النص ليتناسب مع وضع المنصة (أبيض في الضلمة وأسود في النور) */
+  .dark marquee { color: #f8fafc; }
+  marquee { color: #1e293b; }
+</style>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -515,6 +536,7 @@
 </body>
 
 </html>
+
 
 
 
