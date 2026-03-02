@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ثانية ثانوي 2026 | الاحترافية</title>
+    <title>منصة ثانية ثانوي الرسمية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -19,154 +19,178 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Tajawal', sans-serif; }
+        body { font-family: 'Tajawal', sans-serif; scroll-behavior: smooth; }
         .section-content { display: none; }
-        .section-content.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .news-ticker { background: #1e3a8a; color: white; padding: 10px 0; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: 1000; }
-        .ticker-text { display: inline-block; white-space: nowrap; animation: ticker 25s linear infinite; }
+        .ticker-wrap { background: #1e3a8a; color: white; padding: 10px 0; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: 1000; }
+        .ticker-move { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        #login-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; }
-        .glass-header { position: fixed; top: 44px; width: 100%; z-index: 900; backdrop-filter: blur(10px); background: rgba(255,255,255,0.8); border-bottom: 1px solid #e2e8f0; }
-        .dark .glass-header { background: rgba(15, 23, 42, 0.8); border-bottom: 1px solid #334155; }
+        #login-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; }
+        .glass-nav { position: fixed; top: 44px; width: 100%; z-index: 900; backdrop-filter: blur(10px); background: rgba(255,255,255,0.8); border-bottom: 1px solid #e2e8f0; }
+        .dark .glass-nav { background: rgba(15, 23, 42, 0.8); border-bottom: 1px solid #334155; }
     </style>
 </head>
 <body class="pt-32 bg-slate-50 dark:bg-slate-900 dark:text-white">
 
     <div id="login-overlay">
-        <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] shadow-2xl max-w-md w-full mx-4 text-center border dark:border-slate-700">
-            <h2 class="text-2xl font-black mb-4">مرحباً بك يا بطل</h2>
-            <input type="text" id="user-name-input" placeholder="اكتب اسمك أو الـ ID" class="w-full px-6 py-4 rounded-xl border-2 dark:bg-slate-900 dark:border-slate-700 outline-none focus:border-brand-500 mb-4 text-center font-bold">
-            <button onclick="saveIdentity()" class="w-full bg-brand-600 text-white py-4 rounded-xl font-black text-lg">دخول للمنصة 🚀</button>
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl max-w-md w-full mx-4 text-center border dark:border-slate-700">
+            <h2 class="text-2xl font-black mb-6">مرحباً بك في منصة 2ث</h2>
+            <input type="text" id="userName" placeholder="ادخل اسمك هنا" class="w-full px-5 py-4 rounded-xl border-2 dark:bg-slate-900 dark:border-slate-700 outline-none focus:border-brand-500 mb-4 text-center font-bold">
+            <button onclick="login()" class="w-full bg-brand-600 text-white py-4 rounded-xl font-black text-lg shadow-lg hover:bg-brand-700 transition-all">دخول 🚀</button>
         </div>
     </div>
 
-    <div class="news-ticker">
-        <div class="ticker-text font-bold">
-            📢 تم تحديث روابط الكتب الخارجية 2026 | ⚡ مذكرات خالد صقر وعبد المعبود متوفرة الآن | 💡 بالتوفيق لجميع الأبطال
+    <div class="ticker-wrap font-bold">
+        <div class="ticker-move">
+            📢 تم تحديث جميع روابط الكتب لعام 2026 | ⚡ مذكرات مستر خالد صقر ومستر محمد عبدالمعبود متوفرة الآن | 🎓 بالتوفيق لجميع طلابنا
         </div>
     </div>
 
-    <header class="glass-header">
+    <nav class="glass-nav">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('home')">
-                <img src="https://i.ibb.co/dyLKg9t/file-0000000019687243878a13e9b38ee2f9.png" class="w-12 h-12 bg-white rounded-xl p-1">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="goTo('home')">
+                <img src="https://i.ibb.co/dyLKg9t/file-0000000019687243878a13e9b38ee2f9.png" class="w-12 h-12 bg-white rounded-xl shadow-sm">
                 <div>
                     <h1 class="text-xl font-black">منصة ثانية ثانوي</h1>
-                    <p id="welcome-msg" class="text-xs font-bold text-gold italic">جاري التحميل...</p>
+                    <p id="userLabel" class="text-xs font-bold text-gold uppercase tracking-tighter">بوابة التفوق</p>
                 </div>
             </div>
             <button onclick="document.documentElement.classList.toggle('dark')" class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800">
-                <i data-lucide="moon" class="dark:hidden"></i><i data-lucide="sun" class="hidden dark:block"></i>
+                <i data-lucide="sun-moon"></i>
             </button>
         </div>
-    </header>
+    </nav>
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <section id="section-home" class="section-content active">
-            <div class="text-center py-12">
-                <h2 class="text-4xl sm:text-6xl font-black mb-8 italic">أكمل من حيث <span class="text-brand-600 underline">توقفت</span>..</h2>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="showSection('books')" class="bg-brand-600 text-white px-10 py-5 rounded-2xl font-black text-xl shadow-lg hover:scale-105 transition-transform">دخول المكتبة 📚</button>
-                    <button onclick="showSection('teachers')" class="bg-white dark:bg-slate-800 border-2 px-10 py-5 rounded-2xl font-black text-xl shadow-lg hover:scale-105 transition-transform">المعلمون 👨‍🏫</button>
+    <main class="max-w-7xl mx-auto px-4 py-6">
+
+        <section id="home" class="section-content active">
+            <div class="text-center py-16">
+                <h2 class="text-5xl font-black mb-10 leading-tight italic">أكمل من حيث <span class="text-brand-600 underline">توقفت</span>..</h2>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <button onclick="goTo('library')" class="bg-brand-600 text-white px-12 py-6 rounded-3xl font-black text-xl shadow-xl hover:scale-105 transition-all">المكتبة الرقمية 📚</button>
+                    <button onclick="goTo('teachers')" class="bg-white dark:bg-slate-800 border-2 px-12 py-6 rounded-3xl font-black text-xl shadow-xl hover:scale-105 transition-all">ترشيحات المدرسين 👨‍🏫</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                <div onclick="goTo('about')" class="p-8 bg-white dark:bg-slate-800 rounded-3xl border dark:border-slate-700 text-center cursor-pointer hover:border-brand-500 transition-all">
+                    <i data-lucide="info" class="mx-auto mb-4 text-brand-600"></i>
+                    <h3 class="font-black text-xl">عن المنصة</h3>
+                </div>
+                <div onclick="goTo('policy')" class="p-8 bg-white dark:bg-slate-800 rounded-3xl border dark:border-slate-700 text-center cursor-pointer hover:border-gold transition-all">
+                    <i data-lucide="shield-check" class="mx-auto mb-4 text-gold"></i>
+                    <h3 class="font-black text-xl">سياسة الملكية</h3>
+                </div>
+                <a href="https://t.me/llTwasell" target="_blank" class="p-8 bg-white dark:bg-slate-800 rounded-3xl border dark:border-slate-700 text-center hover:border-green-500 transition-all">
+                    <i data-lucide="send" class="mx-auto mb-4 text-green-500"></i>
+                    <h3 class="font-black text-xl">اطلب كتابك</h3>
+                </a>
+            </div>
+        </section>
+
+        <section id="library" class="section-content">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black mb-6">خزنة الكتب 2026</h2>
+                <input type="text" id="bookSearch" onkeyup="search()" placeholder="ابحث عن اسم الكتاب..." class="w-full max-w-xl px-6 py-4 rounded-2xl border-2 dark:bg-slate-800 outline-none focus:border-brand-500 font-bold text-center">
+            </div>
+            <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+        </section>
+
+        <section id="teachers" class="section-content">
+            <h2 class="text-3xl font-black text-center mb-10">أفضل مدرسي ثانية ثانوي</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 bg-white dark:bg-slate-800 rounded-3xl border dark:border-slate-700 flex justify-between items-center">
+                    <div><h3 class="text-xl font-black">مستر خالد صقر</h3><p class="text-brand-600 font-bold">كيمياء</p></div>
+                    <a href="https://youtube.com/@khaledsakr" target="_blank" class="bg-red-600 text-white px-6 py-2 rounded-xl font-bold">يوتيوب</a>
+                </div>
+                <div class="p-6 bg-white dark:bg-slate-800 rounded-3xl border dark:border-slate-700 flex justify-between items-center">
+                    <div><h3 class="text-xl font-black">مستر محمد عبدالمعبود</h3><p class="text-brand-600 font-bold">فيزياء</p></div>
+                    <a href="https://youtube.com/@abdelmaboud" target="_blank" class="bg-red-600 text-white px-6 py-2 rounded-xl font-bold">يوتيوب</a>
                 </div>
             </div>
         </section>
 
-        <section id="section-books" class="section-content">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-black mb-6">المكتبة الشاملة</h2>
-                <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="ابحث عن كتاب..." class="w-full max-w-md px-6 py-4 rounded-xl border-2 dark:bg-slate-800 outline-none focus:border-brand-500 mb-6 text-center font-bold">
-                <div class="flex justify-center gap-2">
-                    <button onclick="filterCat('ministry')" class="px-6 py-2 bg-brand-600 text-white rounded-lg font-bold">كتب الوزارة</button>
-                    <button onclick="filterCat('external')" class="px-6 py-2 bg-slate-200 dark:bg-slate-700 rounded-lg font-bold">خارجية</button>
-                    <button onclick="filterCat('memos')" class="px-6 py-2 bg-slate-200 dark:bg-slate-700 rounded-lg font-bold">مذكرات</button>
-                </div>
+        <section id="about" class="section-content max-w-2xl mx-auto">
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border-t-8 border-brand-600 shadow-xl">
+                <h2 class="text-2xl font-black mb-4">رسالتنا</h2>
+                <p class="text-lg leading-relaxed opacity-80">هدفنا توفير كل مصادر المذاكرة لطلاب ثانية ثانوي في مكان واحد مجاني وسهل الوصول إليه.</p>
             </div>
-            <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
 
-        <section id="section-teachers" class="section-content">
-            <h2 class="text-3xl font-black mb-8 text-center">أفضل المدرسين</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border text-center shadow-md">
-                    <h3 class="text-xl font-black mb-2">أ/ خالد صقر</h3>
-                    <p class="text-brand-600 font-bold mb-4">كيمياء</p>
-                    <a href="https://youtube.com/@khaledsakr" target="_blank" class="block w-full py-3 bg-red-600 text-white rounded-xl font-bold">يوتيوب</a>
-                </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border text-center shadow-md">
-                    <h3 class="text-xl font-black mb-2">أ/ محمد عبدالمعبود</h3>
-                    <p class="text-brand-600 font-bold mb-4">فيزياء</p>
-                    <a href="https://youtube.com/@abdelmaboud" target="_blank" class="block w-full py-3 bg-red-600 text-white rounded-xl font-bold">يوتيوب</a>
-                </div>
+        <section id="policy" class="section-content max-w-2xl mx-auto">
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border-t-8 border-gold shadow-xl">
+                <h2 class="text-2xl font-black mb-4">إخلاء مسؤولية</h2>
+                <p class="text-lg leading-relaxed opacity-80">نحن مجرد وسيط لتنظيم الروابط، ونحترم حقوق النشر تماماً. إذا كنت صاحب محتوى وتريد حذفه، تواصل معنا فوراً.</p>
             </div>
         </section>
+
     </main>
 
     <script>
-        // 1. البيانات (نفس روابط ملفك)
-        const books = [
-            { title: "كتاب الوزارة - كيمياء", cat: "ministry", url: "https://t.me/sanaye20011/941" },
-            { title: "كتاب الوزارة - فيزياء", cat: "ministry", url: "https://t.me/sanaye20011/932" },
-            { title: "كتاب الوزارة - عربي", cat: "ministry", url: "https://t.me/sanaye20011/939" },
-            { title: "الامتحان - كيمياء", cat: "external", url: "https://t.me/sanaye20011/1241" },
-            { title: "الامتحان - فيزياء", cat: "external", url: "https://t.me/sanaye20011/829" },
-            { title: "المعاصر - رياضيات", cat: "external", url: "https://t.me/sanaye20011/846" },
-            { title: "مذكرة خالد صقر", cat: "memos", url: "https://t.me/sanaye20011/1194" }
+        // داتا الكتب الأصلية من ملفك
+        const allBooks = [
+            { name: "كتاب الوزارة - كيمياء", url: "https://t.me/sanaye20011/941" },
+            { name: "كتاب الوزارة - فيزياء", url: "https://t.me/sanaye20011/932" },
+            { name: "كتاب الوزارة - عربي", url: "https://t.me/sanaye20011/939" },
+            { name: "الامتحان - كيمياء", url: "https://t.me/sanaye20011/1241" },
+            { name: "الامتحان - فيزياء", url: "https://t.me/sanaye20011/829" },
+            { name: "المعاصر - رياضيات", url: "https://t.me/sanaye20011/846" },
+            { name: "مذكرة خالد صقر 2026", url: "https://t.me/sanaye20011/1194" },
+            { name: "مذكرة عبدالمعبود 2026", url: "https://t.me/sanaye20011/1066" }
         ];
 
-        // 2. نظام التبديل بين الأقسام (شغال 100%)
-        function showSection(id) {
+        // وظيفة التنقل بين الأقسام
+        function goTo(id) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
-            document.getElementById('section-' + id).classList.add('active');
-            if(id === 'books') renderBooks(books);
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+            if(id === 'library') displayBooks(allBooks);
             lucide.createIcons();
         }
 
-        // 3. نظام الهوية والـ Login
-        function saveIdentity() {
-            const name = document.getElementById('user-name-input').value;
-            if(!name) return alert("اكتب اسمك الأول!");
-            localStorage.setItem('studentName', name);
+        // وظيفة الدخول
+        function login() {
+            const val = document.getElementById('userName').value;
+            if(!val) return alert("من فضلك اكتب اسمك أولاً");
+            localStorage.setItem('user2th', val);
             document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('welcome-msg').innerText = "أهلاً بك يا " + name + " 🎓";
+            document.getElementById('userLabel').innerText = "أهلاً بك يا " + val + " 🎓";
         }
 
-        // 4. عرض الكتب والبحث والفلترة
-        function renderBooks(arr) {
-            const grid = document.getElementById('books-grid');
-            grid.innerHTML = arr.map(b => `
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border shadow-sm text-center">
-                    <h3 class="font-black mb-4">${b.title}</h3>
-                    <a href="${b.url}" target="_blank" class="block py-3 bg-brand-600 text-white rounded-xl font-bold">تحميل</a>
+        // وظيفة عرض الكتب
+        function displayBooks(data) {
+            const grid = document.getElementById('booksGrid');
+            grid.innerHTML = data.map(b => `
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border dark:border-slate-700 text-center shadow-sm">
+                    <h3 class="font-black mb-4 h-12 overflow-hidden">${b.name}</h3>
+                    <a href="${b.url}" target="_blank" class="block w-full py-3 bg-brand-600 text-white rounded-xl font-bold">تحميل PDF</a>
                 </div>
             `).join('');
+            lucide.createIcons();
         }
 
-        function filterCat(c) {
-            renderBooks(books.filter(b => b.cat === c));
+        // وظيفة البحث
+        function search() {
+            const term = document.getElementById('bookSearch').value.toLowerCase();
+            const filtered = allBooks.filter(b => b.name.toLowerCase().includes(term));
+            displayBooks(filtered);
         }
 
-        function searchBooks() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            renderBooks(books.filter(b => b.title.toLowerCase().includes(q)));
-        }
-
-        // 5. التشغيل عند التحميل
+        // التشغيل التلقائي
         window.onload = () => {
             lucide.createIcons();
-            const saved = localStorage.getItem('studentName');
-            if(saved) {
+            const savedUser = localStorage.getItem('user2th');
+            if(savedUser) {
                 document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('welcome-msg').innerText = "أهلاً بك يا " + saved + " 🎓";
+                document.getElementById('userLabel').innerText = "أهلاً بك يا " + savedUser + " 🎓";
             }
-        };
+        }
     </script>
 </body>
 </html>
