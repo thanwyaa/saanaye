@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ثانية ثانوي الرسمية | الإصدار الذهبي 2026</title>
+    <title>منصة الصف الثاني الثانوي | الموقع الرسمي</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -14,502 +14,299 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { tajawal: ['Tajawal', 'sans-serif'] },
                     colors: {
-                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 800: '#1e40af', 900: '#1e3a8a' },
-                        gold: '#ca8a04',
-                        surface: { light: '#f8fafc', dark: '#0f172a' }
+                        primary: { 50: '#f0f9ff', 100: '#e0f2fe', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e' },
+                        gold: '#b45309',
+                        darkBg: '#0f172a',
+                        darkCard: '#1e293b'
                     },
-                    borderRadius: { '4xl': '2rem', '5xl': '3rem' }
+                    fontFamily: { tajawal: ['Tajawal', 'sans-serif'] }
                 }
             }
         }
     </script>
 
     <style>
-        body { font-family: 'Tajawal', sans-serif; transition: background-color 0.5s ease; }
+        body { font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .page-transition { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-hover { transition: all 0.3s ease; }
+        .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         
-        /* تأثيرات الزجاج */
-        .glass-header { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
         
-        /* تأثيرات الكروت */
-        .premium-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .premium-card:hover {
-            transform: translateY(-12px) scale(1.01);
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.2);
-        }
+        .hidden-section { display: none; opacity: 0; transform: translateY(20px); }
+        .active-section { display: block; opacity: 1; transform: translateY(0); animation: fadeInUp 0.5s forwards; }
 
-        /* حركات الظهور */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-up { animation: fadeInUp 0.6s ease-out forwards; }
 
-        /* شريط البحث المتوهج */
-        .search-glow:focus {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-        }
-
-        /* تخصيص السكرول بار */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
-        
-        /* التنبيهات */
-        .toast {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            z-index: 9999; display: none;
-        }
-
-        /* تصميم الكتاب */
-        .book-spine {
-            position: absolute; right: 0; top: 0; bottom: 0; width: 10px;
-            background: rgba(0,0,0,0.1); border-radius: 0 4px 4px 0;
-        }
+        .auth-gradient { background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 100%); }
     </style>
 </head>
-<body class="bg-surface-light dark:bg-surface-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<body class="bg-slate-50 dark:bg-darkBg text-slate-900 dark:text-slate-100 transition-colors duration-300">
 
-    <div id="authModal" class="fixed inset-0 z-[200] bg-black/60 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-800 w-full max-w-md rounded-4xl p-8 shadow-2xl animate-fade-up">
-            <div class="text-center mb-8">
-                <h2 class="text-2xl font-black mb-2">أهلاً بك في المنصة</h2>
-                <p class="text-slate-500 dark:text-slate-400">اختر طريقة الدخول المفضلة لديك</p>
-            </div>
-            <div class="space-y-4">
-                <button class="w-full py-4 bg-brand-600 text-white rounded-2xl font-bold flex items-center justify-center gap-3">
-                    <i data-lucide="user-plus"></i> إنشاء حساب جديد
-                </button>
-                <div class="relative py-2 text-center">
-                    <span class="bg-white dark:bg-slate-800 px-4 text-xs font-bold text-slate-400 relative z-10 uppercase">أو</span>
-                    <hr class="absolute top-1/2 w-full border-slate-200 dark:border-slate-700">
-                </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-bold px-1">أدخل معرف الهوية (ID)</label>
-                    <input type="text" placeholder="مثال: ID-2026-XXXX" class="w-full px-6 py-4 rounded-2xl bg-slate-100 dark:bg-slate-700 border-none focus:ring-2 focus:ring-brand-500 outline-none">
-                </div>
-                <button class="w-full py-4 border-2 border-brand-600 text-brand-600 dark:text-brand-400 rounded-2xl font-bold">تسجيل الدخول بالهوية</button>
-                <button onclick="closeAuth()" class="w-full text-sm text-slate-400 font-bold hover:text-red-500">تخطي الآن</button>
-            </div>
-        </div>
-    </div>
-
-    <header class="fixed w-full top-0 z-[100] glass-header bg-white/80 dark:bg-surface-dark/80 border-b border-slate-200/50 dark:border-slate-800/50">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-4 cursor-pointer group" onclick="switchSection('home')">
-                <div class="w-12 h-12 bg-white rounded-2xl shadow-md p-1 border border-slate-100 group-hover:rotate-6 transition-transform">
-                    <img src="https://i.ibb.co/dyLKg9t/file-0000000019687243878a13e9b38ee2f9.png" alt="Logo" class="w-full h-full object-contain">
+    <nav class="fixed w-full top-0 z-[100] glass border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-darkBg/80">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="showSection('home')">
+                <div class="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-600/20">
+                    <i data-lucide="graduation-cap" class="w-7 h-7"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black text-brand-900 dark:text-white leading-none">منصة ثانية ثانوي</h1>
-                    <span class="text-[10px] text-gold font-bold uppercase tracking-tighter">Official Platform 2026</span>
+                    <h1 class="text-xl font-black tracking-tight leading-none">منصة الثاني الثانوي</h1>
+                    <span class="text-[10px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">البوابة الرسمية الموحدة</span>
                 </div>
             </div>
 
-            <div class="flex items-center gap-2 sm:gap-4">
-                <button onclick="openAuth()" class="hidden md:flex items-center gap-2 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 px-5 py-2.5 rounded-xl font-bold hover:bg-brand-600 hover:text-white transition-all">
-                    <i data-lucide="user-circle" class="w-5 h-5"></i>
-                    حسابي
+            <div class="hidden md:flex items-center gap-8 font-bold text-sm">
+                <a href="#" onclick="showSection('home')" class="hover:text-primary-600 transition-colors">الرئيسية</a>
+                <a href="#" onclick="showSection('library')" class="hover:text-primary-600 transition-colors">المكتبة الرقمية</a>
+                <a href="#" onclick="showSection('teachers')" class="hover:text-primary-600 transition-colors">قائمة المدرسين</a>
+                <a href="#" onclick="showSection('about')" class="hover:text-primary-600 transition-colors">عن المنصة</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-slate-600"></i>
                 </button>
-                <button onclick="toggleTheme()" class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:scale-110 transition-all">
-                    <i data-lucide="sun" id="sun-icon" class="hidden dark:block w-5 h-5"></i>
-                    <i data-lucide="moon" id="moon-icon" class="block dark:hidden w-5 h-5"></i>
+                <button onclick="showSection('auth')" class="bg-primary-600 text-white px-5 py-2.5 rounded-full text-sm font-bold btn-hover">
+                    تسجيل الدخول
                 </button>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <div class="h-24"></div>
+    <main class="pt-32 pb-20 px-4 max-w-7xl mx-auto">
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
-
-        <div id="section-home" class="animate-fade-up">
-            <div class="text-center py-12 lg:py-20 relative overflow-hidden rounded-5xl bg-gradient-to-b from-brand-50/50 to-transparent dark:from-brand-900/10 mb-12">
-                <div class="inline-flex items-center gap-2 px-6 py-2 bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 rounded-full text-sm font-black text-brand-600 mb-8">
-                    <span class="flex h-2 w-2 rounded-full bg-brand-600 animate-pulse"></span>
-                    تحديثات فبراير 2026 متوفرة الآن
+        <section id="home" class="active-section space-y-20">
+            <div class="text-center space-y-6 max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-bold border border-primary-200 dark:border-primary-800">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                    </span>
+                    تحديثات الفصل الدراسي الثاني 2026
                 </div>
-                <h2 class="text-4xl md:text-7xl font-black mb-8 leading-[1.15] text-slate-900 dark:text-white">
-                    طريقك للتفوق يبدأ <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-blue-500 to-indigo-600">من هنا وبالمجان</span>
+                <h2 class="text-4xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1]">
+                    مستقبلك يبدأ من <span class="text-primary-600">هنا</span> بأفضل المصادر التعليمية
                 </h2>
-                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-12 font-medium leading-relaxed">
-                    أكبر مكتبة رقمية لطلاب الصف الثاني الثانوي في مصر. كتب، ملخصات، وشروحات لأفضل المدرسين، تم تجميعها بعناية لخدمتكم.
+                <p class="text-lg text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
+                    المنصة الرسمية المعتمدة لطلاب الصف الثاني الثانوي. نوفر لك الكتب المدرسية، الشروحات التفاعلية، ونخبة من أفضل مدرسي مصر في مكان واحد.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
-                    <button onclick="switchSection('books')" class="px-10 py-5 bg-brand-600 text-white rounded-2xl font-black text-lg shadow-xl shadow-brand-500/30 hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
-                        <i data-lucide="library" class="w-6 h-6"></i> تصفح الكتب
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <button onclick="showSection('library')" class="w-full sm:w-auto px-10 py-4 bg-primary-600 text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 btn-hover">
+                        <i data-lucide="book-marked"></i> تصفح المكتبة
                     </button>
-                    <button onclick="switchSection('teachers')" class="px-10 py-5 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-2xl font-black text-lg hover:border-brand-500 transition-all flex items-center justify-center gap-3">
-                        <i data-lucide="play-circle" class="w-6 h-6 text-red-500"></i> قائمة المدرسين
+                    <button onclick="showSection('teachers')" class="w-full sm:w-auto px-10 py-4 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 btn-hover">
+                        <i data-lucide="play-circle"></i> مشاهدة الدروس
                     </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 text-center">
-                    <div class="text-3xl font-black text-brand-600 mb-1">+500</div>
-                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">ملف PDF</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                <div class="p-8 bg-white dark:bg-darkCard rounded-[2rem] border border-slate-100 dark:border-slate-800 text-center shadow-sm">
+                    <h4 class="text-3xl font-black text-primary-600 mb-1">+50</h4>
+                    <p class="text-sm font-bold text-slate-500 uppercase">كتاب رسمي</p>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 text-center">
-                    <div class="text-3xl font-black text-brand-600 mb-1">+20</div>
-                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">مادة دراسية</div>
+                <div class="p-8 bg-white dark:bg-darkCard rounded-[2rem] border border-slate-100 dark:border-slate-800 text-center shadow-sm">
+                    <h4 class="text-3xl font-black text-primary-600 mb-1">+200</h4>
+                    <p class="text-sm font-bold text-slate-500 uppercase">مدرس معتمد</p>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 text-center">
-                    <div class="text-3xl font-black text-brand-600 mb-1">+50</div>
-                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">مدرس معتمد</div>
+                <div class="p-8 bg-white dark:bg-darkCard rounded-[2rem] border border-slate-100 dark:border-slate-800 text-center shadow-sm">
+                    <h4 class="text-3xl font-black text-primary-600 mb-1">FREE</h4>
+                    <p class="text-sm font-bold text-slate-500 uppercase">مجاني بالكامل</p>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 text-center">
-                    <div class="text-3xl font-black text-brand-600 mb-1">Free</div>
-                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">مجاني للأبد</div>
+                <div class="p-8 bg-white dark:bg-darkCard rounded-[2rem] border border-slate-100 dark:border-slate-800 text-center shadow-sm">
+                    <h4 class="text-3xl font-black text-primary-600 mb-1">24/7</h4>
+                    <p class="text-sm font-bold text-slate-500 uppercase">دعم فني</p>
                 </div>
             </div>
+        </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-                <div onclick="switchSection('about')" class="premium-card bg-white dark:bg-slate-800 p-8 rounded-4xl cursor-pointer border border-slate-100 dark:border-slate-700 group">
-                    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
-                        <i data-lucide="help-circle" class="w-8 h-8"></i>
+        <section id="auth" class="hidden-section max-w-md mx-auto">
+            <div class="bg-white dark:bg-darkCard rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
+                <div class="auth-gradient p-10 text-center text-white">
+                    <h3 class="text-2xl font-black mb-2">مرحباً بك مجدداً</h3>
+                    <p class="text-white/80 text-sm font-medium">سجل دخولك بواسطة كود الطالب (ID)</p>
+                </div>
+                <div class="p-8 space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2 pr-2">رقم التعريف (ID)</label>
+                        <input type="text" placeholder="مثال: 2500xxxx" class="w-full px-5 py-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none">
                     </div>
-                    <h3 class="text-2xl font-black mb-3">من نحن؟</h3>
-                    <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">تعرف على فريق العمل والهدف النبيل خلف إنشاء هذا الصرح التعليمي المجاني.</p>
-                </div>
-                <div onclick="switchSection('policy')" class="premium-card bg-white dark:bg-slate-800 p-8 rounded-4xl cursor-pointer border border-slate-100 dark:border-slate-700 group">
-                    <div class="w-16 h-16 bg-amber-50 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
-                        <i data-lucide="shield-alert" class="w-8 h-8"></i>
+                    <button class="w-full py-4 bg-primary-600 text-white rounded-2xl font-bold btn-hover shadow-lg shadow-primary-600/30">دخول للمنصة</button>
+                    <div class="relative py-2">
+                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-slate-800"></div></div>
+                        <div class="relative flex justify-center text-xs uppercase"><span class="bg-white dark:bg-darkCard px-2 text-slate-500">أو</span></div>
                     </div>
-                    <h3 class="text-2xl font-black mb-3">إخلاء المسؤولية</h3>
-                    <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">وثيقة القوانين وحقوق الملكية الفكرية لضمان استخدام آمن وقانوني للمحتوى.</p>
+                    <button class="w-full py-4 border-2 border-slate-200 dark:border-slate-700 rounded-2xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">إنشاء حساب جديد</button>
+                    
+                    <button onclick="showSection('home')" class="w-full flex items-center justify-center gap-2 text-slate-500 font-bold text-sm">
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i> العودة للرئيسية
+                    </button>
                 </div>
-                <a href="https://t.me/llTwasell" target="_blank" class="premium-card bg-white dark:bg-slate-800 p-8 rounded-4xl cursor-pointer border border-slate-100 dark:border-slate-700 group block">
-                    <div class="w-16 h-16 bg-green-50 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
-                        <i data-lucide="message-circle" class="w-8 h-8"></i>
+            </div>
+        </section>
+
+        <section id="library" class="hidden-section space-y-10">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-200 dark:border-slate-800 pb-10">
+                <div class="space-y-2">
+                    <h3 class="text-3xl font-black">المكتبة الرقمية الشاملة</h3>
+                    <p class="text-slate-500 font-medium font-sm">تحميل مباشر لكافة الكتب والملازم الرسمية بصيغة PDF</p>
+                </div>
+                <button onclick="showSection('home')" class="flex items-center gap-2 bg-slate-200 dark:bg-slate-800 px-6 py-3 rounded-xl font-bold text-sm btn-hover">
+                    <i data-lucide="chevron-right"></i> عودة
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="books-container">
+                </div>
+        </section>
+
+        <section id="teachers" class="hidden-section space-y-10">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-200 dark:border-slate-800 pb-10">
+                <div class="space-y-2">
+                    <h3 class="text-3xl font-black text-red-600">نخبة مدرسي اليوتيوب</h3>
+                    <p class="text-slate-500 font-medium font-sm">قنوات تعليمية مختارة بعناية لتغطية المنهج كاملاً</p>
+                </div>
+                <button onclick="showSection('home')" class="flex items-center gap-2 bg-slate-200 dark:bg-slate-800 px-6 py-3 rounded-xl font-bold text-sm btn-hover">
+                    <i data-lucide="chevron-right"></i> عودة
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="teachers-container">
+                </div>
+        </section>
+
+        <section id="about" class="hidden-section max-w-4xl mx-auto space-y-10">
+            <div class="bg-white dark:bg-darkCard p-10 md:p-16 rounded-[3rem] shadow-xl border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-primary-600"></div>
+                <h3 class="text-4xl font-black mb-8">عن المنصة الرسمية</h3>
+                <div class="prose prose-slate dark:prose-invert max-w-none text-lg font-medium leading-relaxed text-slate-700 dark:text-slate-300 space-y-6">
+                    <p>تعتبر منصة الصف الثاني الثانوي هي المشروع التعليمي الأكبر الذي يهدف إلى توفير المادة العلمية للطالب المصري بشكل منظم وراقي.</p>
+                    <div class="p-8 bg-primary-50 dark:bg-primary-900/20 rounded-3xl border border-primary-100 dark:border-primary-800">
+                        <h4 class="text-primary-600 font-black mb-2 flex items-center gap-2 italic">رؤيتنا:</h4>
+                        توفير تعليم عالي الجودة ومصادر دراسية مجانية لكل طالب، لضمان تكافؤ الفرص التعليمية بعيداً عن الاحتكار.
                     </div>
-                    <h3 class="text-2xl font-black mb-3">تواصل معنا</h3>
-                    <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">لديك استفسار أو بلاغ عن رابط لا يعمل؟ فريق الدعم متاح 24/7 عبر تليجرام.</p>
-                </a>
-            </div>
-        </div>
-
-        <div id="section-books" class="hidden animate-fade-up">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-                <div>
-                    <h2 class="text-4xl font-black mb-2">مكتبة الكتب الشاملة</h2>
-                    <p class="text-slate-500 dark:text-slate-400 font-bold">تصفح وحمل مئات الكتب بصيغة PDF</p>
+                    <p>نحن نعمل كحلقة وصل بين أفضل المحتويات التعليمية المنتشرة وبين الطالب، لنضعها في قالب تقني سهل الاستخدام وسريع الوصول.</p>
                 </div>
-                <div class="relative w-full md:w-96 group">
-                    <i data-lucide="search" class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-600 w-5 h-5"></i>
-                    <input type="text" id="bookSearch" onkeyup="searchBooks()" placeholder="ابحث عن كتاب أو مادة..." 
-                        class="w-full pr-14 pl-6 py-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-transparent focus:border-brand-500 outline-none shadow-lg transition-all font-bold">
-                </div>
-            </div>
-
-            <div class="flex flex-wrap gap-2 mb-10 overflow-x-auto pb-2 no-scrollbar">
-                <button onclick="filterType('ministry', this)" class="book-tab active whitespace-nowrap px-8 py-3.5 rounded-2xl font-black text-sm transition-all bg-brand-600 text-white shadow-lg shadow-brand-500/20">كتب الوزارة</button>
-                <button onclick="filterType('external', this)" class="book-tab whitespace-nowrap px-8 py-3.5 rounded-2xl font-black text-sm transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400">الكتب الخارجية</button>
-                <button onclick="filterType('teachers', this)" class="book-tab whitespace-nowrap px-8 py-3.5 rounded-2xl font-black text-sm transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400">مذكرات المدرسين</button>
-                <button onclick="filterType('summaries', this)" class="book-tab whitespace-nowrap px-8 py-3.5 rounded-2xl font-black text-sm transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400">ملخصات الطلاب</button>
-            </div>
-
-            <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                </div>
-
-            <div id="noResults" class="hidden text-center py-20">
-                <div class="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
-                    <i data-lucide="search-x" class="w-12 h-12"></i>
-                </div>
-                <h3 class="text-2xl font-black text-slate-400">عذراً، لم نجد نتائج لـ " <span id="searchTermText"></span> "</h3>
-            </div>
-        </div>
-
-        <div id="section-teachers" class="hidden animate-fade-up">
-            <h2 class="text-4xl font-black mb-8 text-center sm:text-right">دليل المدرسين المعتمدين</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-12">
-                <button onclick="filterSubject('arabic')" class="subject-btn p-4 rounded-2xl bg-white dark:bg-slate-800 font-bold shadow-sm border-2 border-transparent hover:border-brand-500 transition-all flex flex-col items-center gap-2">
-                    <span class="text-2xl">📖</span> لغة عربية
-                </button>
-                <button onclick="filterSubject('english')" class="subject-btn p-4 rounded-2xl bg-white dark:bg-slate-800 font-bold shadow-sm border-2 border-transparent hover:border-brand-500 transition-all flex flex-col items-center gap-2">
-                    <span class="text-2xl">🇬🇧</span> إنجليزية
-                </button>
-                <button onclick="filterSubject('physics')" class="subject-btn p-4 rounded-2xl bg-white dark:bg-slate-800 font-bold shadow-sm border-2 border-transparent hover:border-brand-500 transition-all flex flex-col items-center gap-2">
-                    <span class="text-2xl">🧪</span> فيزياء
-                </button>
-                <button onclick="filterSubject('chemistry')" class="subject-btn p-4 rounded-2xl bg-white dark:bg-slate-800 font-bold shadow-sm border-2 border-transparent hover:border-brand-500 transition-all flex flex-col items-center gap-2">
-                    <span class="text-2xl">⚗️</span> كيمياء
-                </button>
-                <button onclick="filterSubject('biology')" class="subject-btn p-4 rounded-2xl bg-white dark:bg-slate-800 font-bold shadow-sm border-2 border-transparent hover:border-brand-500 transition-all flex flex-col items-center gap-2">
-                    <span class="text-2xl">🧬</span> أحياء
-                </button>
-                <button onclick="filterSubject('math')" class="subject-btn p-4 rounded-2xl bg-white dark:bg-slate-800 font-bold shadow-sm border-2 border-transparent hover:border-brand-500 transition-all flex flex-col items-center gap-2">
-                    <span class="text-2xl">📐</span> رياضيات
+                <button onclick="showSection('home')" class="mt-10 flex items-center gap-2 bg-slate-900 text-white px-8 py-3 rounded-2xl font-bold btn-hover">
+                    <i data-lucide="home" class="w-4 h-4"></i> العودة للرئيسية
                 </button>
             </div>
-
-            <div id="teachersList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                </div>
-        </div>
-
-        <div id="section-about" class="hidden animate-fade-up max-w-4xl mx-auto">
-            <div class="bg-white dark:bg-slate-800 rounded-5xl p-8 md:p-16 border border-slate-100 dark:border-slate-700 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-32 h-32 bg-brand-500/10 blur-3xl rounded-full"></div>
-                <h2 class="text-4xl font-black mb-8 flex items-center gap-4">
-                    <span class="w-12 h-12 bg-brand-600 rounded-2xl flex items-center justify-center text-white"><i data-lucide="info"></i></span>
-                    رؤية المنصة
-                </h2>
-                <div class="space-y-6 text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-                    <p>منصة ثانية ثانوي هي مبادرة شبابية مستقلة ولدت من رحم التحديات التي يواجهها الطالب المصري. نحن نؤمن أن **المعلومة يجب أن تكون حرة ومتاحة للجميع** دون قيود مادية.</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-8">
-                        <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-3xl">
-                            <h4 class="font-black text-brand-600 mb-2">رسالتنا</h4>
-                            <p class="text-sm">توفير الوقت والجهد على الطالب عبر تنظيم المحتوى التعليمي في مكان واحد آمن.</p>
-                        </div>
-                        <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-3xl">
-                            <h4 class="font-black text-gold mb-2">قيمنا</h4>
-                            <p class="text-sm">الشفافية، المجانية الكاملة، واحترام حقوق الملكية الفكرية للمعلمين ودور النشر.</p>
-                        </div>
-                    </div>
-                    <p>فريقنا يعمل ليل نهار لمراجعة الروابط وتحديث الكتب فور صدورها، هدفنا الوحيد هو أن نراك في أعلى المراتب العلمية.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="section-policy" class="hidden animate-fade-up max-w-4xl mx-auto">
-            <div class="bg-white dark:bg-slate-800 rounded-5xl p-8 md:p-16 border border-slate-100 dark:border-slate-700">
-                <h2 class="text-4xl font-black mb-8 flex items-center gap-4 text-red-600">
-                    <span class="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white"><i data-lucide="shield-check"></i></span>
-                    وثيقة الحقوق والمسؤولية
-                </h2>
-                <div class="space-y-8">
-                    <section>
-                        <h3 class="text-2xl font-black mb-4 flex items-center gap-2"><i data-lucide="circle-dot" class="text-brand-600"></i> حقوق النشر</h3>
-                        <p class="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">جميع المواد العلمية والكتب المتاحة على المنصة هي ملك لأصحابها. المنصة تعمل كمحرك بحث ومنظم للروابط العامة المتاحة بالفعل على الإنترنت ولا نقوم باستضافة ملفات تنتهك الحقوق على خوادمنا الخاصة بشكل غير قانوني.</p>
-                    </section>
-                    <section>
-                        <h3 class="text-2xl font-black mb-4 flex items-center gap-2"><i data-lucide="circle-dot" class="text-brand-600"></i> طلبات الحذف</h3>
-                        <p class="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">إذا كنت مؤلفاً أو دار نشر وترغب في إزالة محتوى خاص بك، نرجو التواصل فوراً عبر بريد الدعم الفني أو التليجرام. نلتزم بحذف أي محتوى مخالف في أقل من 24 ساعة عمل.</p>
-                    </section>
-                    <div class="p-8 bg-red-50 dark:bg-red-900/20 border-r-8 border-red-600 rounded-2xl">
-                        <h4 class="font-black text-red-700 dark:text-red-400 mb-2">تحذير هام:</h4>
-                        <p class="text-red-900/80 dark:text-red-200/80 font-bold uppercase tracking-tight">يُمنع منعاً باتاً استغلال محتويات هذه المنصة لأغراض تجارية أو إعادة بيعها. المنصة مجانية وستظل مجانية.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
 
     </main>
 
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-16 mt-20">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div>
-                <div class="flex items-center gap-3 mb-6">
-                    <img src="https://i.ibb.co/dyLKg9t/file-0000000019687243878a13e9b38ee2f9.png" class="w-10 h-10">
-                    <h3 class="text-xl font-black">منصة ثانية ثانوي</h3>
-                </div>
-                <p class="text-slate-500 dark:text-slate-400 font-medium mb-6">المصدر الأول والأكثر ثقة لطلاب الصف الثاني الثانوي في مصر. رحلتك نحو التميز تبدأ بضغطة زر.</p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all"><i data-lucide="send" class="w-5 h-5"></i></a>
-                </div>
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h4 class="text-2xl font-black mb-10">تواصل مع المنصة الرسمية</h4>
+            <div class="flex flex-wrap justify-center gap-8 mb-16">
+                <a href="https://facebook.com/official" class="flex flex-col items-center gap-3 group">
+                    <div class="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="facebook" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest">Facebook</span>
+                </a>
+                <a href="https://youtube.com/official" class="flex flex-col items-center gap-3 group">
+                    <div class="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-900/30 text-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="youtube" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest">YouTube</span>
+                </a>
+                <a href="https://t.me/llTwasell" class="flex flex-col items-center gap-3 group">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-100 dark:bg-sky-900/30 text-sky-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="send" class="w-8 h-8"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest">Telegram</span>
+                </a>
             </div>
-            <div>
-                <h4 class="text-lg font-black mb-6">روابط سريعة</h4>
-                <ul class="space-y-4 font-bold text-slate-500 dark:text-slate-400">
-                    <li><button onclick="switchSection('books')" class="hover:text-brand-600">المكتبة الرقمية</button></li>
-                    <li><button onclick="switchSection('teachers')" class="hover:text-brand-600">دليل المدرسين</button></li>
-                    <li><button onclick="switchSection('about')" class="hover:text-brand-600">تعرف علينا</button></li>
-                    <li><button onclick="switchSection('policy')" class="hover:text-brand-600">سياسة الخصوصية</button></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-lg font-black mb-6">اشترك في النشرة</h4>
-                <p class="text-slate-500 dark:text-slate-400 mb-4 text-sm font-bold">احصل على تنبيهات فور نزول كتب الترم الثاني أو مراجعات ليلة الامتحان.</p>
-                <div class="relative">
-                    <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-6 py-4 rounded-2xl bg-slate-100 dark:bg-slate-800 border-none outline-none focus:ring-2 focus:ring-brand-500">
-                    <button class="absolute left-2 top-2 bottom-2 px-6 bg-brand-600 text-white rounded-xl font-black text-xs hover:bg-brand-700 transition-all">إرسال</button>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 text-center text-sm font-black text-slate-400">
-            جميع الحقوق محفوظة لمنصة ثانية ثانوي الرسمية © 2026
+            <p class="text-slate-500 text-sm font-bold">جميع الحقوق محفوظة &copy; 2026 | منصة ثانية ثانوي الرسمية</p>
         </div>
     </footer>
 
-    <div id="toast" class="toast bg-slate-900 text-white px-8 py-4 rounded-2xl shadow-2xl font-black text-sm flex items-center gap-3">
-        <i data-lucide="check-circle" class="text-green-500"></i>
-        <span id="toastMsg">تمت العملية بنجاح!</span>
-    </div>
-
     <script>
-        // --- 1. قاعدة البيانات الضخمة (Data) ---
-        // سأقوم هنا بكتابة مئات الأسطر من البيانات التفصيلية
-        const DATABASE = {
-            books: [
-                // كتب الوزارة
-                { id: 1, title: "كتاب المدرسة كيمياء - لغات", type: "ministry", subject: "كيمياء", link: "https://t.me/sanaye20011/941", color: "from-red-600 to-rose-400" },
-                { id: 2, title: "كتاب المدرسة فيزياء - عربي", type: "ministry", subject: "فيزياء", link: "https://t.me/sanaye20011/932", color: "from-blue-600 to-cyan-400" },
-                { id: 3, title: "كتاب المدرسة أحياء - علمي", type: "ministry", subject: "أحياء", link: "https://t.me/sanaye20011/933", color: "from-emerald-600 to-teal-400" },
-                { id: 4, title: "كتاب المدرسة تاريخ - أدبي", type: "ministry", subject: "تاريخ", link: "https://t.me/sanaye20011/931", color: "from-amber-600 to-orange-400" },
-                { id: 5, title: "كتاب المدرسة جغرافيا - أدبي", type: "ministry", subject: "جغرافيا", link: "https://t.me/sanaye20011/930", color: "from-green-600 to-lime-400" },
-                { id: 6, title: "كتاب المدرسة إنجليزي (New Hello)", type: "ministry", subject: "إنجليزي", link: "https://t.me/sanaye20011/934", color: "from-indigo-600 to-purple-400" },
-                { id: 7, title: "كتاب المدرسة لغة عربية", type: "ministry", subject: "عربي", link: "https://t.me/sanaye20011/935", color: "from-orange-600 to-red-400" },
-                { id: 8, title: "كتاب المدرسة بحتة - رياضة", type: "ministry", subject: "رياضيات", link: "https://t.me/sanaye20011/936", color: "from-slate-600 to-slate-400" },
-                
-                // كتب خارجية (موسعة)
-                { id: 101, title: "كتاب الامتحان فيزياء - شرح", type: "external", subject: "فيزياء", link: "https://t.me/sanaye20011/829", color: "from-blue-700 to-blue-500" },
-                { id: 102, title: "كتاب الامتحان كيمياء - شرح", type: "external", subject: "كيمياء", link: "https://t.me/sanaye20011/830", color: "from-red-700 to-red-500" },
-                { id: 103, title: "كتاب المعاصر رياضيات بحتة", type: "external", subject: "رياضيات", link: "https://t.me/sanaye20011/846", color: "from-indigo-700 to-indigo-500" },
-                { id: 104, title: "كتاب المعاصر تطبيقات الرياضيات", type: "external", subject: "رياضيات", link: "https://t.me/sanaye20011/847", color: "from-violet-700 to-violet-500" },
-                { id: 105, title: "كتاب الامتحان تاريخ - الجزء 1", type: "external", subject: "تاريخ", link: "https://t.me/sanaye20011/850", color: "from-amber-700 to-amber-500" },
-                { id: 106, title: "كتاب الأضواء لغة عربية", type: "external", subject: "عربي", link: "https://t.me/sanaye20011/855", color: "from-sky-700 to-sky-500" },
-                { id: 107, title: "كتاب كيان في اللغة العربية", type: "external", subject: "عربي", link: "https://t.me/sanaye20011/1156", color: "from-orange-700 to-orange-500" },
-                { id: 108, title: "كتاب ميرسي فرنساوي", type: "external", subject: "فرنساوي", link: "https://t.me/sanaye20011/860", color: "from-blue-900 to-blue-700" },
-                { id: 109, title: "كتاب جينيال لغة ألمانية", type: "external", subject: "ألماني", link: "https://t.me/sanaye20011/865", color: "from-yellow-600 to-red-600" },
-                { id: 110, title: "كتاب الامتحان علم نفس", type: "external", subject: "علم نفس", link: "https://t.me/sanaye20011/870", color: "from-purple-700 to-purple-500" },
-                
-                // مذكرات مدرسين (أمثلة)
-                { id: 201, title: "مذكرة م/ خالد صقر - كيمياء", type: "teachers", subject: "كيمياء", link: "https://t.me/sanaye20011/1194", color: "from-red-800 to-red-600" },
-                { id: 202, title: "مذكرة م/ محمد عبد المعبود - فيزياء", type: "teachers", subject: "فيزياء", link: "https://t.me/sanaye20011/1066", color: "from-blue-800 to-blue-600" },
-                { id: 203, title: "مذكرة م/ محمد صلاح - عربي", type: "teachers", subject: "عربي", link: "https://t.me/sanaye20011/1300", color: "from-orange-800 to-orange-600" },
-                { id: 204, title: "مذكرة م/ أحمد عصام - رياضة", type: "teachers", subject: "رياضيات", link: "https://t.me/sanaye20011/1032", color: "from-indigo-800 to-indigo-600" },
-            ],
-            teachers: [
-                { name: "أ/ محمد صلاح", subject: "arabic", platform: "YouTube", link: "#", img: "👤" },
-                { name: "م/ خالد صقر", subject: "chemistry", platform: "YouTube", link: "#", img: "🧪" },
-                { name: "م/ محمد عبد المعبود", subject: "physics", platform: "YouTube", link: "#", img: "⚡" },
-                { name: "م/ أحمد عصام", subject: "math", platform: "YouTube", link: "#", img: "📐" },
-                { name: "د/ محمد أيمن", subject: "biology", platform: "YouTube", link: "#", img: "🩺" },
-                { name: "أ/ عمرو رجب", subject: "english", platform: "YouTube", link: "#", img: "🇬🇧" }
-            ]
-        };
+        // -- Configuration: Books Data (Put your actual links and names here) --
+        const myBooks = [
+            { title: "كتاب اللغة العربية", type: "وزارة", link: "#", color: "from-blue-600 to-indigo-700" },
+            { title: "كتاب الفيزياء", type: "وزارة", link: "#", color: "from-red-600 to-orange-700" },
+            { title: "كتاب الكيمياء", type: "وزارة", link: "#", color: "from-emerald-600 to-teal-700" },
+            { title: "كتاب الرياضيات", type: "وزارة", link: "#", color: "from-amber-600 to-yellow-700" }
+        ];
 
-        // --- 2. إدارة الأقسام (Section Management) ---
-        function switchSection(sectionId) {
-            const sections = ['home', 'books', 'teachers', 'about', 'policy'];
-            sections.forEach(s => {
-                document.getElementById(`section-${s}`).classList.add('hidden');
+        const myTeachers = [
+            { name: "الأستاذ محمد صالح", subject: "أحياء", channel: "https://youtube.com/..." },
+            { name: "الأستاذ حسام خليل", subject: "فيزياء", channel: "https://youtube.com/..." },
+            { name: "الأستاذ خالد صقر", subject: "كيمياء", channel: "https://youtube.com/..." }
+        ];
+
+        // -- Navigation System --
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(s => {
+                s.classList.remove('active-section');
+                s.classList.add('hidden-section');
             });
-            document.getElementById(`section-${sectionId}`).classList.remove('hidden');
+            const target = document.getElementById(id);
+            target.classList.remove('hidden-section');
+            target.classList.add('active-section');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            if(sectionId === 'books') renderBooks('ministry');
-            if(sectionId === 'teachers') renderTeachers('arabic');
         }
 
-        // --- 3. محرك بحث الكتب (Search & Filter) ---
-        let activeBookType = 'ministry';
-
-        function filterType(type, btn) {
-            activeBookType = type;
-            document.querySelectorAll('.book-tab').forEach(t => {
-                t.classList.remove('bg-brand-600', 'text-white', 'shadow-lg');
-                t.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-400');
-            });
-            btn.classList.add('bg-brand-600', 'text-white', 'shadow-lg');
-            btn.classList.remove('bg-white', 'dark:bg-slate-800');
-            renderBooks(type);
-        }
-
-        function renderBooks(type = activeBookType, searchTerm = "") {
-            const grid = document.getElementById('booksGrid');
-            const noRes = document.getElementById('noResults');
-            grid.innerHTML = "";
-            
-            const filtered = DATABASE.books.filter(b => 
-                b.type === type && b.title.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-
-            if(filtered.length === 0) {
-                noRes.classList.remove('hidden');
-                document.getElementById('searchTermText').innerText = searchTerm;
-            } else {
-                noRes.classList.add('hidden');
-                filtered.forEach(book => {
-                    grid.innerHTML += `
-                        <div class="premium-card bg-white dark:bg-slate-800 rounded-4xl border border-slate-100 dark:border-slate-700 flex flex-col h-full group">
-                            <div class="h-40 bg-gradient-to-br ${book.color} relative p-6 flex items-center justify-center overflow-hidden rounded-t-4xl">
-                                <div class="book-spine"></div>
-                                <i data-lucide="book" class="w-16 h-16 text-white/20 absolute -right-4 -bottom-4 rotate-12"></i>
-                                <span class="bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-[10px] font-black text-white border border-white/30 uppercase tracking-widest relative z-10">${book.subject}</span>
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-lg font-black mb-4 leading-tight group-hover:text-brand-600 transition-colors">${book.title}</h3>
-                                <div class="mt-auto pt-6 border-t border-slate-50 dark:border-slate-700 flex items-center justify-between">
-                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter italic">Official PDF Document</span>
-                                    <a href="${book.link}" target="_blank" onclick="showToast('جاري بدء التحميل...')" class="w-12 h-12 bg-slate-900 dark:bg-brand-600 text-white rounded-2xl flex items-center justify-center hover:scale-110 transition-transform">
-                                        <i data-lucide="download-cloud" class="w-5 h-5"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            lucide.createIcons();
-        }
-
-        function searchBooks() {
-            const val = document.getElementById('bookSearch').value;
-            renderBooks(activeBookType, val);
-        }
-
-        // --- 4. إدارة المدرسين ---
-        function filterSubject(subject) {
-            document.querySelectorAll('.subject-btn').forEach(b => {
-                b.classList.remove('border-brand-500', 'bg-brand-50', 'dark:bg-brand-900/20');
-            });
-            event.currentTarget.classList.add('border-brand-500', 'bg-brand-50', 'dark:bg-brand-900/20');
-            renderTeachers(subject);
-        }
-
-        function renderTeachers(subject) {
-            const list = document.getElementById('teachersList');
-            list.innerHTML = "";
-            const filtered = DATABASE.teachers.filter(t => t.subject === subject);
-            
-            filtered.forEach(t => {
-                list.innerHTML += `
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 flex items-center gap-6 group hover:border-brand-500 transition-all">
-                        <div class="w-20 h-20 bg-slate-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">${t.img}</div>
-                        <div class="flex-grow">
-                            <h4 class="text-xl font-black">${t.name}</h4>
-                            <p class="text-sm font-bold text-slate-400">${t.platform} • شرح مجاني</p>
-                        </div>
-                        <a href="${t.link}" class="w-12 h-12 rounded-full border-2 border-slate-100 dark:border-slate-700 flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all">
-                            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-                        </a>
-                    </div>
-                `;
-            });
-            lucide.createIcons();
-        }
-
-        // --- 5. وظائف عامة (Themes, Auth, Toasts) ---
+        // -- Theme Toggle --
         function toggleTheme() {
             document.documentElement.classList.toggle('dark');
-            showToast(document.documentElement.classList.contains('dark') ? 'تم تفعيل الوضع الليلي' : 'تم تفعيل الوضع النهاري');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.style.display = 'flex';
-            setTimeout(() => { toast.style.display = 'none'; }, 3000);
-        }
-
-        function openAuth() { document.getElementById('authModal').classList.remove('hidden'); }
-        function closeAuth() { document.getElementById('authModal').classList.add('hidden'); }
-
-        // تهيئة الأيقونات والبيانات
-        window.onload = () => {
+        // -- Render Data --
+        function init() {
             lucide.createIcons();
-            // إضافة مئات الأسطر وهمية لزيادة حجم الكود والحفاظ على التنسيق (اختياري)
-            console.log("Platform 2026 Initialized. Code Length: Optimized.");
-        };
+            
+            // Render Books
+            const bookGrid = document.getElementById('books-container');
+            bookGrid.innerHTML = myBooks.map(book => `
+                <div class="bg-white dark:bg-darkCard rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all group">
+                    <div class="h-48 bg-gradient-to-br ${book.color} flex items-center justify-center text-white relative overflow-hidden">
+                        <i data-lucide="book" class="w-16 h-16 opacity-20 absolute -bottom-4 -right-4 rotate-12"></i>
+                        <span class="text-4xl font-black opacity-40 uppercase tracking-tighter">${book.type}</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-black mb-1">${book.title}</h4>
+                        <p class="text-slate-500 text-xs font-bold mb-4">نسخة 2026 الأصلية (PDF)</p>
+                        <a href="${book.link}" class="block w-full py-3 text-center bg-slate-900 dark:bg-primary-600 text-white rounded-xl font-bold text-sm btn-hover">تحميل الكتاب</a>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Teachers
+            const teacherGrid = document.getElementById('teachers-container');
+            teacherGrid.innerHTML = myTeachers.map(t => `
+                <div class="bg-white dark:bg-darkCard p-6 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center gap-6 shadow-sm">
+                    <div class="w-20 h-20 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary-600">
+                        <i data-lucide="user-check" class="w-10 h-10"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-black">${t.name}</h4>
+                        <p class="text-slate-500 text-xs font-bold mb-3">مدرس مادة: ${t.subject}</p>
+                        <a href="${t.channel}" target="_blank" class="text-primary-600 font-bold text-sm flex items-center gap-1 hover:underline">
+                            زيارة القناة <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons(); // Refresh icons for new elements
+        }
+
+        // Run
+        document.addEventListener('DOMContentLoaded', init);
+        if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
     </script>
 </body>
 </html>
