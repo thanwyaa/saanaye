@@ -3,124 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غرفة المذاكرة - منصة ثانية ثانوي</title>
+    <title>غرفة المذاكرة الرسمية | منصة ثانية ثانوي</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        /* ستايل شيك وهادي للمذاكرة */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 900px; margin: auto; }
-        header { text-align: center; margin-bottom: 30px; background: #3498db; color: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        :root { --main-blue: #1a73e8; --success-green: #28a745; --bg-gray: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-gray); margin: 0; padding: 0; }
+        .header-bar { background: #fff; padding: 20px; text-align: center; border-bottom: 3px solid var(--main-blue); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 25px; max-width: 1200px; margin: auto; }
+        .card { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #eee; }
+        .card h3 { color: var(--main-blue); border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-top: 0; }
         
-        /* تقسيم الصفحة لجزئين */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+        /* شريط التقدم */
+        .progress-container { background: #eee; border-radius: 10px; height: 20px; margin: 15px 0; }
+        #progress-bar { background: var(--success-green); height: 100%; width: 0%; border-radius: 10px; transition: 0.5s; }
 
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 5px solid #3498db; }
-        
-        /* ستايل المؤقت */
-        #timer { font-size: 4rem; font-weight: bold; color: #e74c3c; margin: 20px 0; }
-        button { cursor: pointer; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-        .btn-start { background: #27ae60; color: white; }
-        .btn-reset { background: #95a5a6; color: white; margin-right: 10px; }
-        
-        /* ستايل المهام */
-        input { width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-        ul { list-style: none; padding: 0; margin-top: 20px; }
-        li { background: #f9f9f9; padding: 10px; margin-bottom: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid #3498db; }
-        .delete-btn { color: #e74c3c; font-weight: bold; }
+        /* قائمة المهام */
+        .task-item { display: flex; align-items: center; justify-content: space-between; background: #fdfdfd; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
+        .task-item.done { opacity: 0.6; text-decoration: line-through; border-right: 5px solid var(--success-green); }
+        .check-btn { background: var(--success-green); color: white; border: none; border-radius: 5px; cursor: pointer; padding: 5px 10px; }
+
+        /* المؤقت */
+        .timer-display { font-size: 3.5rem; font-weight: bold; text-align: center; margin: 15px 0; color: #333; }
+        .controls button { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
+
+        /* الجروب والقوانين */
+        .rules-list { font-size: 0.9rem; color: #555; line-height: 1.6; }
+        .btn-link { display: block; text-align: center; background: var(--main-blue); color: white; text-decoration: none; padding: 12px; border-radius: 8px; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>🚀 غرفة المذاكرة الذكية</h1>
-        <p>مرحباً بك.. جاهز تكسر الدنيا النهاردة؟</p>
-    </header>
+<div class="header-bar">
+    <h1 style="margin:0; color: var(--main-blue);">🏛️ المركز الرسمي لإدارة المذاكرة</h1>
+    <p>نظام متكامل لتحقيق أقصى درجات التركيز والإنجاز</p>
+</div>
 
-    <div class="grid">
-        <div class="card" style="text-align: center;">
-            <h3>⏱️ مؤقت البرمودا</h3>
-            <div id="timer">25:00</div>
-            <button class="btn-start" onclick="toggleTimer()" id="mainBtn">ابدأ التركيز</button>
-            <button class="btn-reset" onclick="resetTimer()">إعادة</button>
-        </div>
+<div class="main-grid">
+    <div class="card">
+        <h3>📊 رادار الإنجاز اليومي</h3>
+        <p>مستوى إنجازك لليوم:</p>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+        <p id="progress-text" style="text-align:center; font-weight:bold;">0%</p>
+    </div>
 
-        <div class="card">
-            <h3>✅ مهامي اليومية</h3>
-            <div style="display: flex; gap: 5px;">
-                <input type="text" id="taskInput" placeholder="ناوي تخلص إيه؟">
-                <button class="btn-start" onclick="addTask()">إضافة</button>
-            </div>
-            <ul id="taskList"></ul>
+    <div class="card">
+        <h3>✅ المهام اليومية (To-Do)</h3>
+        <div style="display:flex; gap:5px; margin-bottom:15px;">
+            <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ddd;">
+            <button onclick="addTask()" style="background:var(--main-blue); color:white; border:none; border-radius:5px; padding:0 15px; cursor:pointer;">إضافة</button>
         </div>
+        <div id="taskList"></div>
+    </div>
+
+    <div class="card">
+        <h3>⏱️ معسكر التركيز الحر</h3>
+        <div class="timer-display" id="tDisplay">25:00</div>
+        <div style="text-align:center; margin-bottom:10px;">
+            <input type="number" id="tMinutes" value="25" style="width:50px; text-align:center;"> دقيقة
+        </div>
+        <div class="controls">
+            <button onclick="startT()" style="background:var(--success-green); color:white;">بدء المعسكر</button>
+            <button onclick="resetT()" style="background:#666; color:white;">إعادة ضبط</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>👥 ذاكر مع زمايلك</h3>
+        <div class="rules-list">
+            <li>📌 الالتزام برفع "لستة المهام" قبل البدء.</li>
+            <li>📸 توثيق المذاكرة بصورة للمكتب أو الكتب.</li>
+            <li>🚫 يمنع الرغي تماماً (رسالة تحديث كل ساعة فقط).</li>
+        </div>
+        <a href="رابط_جروبك_هنا" target="_blank" class="btn-link">🔗 الدخول لجروب التحدي</a>
+    </div>
+
+    <div class="card">
+        <h3>📝 ملاحظات سريعة</h3>
+        <textarea id="quickNotes" placeholder="اكتب قوانين أو ملاحظات مهمة هنا..." style="width:100%; height:100px; border-radius:10px; border:1px solid #eee; padding:10px; resize:none;"></textarea>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none;">
+        <h3>💡 رسالة الطالب</h3>
+        <p id="quote" style="font-style: italic; font-size: 1.1rem; line-height: 1.6;">"إن تعب اليوم هو راحة الغد.. استمر يا بطل!"</p>
     </div>
 </div>
 
 <script>
-    // --- كود المؤقت الذكي ---
-    let timer;
-    let timeLeft = 25 * 60;
-    let isRunning = false;
-
-    function updateDisplay() {
-        let m = Math.floor(timeLeft / 60);
-        let s = timeLeft % 60;
-        document.getElementById('timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-    }
-
-    function toggleTimer() {
-        if (isRunning) {
-            clearInterval(timer);
-            document.getElementById('mainBtn').innerText = "استكمال";
-        } else {
-            timer = setInterval(() => {
-                if (timeLeft > 0) { timeLeft--; updateDisplay(); }
-                else { clearInterval(timer); alert("وقت الراحة!"); resetTimer(); }
-            }, 1000);
-            document.getElementById('mainBtn').innerText = "إيقاف مؤقت";
-        }
-        isRunning = !isRunning;
-    }
-
-    function resetTimer() {
-        clearInterval(timer);
-        isRunning = false;
-        timeLeft = 25 * 60;
-        updateDisplay();
-        document.getElementById('mainBtn').innerText = "ابدأ التركيز";
-    }
-
-    // --- كود المهام (بيحفظ حتى لو قفلت الموقع!) ---
-    function loadTasks() {
-        const savedTasks = JSON.parse(localStorage.getItem('myTasks')) || [];
-        const list = document.getElementById('taskList');
-        list.innerHTML = "";
-        savedTasks.forEach((task, index) => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span>${task}</span> <span class="delete-btn" onclick="deleteTask(${index})">❌</span>`;
-            list.appendChild(li);
-        });
-    }
-
+    // --- كود المهام والاحتفال ---
     function addTask() {
         const input = document.getElementById('taskInput');
         if (!input.value) return;
-        const tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
-        tasks.push(input.value);
-        localStorage.setItem('myTasks', JSON.stringify(tasks));
+        const tasks = JSON.parse(localStorage.getItem('offTasks')) || [];
+        tasks.push({ text: input.value, done: false });
+        localStorage.setItem('offTasks', JSON.stringify(tasks));
         input.value = "";
-        loadTasks();
+        renderTasks();
     }
 
-    function deleteTask(index) {
-        const tasks = JSON.parse(localStorage.getItem('myTasks'));
-        tasks.splice(index, 1);
-        localStorage.setItem('myTasks', JSON.stringify(tasks));
-        loadTasks();
+    function renderTasks() {
+        const tasks = JSON.parse(localStorage.getItem('offTasks')) || [];
+        const list = document.getElementById('taskList');
+        list.innerHTML = "";
+        let doneCount = 0;
+
+        tasks.forEach((task, i) => {
+            if (task.done) doneCount++;
+            const div = document.createElement('div');
+            div.className = `task-item ${task.done ? 'done' : ''}`;
+            div.innerHTML = `<span>${task.text}</span> 
+                <div>
+                    ${!task.done ? `<button class="check-btn" onclick="checkTask(${i})">تم ✅</button>` : ''}
+                    <button onclick="delTask(${i})" style="color:red; border:none; background:none; cursor:pointer;">❌</button>
+                </div>`;
+            list.appendChild(div);
+        });
+
+        const percent = tasks.length > 0 ? Math.round((doneCount / tasks.length) * 100) : 0;
+        document.getElementById('progress-bar').style.width = percent + "%";
+        document.getElementById('progress-text').innerText = percent + "%";
     }
 
-    window.onload = loadTasks;
+    function checkTask(i) {
+        const tasks = JSON.parse(localStorage.getItem('offTasks'));
+        tasks[i].done = true;
+        localStorage.setItem('offTasks', JSON.stringify(tasks));
+        
+        // مفرقعات الإنجاز!
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+        
+        renderTasks();
+    }
+
+    function delTask(i) {
+        const tasks = JSON.parse(localStorage.getItem('offTasks'));
+        tasks.splice(i, 1);
+        localStorage.setItem('offTasks', JSON.stringify(tasks));
+        renderTasks();
+    }
+
+    // --- كود الملاحظات ---
+    document.getElementById('quickNotes').oninput = function() {
+        localStorage.setItem('offNotes', this.value);
+    }
+
+    // --- كود المؤقت ---
+    let timer;
+    let seconds;
+    function startT() {
+        if(timer) clearInterval(timer);
+        if(!seconds) seconds = document.getElementById('tMinutes').value * 60;
+        timer = setInterval(() => {
+            if(seconds <= 0) { clearInterval(timer); alert("انتهت الجلسة!"); }
+            else { seconds--; updateTDisp(); }
+        }, 1000);
+    }
+    function updateTDisp() {
+        let m = Math.floor(seconds / 60);
+        let s = seconds % 60;
+        document.getElementById('tDisplay').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+    function resetT() { clearInterval(timer); seconds = null; updateTDisp(); }
+
+    window.onload = () => {
+        renderTasks();
+        document.getElementById('quickNotes').value = localStorage.getItem('offNotes') || "";
+    };
 </script>
-
 </body>
 </html>
