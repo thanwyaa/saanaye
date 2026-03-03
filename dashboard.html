@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غرفة المذاكرة - منصة ثانية ثانوي</title>
+    <style>
+        /* ستايل شيك وهادي للمذاكرة */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; }
+        header { text-align: center; margin-bottom: 30px; background: #3498db; color: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        /* تقسيم الصفحة لجزئين */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 5px solid #3498db; }
+        
+        /* ستايل المؤقت */
+        #timer { font-size: 4rem; font-weight: bold; color: #e74c3c; margin: 20px 0; }
+        button { cursor: pointer; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
+        .btn-start { background: #27ae60; color: white; }
+        .btn-reset { background: #95a5a6; color: white; margin-right: 10px; }
+        
+        /* ستايل المهام */
+        input { width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        ul { list-style: none; padding: 0; margin-top: 20px; }
+        li { background: #f9f9f9; padding: 10px; margin-bottom: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid #3498db; }
+        .delete-btn { color: #e74c3c; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🚀 غرفة المذاكرة الذكية</h1>
+        <p>مرحباً بك.. جاهز تكسر الدنيا النهاردة؟</p>
+    </header>
+
+    <div class="grid">
+        <div class="card" style="text-align: center;">
+            <h3>⏱️ مؤقت البرمودا</h3>
+            <div id="timer">25:00</div>
+            <button class="btn-start" onclick="toggleTimer()" id="mainBtn">ابدأ التركيز</button>
+            <button class="btn-reset" onclick="resetTimer()">إعادة</button>
+        </div>
+
+        <div class="card">
+            <h3>✅ مهامي اليومية</h3>
+            <div style="display: flex; gap: 5px;">
+                <input type="text" id="taskInput" placeholder="ناوي تخلص إيه؟">
+                <button class="btn-start" onclick="addTask()">إضافة</button>
+            </div>
+            <ul id="taskList"></ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- كود المؤقت الذكي ---
+    let timer;
+    let timeLeft = 25 * 60;
+    let isRunning = false;
+
+    function updateDisplay() {
+        let m = Math.floor(timeLeft / 60);
+        let s = timeLeft % 60;
+        document.getElementById('timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function toggleTimer() {
+        if (isRunning) {
+            clearInterval(timer);
+            document.getElementById('mainBtn').innerText = "استكمال";
+        } else {
+            timer = setInterval(() => {
+                if (timeLeft > 0) { timeLeft--; updateDisplay(); }
+                else { clearInterval(timer); alert("وقت الراحة!"); resetTimer(); }
+            }, 1000);
+            document.getElementById('mainBtn').innerText = "إيقاف مؤقت";
+        }
+        isRunning = !isRunning;
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        isRunning = false;
+        timeLeft = 25 * 60;
+        updateDisplay();
+        document.getElementById('mainBtn').innerText = "ابدأ التركيز";
+    }
+
+    // --- كود المهام (بيحفظ حتى لو قفلت الموقع!) ---
+    function loadTasks() {
+        const savedTasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+        const list = document.getElementById('taskList');
+        list.innerHTML = "";
+        savedTasks.forEach((task, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${task}</span> <span class="delete-btn" onclick="deleteTask(${index})">❌</span>`;
+            list.appendChild(li);
+        });
+    }
+
+    function addTask() {
+        const input = document.getElementById('taskInput');
+        if (!input.value) return;
+        const tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+        tasks.push(input.value);
+        localStorage.setItem('myTasks', JSON.stringify(tasks));
+        input.value = "";
+        loadTasks();
+    }
+
+    function deleteTask(index) {
+        const tasks = JSON.parse(localStorage.getItem('myTasks'));
+        tasks.splice(index, 1);
+        localStorage.setItem('myTasks', JSON.stringify(tasks));
+        loadTasks();
+    }
+
+    window.onload = loadTasks;
+</script>
+
+</body>
+</html>
