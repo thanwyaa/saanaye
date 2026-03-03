@@ -3,175 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غرفة المذاكرة الرسمية | منصة ثانية ثانوي</title>
+    <title>مركز القيادة | ثانية ثانوي</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
     <style>
-        :root { --main-blue: #1a73e8; --success-green: #28a745; --bg-gray: #f8f9fa; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-gray); margin: 0; padding: 0; }
-        .header-bar { background: #fff; padding: 20px; text-align: center; border-bottom: 3px solid var(--main-blue); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 25px; max-width: 1200px; margin: auto; }
-        .card { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #eee; }
-        .card h3 { color: var(--main-blue); border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-top: 0; }
+        :root { --neon-blue: #00d2ff; --neon-purple: #9d50bb; --dark: #0f0c29; }
+        body { background: var(--dark); background: linear-gradient(to right, #24243e, #302b63, #0f0c29); color: white; font-family: 'Cairo', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* شريط التقدم */
-        .progress-container { background: #eee; border-radius: 10px; height: 20px; margin: 15px 0; }
-        #progress-bar { background: var(--success-green); height: 100%; width: 0%; border-radius: 10px; transition: 0.5s; }
+        .dashboard { max-width: 1100px; margin: auto; padding: 20px; }
+        .header { text-align: center; padding: 40px 0; animation: fadeIn 2s; }
+        .header h1 { font-size: 3rem; text-shadow: 0 0 20px var(--neon-blue); margin: 0; }
+
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+
+        /* كروت النيون */
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 25px; transition: 0.3s; position: relative; overflow: hidden; }
+        .glass-card:hover { transform: translateY(-10px); border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); }
+
+        /* المؤقت الدائري */
+        .timer-circle { width: 180px; height: 180px; border-radius: 50%; border: 8px solid #1a1a1a; border-top: 8px solid var(--neon-blue); margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: bold; animation: spin 2s linear infinite paused; }
+        .timer-active { animation-play-state: running; }
 
         /* قائمة المهام */
-        .task-item { display: flex; align-items: center; justify-content: space-between; background: #fdfdfd; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
-        .task-item.done { opacity: 0.6; text-decoration: line-through; border-right: 5px solid var(--success-green); }
-        .check-btn { background: var(--success-green); color: white; border: none; border-radius: 5px; cursor: pointer; padding: 5px 10px; }
+        .task-input-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { background: rgba(255,255,255,0.1); border: none; padding: 12px; border-radius: 10px; color: white; flex: 1; outline: none; }
+        .task-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; animation: slideIn 0.4s; }
+        .btn-done { background: var(--neon-blue); border: none; padding: 8px 15px; border-radius: 8px; color: var(--dark); font-weight: bold; cursor: pointer; }
 
-        /* المؤقت */
-        .timer-display { font-size: 3.5rem; font-weight: bold; text-align: center; margin: 15px 0; color: #333; }
-        .controls button { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
+        /* رتبة البطل */
+        .rank-badge { background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple)); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; }
 
-        /* الجروب والقوانين */
-        .rules-list { font-size: 0.9rem; color: #555; line-height: 1.6; }
-        .btn-link { display: block; text-align: center; background: var(--main-blue); color: white; text-decoration: none; padding: 12px; border-radius: 8px; margin-top: 15px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
-<div class="header-bar">
-    <h1 style="margin:0; color: var(--main-blue);">🏛️ المركز الرسمي لإدارة المذاكرة</h1>
-    <p>نظام متكامل لتحقيق أقصى درجات التركيز والإنجاز</p>
-</div>
-
-<div class="main-grid">
-    <div class="card">
-        <h3>📊 رادار الإنجاز اليومي</h3>
-        <p>مستوى إنجازك لليوم:</p>
-        <div class="progress-container"><div id="progress-bar"></div></div>
-        <p id="progress-text" style="text-align:center; font-weight:bold;">0%</p>
+<div class="dashboard">
+    <div class="header">
+        <span class="rank-badge">رتبة الطالب: <span id="rankText">محارب مبتدئ</span></span>
+        <h1>COMMAND CENTER</h1>
+        <p style="color: var(--neon-blue)">أنت الآن في وضع التركيز الأقصى</p>
     </div>
 
-    <div class="card">
-        <h3>✅ المهام اليومية (To-Do)</h3>
-        <div style="display:flex; gap:5px; margin-bottom:15px;">
-            <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ddd;">
-            <button onclick="addTask()" style="background:var(--main-blue); color:white; border:none; border-radius:5px; padding:0 15px; cursor:pointer;">إضافة</button>
+    <div class="grid-layout">
+        <div class="glass-card" style="text-align: center;">
+            <h3 style="color: var(--neon-blue)"><i class="fas fa-microchip"></i> محرك التركيز</h3>
+            <div class="timer-circle" id="circle">
+                <span id="display">25:00</span>
+            </div>
+            <div style="margin-top: 10px;">
+                <input type="number" id="mins" value="25" style="width: 60px; text-align: center;">
+            </div>
+            <button onclick="start()" class="btn-done" style="margin-top: 20px; width: 100%; font-size: 1.1rem;">إطلاق المحرك</button>
+            <button onclick="reset()" style="background: none; border: none; color: #888; margin-top: 10px; cursor: pointer;">إعادة تعيين</button>
         </div>
-        <div id="taskList"></div>
-    </div>
 
-    <div class="card">
-        <h3>⏱️ معسكر التركيز الحر</h3>
-        <div class="timer-display" id="tDisplay">25:00</div>
-        <div style="text-align:center; margin-bottom:10px;">
-            <input type="number" id="tMinutes" value="25" style="width:50px; text-align:center;"> دقيقة
+        <div class="glass-card">
+            <h3 style="color: var(--neon-purple)"><i class="fas fa-crosshairs"></i> الأهداف الحالية (XP)</h3>
+            <div class="task-input-box">
+                <input type="text" id="tIn" placeholder="أدخل هدفك القادم...">
+                <button onclick="addT()" class="btn-done"><i class="fas fa-plus"></i></button>
+            </div>
+            <div id="tList"></div>
         </div>
-        <div class="controls">
-            <button onclick="startT()" style="background:var(--success-green); color:white;">بدء المعسكر</button>
-            <button onclick="resetT()" style="background:#666; color:white;">إعادة ضبط</button>
+
+        <div class="glass-card">
+            <h3 style="color: #00ff88;"><i class="fas fa-users"></i> رادار النخبة</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8;">انضم لتحدي الـ 24 ساعة مع زملائك. القواعد صارمة: صور، أنجز، انتصر.</p>
+            <div style="background: rgba(0, 255, 136, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #00ff88;">
+                <li style="list-style: none; font-size: 0.8rem; margin-bottom: 5px;">⚡ تحديث واحد كل ساعة.</li>
+                <li style="list-style: none; font-size: 0.8rem;">⚡ ممنوع الدردشة خارج المذاكرة.</li>
+            </div>
+            <a href="رابط_جروبك" class="btn-done" style="display: block; text-align: center; text-decoration: none; margin-top: 20px; background: #00ff88;">انضم للمهمة</a>
         </div>
-    </div>
-
-    <div class="card">
-        <h3>👥 ذاكر مع زمايلك</h3>
-        <div class="rules-list">
-            <li>📌 الالتزام برفع "لستة المهام" قبل البدء.</li>
-            <li>📸 توثيق المذاكرة بصورة للمكتب أو الكتب.</li>
-            <li>🚫 يمنع الرغي تماماً (رسالة تحديث كل ساعة فقط).</li>
-        </div>
-        <a href="رابط_جروبك_هنا" target="_blank" class="btn-link">🔗 الدخول لجروب التحدي</a>
-    </div>
-
-    <div class="card">
-        <h3>📝 ملاحظات سريعة</h3>
-        <textarea id="quickNotes" placeholder="اكتب قوانين أو ملاحظات مهمة هنا..." style="width:100%; height:100px; border-radius:10px; border:1px solid #eee; padding:10px; resize:none;"></textarea>
-    </div>
-
-    <div class="card" style="background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none;">
-        <h3>💡 رسالة الطالب</h3>
-        <p id="quote" style="font-style: italic; font-size: 1.1rem; line-height: 1.6;">"إن تعب اليوم هو راحة الغد.. استمر يا بطل!"</p>
     </div>
 </div>
 
 <script>
-    // --- كود المهام والاحتفال ---
-    function addTask() {
-        const input = document.getElementById('taskInput');
-        if (!input.value) return;
-        const tasks = JSON.parse(localStorage.getItem('offTasks')) || [];
-        tasks.push({ text: input.value, done: false });
-        localStorage.setItem('offTasks', JSON.stringify(tasks));
-        input.value = "";
-        renderTasks();
-    }
-
-    function renderTasks() {
-        const tasks = JSON.parse(localStorage.getItem('offTasks')) || [];
-        const list = document.getElementById('taskList');
-        list.innerHTML = "";
-        let doneCount = 0;
-
-        tasks.forEach((task, i) => {
-            if (task.done) doneCount++;
-            const div = document.createElement('div');
-            div.className = `task-item ${task.done ? 'done' : ''}`;
-            div.innerHTML = `<span>${task.text}</span> 
-                <div>
-                    ${!task.done ? `<button class="check-btn" onclick="checkTask(${i})">تم ✅</button>` : ''}
-                    <button onclick="delTask(${i})" style="color:red; border:none; background:none; cursor:pointer;">❌</button>
-                </div>`;
-            list.appendChild(div);
-        });
-
-        const percent = tasks.length > 0 ? Math.round((doneCount / tasks.length) * 100) : 0;
-        document.getElementById('progress-bar').style.width = percent + "%";
-        document.getElementById('progress-text').innerText = percent + "%";
-    }
-
-    function checkTask(i) {
-        const tasks = JSON.parse(localStorage.getItem('offTasks'));
-        tasks[i].done = true;
-        localStorage.setItem('offTasks', JSON.stringify(tasks));
-        
-        // مفرقعات الإنجاز!
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-        
-        renderTasks();
-    }
-
-    function delTask(i) {
-        const tasks = JSON.parse(localStorage.getItem('offTasks'));
-        tasks.splice(i, 1);
-        localStorage.setItem('offTasks', JSON.stringify(tasks));
-        renderTasks();
-    }
-
-    // --- كود الملاحظات ---
-    document.getElementById('quickNotes').oninput = function() {
-        localStorage.setItem('offNotes', this.value);
-    }
-
-    // --- كود المؤقت ---
     let timer;
-    let seconds;
-    function startT() {
+    let sLeft;
+    let xp = 0;
+
+    function start() {
         if(timer) clearInterval(timer);
-        if(!seconds) seconds = document.getElementById('tMinutes').value * 60;
+        if(!sLeft) sLeft = document.getElementById('mins').value * 60;
+        document.getElementById('circle').classList.add('timer-active');
         timer = setInterval(() => {
-            if(seconds <= 0) { clearInterval(timer); alert("انتهت الجلسة!"); }
-            else { seconds--; updateTDisp(); }
+            if(sLeft <= 0) { 
+                clearInterval(timer); 
+                alert("تمت المهمة بنجاح!"); 
+                document.getElementById('circle').classList.remove('timer-active');
+            } else { 
+                sLeft--; 
+                let m = Math.floor(sLeft / 60);
+                let s = sLeft % 60;
+                document.getElementById('display').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+            }
         }, 1000);
     }
-    function updateTDisp() {
-        let m = Math.floor(seconds / 60);
-        let s = seconds % 60;
-        document.getElementById('tDisplay').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-    }
-    function resetT() { clearInterval(timer); seconds = null; updateTDisp(); }
 
-    window.onload = () => {
-        renderTasks();
-        document.getElementById('quickNotes').value = localStorage.getItem('offNotes') || "";
-    };
+    function reset() {
+        clearInterval(timer);
+        sLeft = null;
+        document.getElementById('circle').classList.remove('timer-active');
+        document.getElementById('display').innerText = document.getElementById('mins').value + ":00";
+    }
+
+    function addT() {
+        let val = document.getElementById('tIn').value;
+        if(!val) return;
+        let tasks = JSON.parse(localStorage.getItem('xpTasks')) || [];
+        tasks.push(val);
+        localStorage.setItem('xpTasks', JSON.stringify(tasks));
+        document.getElementById('tIn').value = "";
+        drawT();
+    }
+
+    function drawT() {
+        let tasks = JSON.parse(localStorage.getItem('xpTasks')) || [];
+        let list = document.getElementById('tList');
+        list.innerHTML = "";
+        tasks.forEach((t, i) => {
+            list.innerHTML += `<div class="task-item"><span>${t}</span> <button class="btn-done" onclick="finish(${i})">إنجاز +10XP</button></div>`;
+        });
+    }
+
+    function finish(i) {
+        let tasks = JSON.parse(localStorage.getItem('xpTasks'));
+        tasks.splice(i, 1);
+        localStorage.setItem('xpTasks', JSON.stringify(tasks));
+        xp += 10;
+        checkRank();
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#00d2ff', '#9d50bb'] });
+        drawT();
+    }
+
+    function checkRank() {
+        let r = "محارب مبتدئ";
+        if(xp >= 50) r = "مقاتل نخبة";
+        if(xp >= 100) r = "أسطورة المذاكرة";
+        document.getElementById('rankText').innerText = r;
+    }
+
+    window.onload = drawT;
 </script>
+
 </body>
 </html>
