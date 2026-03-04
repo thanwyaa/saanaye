@@ -133,7 +133,11 @@
             </button>
         </div>
     </header>
-
+<div id="install-container" style="display: none; text-align: center; margin-top: 20px;">
+    <button id="install-button" style="background-color: #2563eb; color: white; padding: 12px 24px; border-radius: 9999px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        تثبيت المنصة على الموبايل 📲
+    </button>
+</div>
     <div class="h-24"></div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[70vh]">
@@ -489,8 +493,30 @@
         }
     </script>
 </body>
+<script>
+let deferredPrompt;
+const installContainer = document.getElementById('install-container');
+const installButton = document.getElementById('install-button');
 
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installContainer.style.display = 'block';
+});
+
+installButton.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            installContainer.style.display = 'none';
+        }
+        deferredPrompt = null;
+    }
+});
+</script>
 </html>
+
 
 
 
