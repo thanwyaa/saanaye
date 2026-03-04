@@ -509,42 +509,79 @@
         }
     </script>
 </body>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
+
 <script>
-let deferredPrompt;
-const installModal = document.getElementById('install-modal');
-const confirmInstall = document.getElementById('confirm-install');
+  // 2. إعدادات مشروعك الخاصة (الربط الحقيقي)
+  const firebaseConfig = {
+    apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
+    authDomain: "sanaayee.firebaseapp.com",
+    projectId: "sanaayee",
+    storageBucket: "sanaayee.firebasestorage.app",
+    messagingSenderId: "1048456368002",
+    appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
+    measurementId: "G-XCYY1H22CQ"
+  };
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    // هيظهر النافذة للطالب بعد 10 ثواني من دخوله
-    setTimeout(() => {
-        if (deferredPrompt) {
-            installModal.style.display = 'flex';
-        }
-    }, 10000); 
-});
+  // تشغيل فايربيس
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
 
-confirmInstall.addEventListener('click', async () => {
-    if (deferredPrompt) {
-        // بيبعت بيانات لشاشة جوجل اللي عندك إن فيه طالب اتفاعل مع الزرار
-        if (typeof gtag === 'function') {
-            gtag('event', 'click_install_btn', { 'event_category': 'PWA' });
-        }
+  // 3. كود التثبيت + الإشعارات + الـ 10 ثواني
+  let deferredPrompt;
+  const installModal = document.getElementById('install-modal');
+  const confirmInstall = document.getElementById('confirm-install');
 
-        installModal.style.display = 'none';
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        deferredPrompt = null;
-    }
-});
+  // وظيفة طلب إذن الإشعارات
+  async function askNotificationPermission() {
+      if ("Notification" in window) {
+          const permission = await Notification.requestPermission();
+          if (permission === "granted") {
+              console.log("تم تفعيل الإشعارات بنجاح");
+              // تسجيل الـ Service Worker عشان الإشعارات توصل والموقع مقفول
+              navigator.serviceWorker.ready.then((registration) => {
+                  messaging.getToken({
+                      serviceWorkerRegistration: registration,
+                      vapidKey: 'BGpY76...' // (اختياري) سيبها دلوقتي لو مش معاك
+                  });
+              });
+          }
+      }
+  }
 
-function closeInstallModal() {
-    installModal.style.display = 'none';
-}
+  window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(() => {
+          if (deferredPrompt) {
+              installModal.style.display = 'flex';
+          }
+      }, 10000); // تظهر بعد 10 ثواني
+  });
+
+  confirmInstall.addEventListener('click', async () => {
+      // يطلب إذن الإشعارات أول ما يدوس تثبيت
+      await askNotificationPermission();
+
+      if (deferredPrompt) {
+          // يبعت الإحصائية لجوجل (الرقم اللي شفته في الصور)
+          if (typeof gtag === 'function') {
+              gtag('event', 'click_install_btn', { 'event_category': 'PWA' });
+          }
+          installModal.style.display = 'none';
+          deferredPrompt.prompt();
+          deferredPrompt = null;
+      }
+  });
+
+  function closeInstallModal() {
+      installModal.style.display = 'none';
+  }
 </script>
 </script>
 </html>
+
 
 
 
