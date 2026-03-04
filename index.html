@@ -509,39 +509,39 @@
         }
     </script>
 </body>
-  <style>
+<style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
   #install-banner {
-    position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
-    width: 95%; max-width: 450px; background: #ffffff; 
-    border-top: 4px solid #1a73e8; /* لون أزرق جوجل الرسمي */
-    box-shadow: 0 -5px 25px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1); 
-    border-radius: 20px; padding: 20px; display: none; z-index: 10001;
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 92%; max-width: 450px; background: #ffffff; 
+    border-top: 5px solid #1a73e8; /* أزرق جوجل الرسمي */
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.2); 
+    border-radius: 20px; padding: 25px; display: none; z-index: 10005;
     flex-direction: column; text-align: right; direction: rtl;
-    font-family: 'Cairo', sans-serif; /* خط كايرو الشيك */
+    font-family: 'Cairo', sans-serif;
   }
-  #install-banner h4 { margin: 0 0 8px 0; color: #1a73e8; font-size: 19px; font-weight: 700; }
-  #install-banner p { margin: 0 0 18px 0; color: #444; font-size: 14px; line-height: 1.6; font-weight: 600; }
+  #install-banner h4 { margin: 0 0 10px 0; color: #1a73e8; font-size: 20px; font-weight: 700; }
+  #install-banner p { margin: 0 0 20px 0; color: #333; font-size: 15px; line-height: 1.7; font-weight: 600; }
   
   .banner-btns { display: flex; gap: 12px; }
   #confirm-install { 
-    background: #1a73e8; color: #fff; border: none; padding: 12px 20px; 
-    border-radius: 12px; flex: 2; cursor: pointer; font-weight: 700; font-size: 15px;
-    box-shadow: 0 4px 6px rgba(26, 115, 232, 0.2);
+    background: #1a73e8; color: #fff; border: none; padding: 14px; 
+    border-radius: 12px; flex: 2; cursor: pointer; font-weight: 700; font-size: 16px;
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
   }
   #later-install { 
-    background: #f1f3f4; color: #5f6368; border: none; padding: 12px; 
-    border-radius: 12px; flex: 1; cursor: pointer; font-weight: 600; font-size: 14px;
+    background: #f1f3f4; color: #5f6368; border: none; padding: 14px; 
+    border-radius: 12px; flex: 1; cursor: pointer; font-weight: 600;
   }
 </style>
 
 <div id="install-banner">
-  <h4>🚀 منصة ثانية ثانوي الرسمية</h4>
-  <p>ثبّت التطبيق الآن لتصلك إشعارات فورية بكل الملخصات، الكتب، وجداول الامتحانات أول بأول. لا تدع شيئاً يفوتك!</p>
+  <h4>📢 منصة ثانية ثانوي الرسمية</h4>
+  <p>ثبّت المنصة الآن على جهازك عشان توصلك كل الكتب والملخصات والاشعارات المهمة فوراً، وتدخل للمحتوى بسرعة من غير ما تدور عليه كل شوية!</p>
   <div class="banner-btns">
-    <button id="confirm-install">تثبيت التطبيق الآن</button>
-    <button id="later-install">ليس الآن</button>
+    <button id="confirm-install">تثبيت المنصة الآن ✅</button>
+    <button id="later-install">وقت لاحق</button>
   </div>
 </div>
 
@@ -549,7 +549,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
 
 <script>
-  // إعدادات مشروعك
+  // إعدادات فايربيس الخاصة بك (ممنوع تغييرها)
   const firebaseConfig = {
     apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
     authDomain: "sanaayee.firebaseapp.com",
@@ -565,27 +565,36 @@
   let deferredPrompt;
   const banner = document.getElementById('install-banner');
 
-  // طلب الإذن فور دخول الموقع
-  async function requestNotif() {
-      if ("Notification" in window) {
-          const permission = await Notification.requestPermission();
-          console.log("Permission status:", permission);
-      }
+  // --- خطوة جبارة: تسجيل الـ Service Worker عشان التثبيت يشتغل ---
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/saanaye/firebase-messaging-sw.js')
+        .then(reg => console.log('Service Worker Registered!'))
+        .catch(err => console.log('SW Registration Failed', err));
+    });
   }
-  window.addEventListener('load', requestNotif);
+
+  // طلب الإذن فور الدخول (لو الطالب ما رفضش قبل كدة)
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+        if ("Notification" in window && Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+    }, 3000); // يطلب الإذن بعد 3 ثواني من الدخول
+  });
 
   // التقاط حدث التثبيت
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    banner.style.display = 'flex'; // يظهر بمجرد توفر الإمكانية
+    banner.style.display = 'flex'; // يظهر الزرار بمجرد ما المتصفح يجهز
   });
 
   // زرار التثبيت الفعلي
   document.getElementById('confirm-install').addEventListener('click', async () => {
     if (deferredPrompt) {
       // إرسال إحصائية لجوجل
-      if (typeof gtag === 'function') { gtag('event', 'pwa_install_click'); }
+      if (typeof gtag === 'function') { gtag('event', 'click_install_btn'); }
       
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
@@ -594,20 +603,20 @@
         deferredPrompt = null;
       }
     } else {
-      // لو الزرار معلق، بنحاول نطلبه يدوياً
-      alert("التطبيق قيد التجهيز للتثبيت، يرجى المحاولة بعد لحظات أو التأكد من إعدادات المتصفح.");
+      // لو الزرار معلق، معناه إن المتصفح لسه ملقطش الـ Service Worker
+      alert("جاري تجهيز المنصة للتثبيت.. يرجى الانتظار ثواني أو استخدام متصفح Chrome.");
     }
   });
 
-  // زرار الإلحاح (كل 10 دقائق)
-  document.getElementById('later-install').addEventListener('click', () => {
+  // زرار الإلحاح (يظهر تاني بعد 10 دقائق)
+  document.getElementById('later-install').onclick = () => {
     banner.style.display = 'none';
     setTimeout(() => {
       if (deferredPrompt) banner.style.display = 'flex';
-    }, 600000); // 10 دقائق
-  });
+    }, 600000); 
+  };
 
-  // لو اتثبت خلاص يختفي
+  // لو اتثبت فعلاً يخفي الزرار
   window.addEventListener('appinstalled', () => {
     banner.style.display = 'none';
     deferredPrompt = null;
@@ -615,6 +624,7 @@
 </script>
 </script>
 </html>
+
 
 
 
