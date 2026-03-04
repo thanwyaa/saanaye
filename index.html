@@ -512,22 +512,30 @@
 <style>
   #install-banner {
     position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-    width: 90%; max-width: 420px; background: #fff; border: 2px solid #007bff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-radius: 15px;
-    padding: 20px; display: none; z-index: 10000; flex-direction: column; text-align: center;
+    width: 92%; max-width: 450px; background: #fff; border: 2px solid #28a745; /* لون أخضر رسمي */
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3); border-radius: 20px;
+    padding: 25px; display: none; z-index: 10000; flex-direction: column; text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  #install-banner h4 { margin: 0 0 10px 0; color: #007bff; font-size: 20px; }
-  #install-banner p { margin: 0 0 20px 0; color: #444; font-size: 15px; font-weight: bold; }
-  .banner-btns { display: flex; gap: 15px; }
-  #confirm-install { background: #007bff; color: #fff; border: none; padding: 12px; border-radius: 10px; flex: 2; cursor: pointer; font-weight: bold; }
-  #later-install { background: #eee; color: #333; border: none; padding: 12px; border-radius: 10px; flex: 1; cursor: pointer; }
+  #install-banner h4 { margin: 0 0 10px 0; color: #28a745; font-size: 22px; }
+  #install-banner p { margin: 0 0 20px 0; color: #333; font-size: 16px; font-weight: 600; line-height: 1.5; }
+  .banner-btns { display: flex; gap: 15px; width: 100%; }
+  #confirm-install { 
+    background: #28a745; color: #fff; border: none; padding: 14px; border-radius: 12px; 
+    flex: 2; cursor: pointer; font-weight: bold; font-size: 17px; transition: 0.3s;
+  }
+  #later-install { 
+    background: #f8f9fa; color: #666; border: 1px solid #ddd; padding: 14px; 
+    border-radius: 12px; flex: 1; cursor: pointer; font-size: 15px; 
+  }
+  #confirm-install:hover { background: #218838; }
 </style>
 
 <div id="install-banner">
-  <h4>تثبيت منصة صنايعي 🛠️</h4>
-  <p>ثبّت المنصة دلوقتي عشان يوصلك إشعار فوري بأي كتاب أو ملخص ينزل، وميفوتكش أي درس جديد!</p>
+  <h4>📢 منصة ثانية ثانوي الرسمية</h4>
+  <p>مستني إيه؟ ثبّت المنصة دلوقتي عشان تضمن إن كل الكتب والملخصات والاشعارات المهمة توصلك فوراً على موبايلك أول ما تنزل، وتذاكر أول بأول!</p>
   <div class="banner-btns">
-    <button id="confirm-install">تثبيت الآن</button>
+    <button id="confirm-install">تثبيت الآن ✅</button>
     <button id="later-install">وقت لاحق</button>
   </div>
 </div>
@@ -549,40 +557,59 @@
   const messaging = firebase.messaging();
   let deferredPrompt;
 
+  // طلب الإذن فور الدخول
   window.addEventListener('load', async () => {
-      if ("Notification" in window) { await Notification.requestPermission(); }
+      if ("Notification" in window) { 
+          await Notification.requestPermission();
+      }
   });
 
+  // التقاط حدث التثبيت (الزرار مش هيظهر غير لو المتصفح جاهز للتثبيت)
   window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); deferredPrompt = e;
+      e.preventDefault();
+      deferredPrompt = e;
       document.getElementById('install-banner').style.display = 'flex';
   });
 
+  // زرار وقت لاحق - يختفي ويظهر بعد 10 دقائق (سيستم الإلحاح)
   document.getElementById('later-install').onclick = () => {
       document.getElementById('install-banner').style.display = 'none';
       setTimeout(() => { 
-          if (deferredPrompt) document.getElementById('install-banner').style.display = 'flex'; 
-      }, 600000); // إلحاح كل 10 دقائق
+          if (deferredPrompt) {
+              document.getElementById('install-banner').style.display = 'flex'; 
+          }
+      }, 600000); // 10 دقائق بالظبط
   };
 
+  // تنفيذ التثبيت عند الضغط
   document.getElementById('confirm-install').onclick = async () => {
       if (deferredPrompt) {
-          if (typeof gtag === 'function') { gtag('event', 'click_install_btn'); }
-          deferredPrompt.prompt();
+          // إرسال الإحصائية لجوجل
+          if (typeof gtag === 'function') { 
+              gtag('event', 'click_install_btn', {'event_category': 'PWA'}); 
+          }
+
+          deferredPrompt.prompt(); // إظهار نافذة التثبيت الرسمية
           const { outcome } = await deferredPrompt.userChoice;
           if (outcome === 'accepted') { 
+              console.log('User accepted the install prompt');
               document.getElementById('install-banner').style.display = 'none'; 
               deferredPrompt = null; 
           }
+      } else {
+          alert("التطبيق جاهز للتثبيت بالفعل أو مثبت مسبقاً على جهازك.");
       }
   };
 
+  // إخفاء الزرار لو التطبيق مثبت
   window.addEventListener('appinstalled', () => {
       document.getElementById('install-banner').style.display = 'none';
+      deferredPrompt = null;
   });
 </script>
 </script>
 </html>
+
 
 
 
