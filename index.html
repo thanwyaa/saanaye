@@ -509,11 +509,33 @@
         }
     </script>
 </body>
+<style>
+  #install-banner {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 420px; background: #fff; border: 2px solid #007bff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-radius: 15px;
+    padding: 20px; display: none; z-index: 10000; flex-direction: column; text-align: center;
+  }
+  #install-banner h4 { margin: 0 0 10px 0; color: #007bff; font-size: 20px; }
+  #install-banner p { margin: 0 0 20px 0; color: #444; font-size: 15px; font-weight: bold; }
+  .banner-btns { display: flex; gap: 15px; }
+  #confirm-install { background: #007bff; color: #fff; border: none; padding: 12px; border-radius: 10px; flex: 2; cursor: pointer; font-weight: bold; }
+  #later-install { background: #eee; color: #333; border: none; padding: 12px; border-radius: 10px; flex: 1; cursor: pointer; }
+</style>
+
+<div id="install-banner">
+  <h4>تثبيت منصة صنايعي 🛠️</h4>
+  <p>ثبّت المنصة دلوقتي عشان يوصلك إشعار فوري بأي كتاب أو ملخص ينزل، وميفوتكش أي درس جديد!</p>
+  <div class="banner-btns">
+    <button id="confirm-install">تثبيت الآن</button>
+    <button id="later-install">وقت لاحق</button>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
 
 <script>
-  // 2. إعدادات مشروعك الخاصة (الربط الحقيقي)
   const firebaseConfig = {
     apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
     authDomain: "sanaayee.firebaseapp.com",
@@ -523,64 +545,45 @@
     appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
     measurementId: "G-XCYY1H22CQ"
   };
-
-  // تشغيل فايربيس
   firebase.initializeApp(firebaseConfig);
   const messaging = firebase.messaging();
-
-  // 3. كود التثبيت + الإشعارات + الـ 10 ثواني
   let deferredPrompt;
-  const installModal = document.getElementById('install-modal');
-  const confirmInstall = document.getElementById('confirm-install');
 
-  // وظيفة طلب إذن الإشعارات
-  async function askNotificationPermission() {
-      if ("Notification" in window) {
-          const permission = await Notification.requestPermission();
-          if (permission === "granted") {
-              console.log("تم تفعيل الإشعارات بنجاح");
-              // تسجيل الـ Service Worker عشان الإشعارات توصل والموقع مقفول
-              navigator.serviceWorker.ready.then((registration) => {
-                  messaging.getToken({
-                      serviceWorkerRegistration: registration,
-                      vapidKey: 'BGpY76...' // (اختياري) سيبها دلوقتي لو مش معاك
-                  });
-              });
-          }
-      }
-  }
+  window.addEventListener('load', async () => {
+      if ("Notification" in window) { await Notification.requestPermission(); }
+  });
 
   window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      setTimeout(() => {
-          if (deferredPrompt) {
-              installModal.style.display = 'flex';
-          }
-      }, 10000); // تظهر بعد 10 ثواني
+      e.preventDefault(); deferredPrompt = e;
+      document.getElementById('install-banner').style.display = 'flex';
   });
 
-  confirmInstall.addEventListener('click', async () => {
-      // يطلب إذن الإشعارات أول ما يدوس تثبيت
-      await askNotificationPermission();
+  document.getElementById('later-install').onclick = () => {
+      document.getElementById('install-banner').style.display = 'none';
+      setTimeout(() => { 
+          if (deferredPrompt) document.getElementById('install-banner').style.display = 'flex'; 
+      }, 600000); // إلحاح كل 10 دقائق
+  };
 
+  document.getElementById('confirm-install').onclick = async () => {
       if (deferredPrompt) {
-          // يبعت الإحصائية لجوجل (الرقم اللي شفته في الصور)
-          if (typeof gtag === 'function') {
-              gtag('event', 'click_install_btn', { 'event_category': 'PWA' });
-          }
-          installModal.style.display = 'none';
+          if (typeof gtag === 'function') { gtag('event', 'click_install_btn'); }
           deferredPrompt.prompt();
-          deferredPrompt = null;
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') { 
+              document.getElementById('install-banner').style.display = 'none'; 
+              deferredPrompt = null; 
+          }
       }
-  });
+  };
 
-  function closeInstallModal() {
-      installModal.style.display = 'none';
-  }
+  window.addEventListener('appinstalled', () => {
+      document.getElementById('install-banner').style.display = 'none';
+  });
 </script>
 </script>
 </html>
+
 
 
 
