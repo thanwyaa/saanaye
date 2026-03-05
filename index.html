@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ثانية ثانوي الرسمية | الصرح التعليمي الأكبر</title>
+    <title>منصة ثانية ثانوي الرسمية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -11,7 +11,7 @@
             theme: {
                 extend: {
                     fontFamily: { tajawal: ['Tajawal', 'sans-serif'] },
-                    colors: { brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' }, gold: '#ca8a04' }
+                    colors: { brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 800: '#1e40af', 900: '#1e3a8a' }, gold: '#ca8a04' }
                 }
             }
         }
@@ -27,7 +27,7 @@
         html.dark .glass { background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid #1e293b; }
         .section-fade { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .badge { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
+        .book-cover { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); position: relative; overflow: hidden; height: 120px; border-radius: 15px 15px 0 0; }
     </style>
 </head>
 <body class="antialiased">
@@ -45,192 +45,156 @@
         </div>
     </header>
 
-    <div class="h-20"></div>
+    <div class="h-24"></div>
 
     <main class="max-w-7xl mx-auto px-4 py-6 min-h-screen">
         
-        <div id="section-home" class="section-fade space-y-10">
-            <div class="text-center py-10">
-                <h2 class="text-4xl md:text-6xl font-black mb-6 dark:text-white leading-tight underline decoration-brand-500 decoration-4 underline-offset-8 italic">أكبر تجمع تعليمي رسمي</h2>
-                <p class="text-lg text-slate-500 max-w-3xl mx-auto font-bold mb-10 italic">أكثر من 30 مصدر تعليمي موثوق بين يديك الآن (كتب خارجية، وزارة، ومذكرات النخبة).</p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="switchSection('books')" class="px-12 py-4 bg-brand-600 text-white rounded-2xl font-black shadow-xl hover:bg-brand-700 transition-all scale-110">دخول المكتبة الشاملة 📚</button>
-                </div>
+        <div id="section-home" class="section-fade">
+            <div class="text-center py-12">
+                <h2 class="text-4xl md:text-6xl font-black mb-6 dark:text-white italic underline decoration-brand-500 underline-offset-8">الصرح التعليمي الأكبر</h2>
+                <p class="text-lg text-slate-500 font-bold mb-10">جميع الكتب الخارجية والوزارية ومذكرات العمالقة في مكان واحد.</p>
+                <button onclick="switchSection('books')" class="px-12 py-5 bg-brand-600 text-white rounded-2xl font-black shadow-2xl hover:scale-105 transition-all">دخول المكتبة الشاملة 📚</button>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
                 <div onclick="switchSection('about')" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 cursor-pointer">
-                    <i data-lucide="info" class="text-brand-600 mb-2"></i>
-                    <h4 class="font-black dark:text-white italic text-sm">من نحن؟</h4>
+                    <h4 class="font-black dark:text-white">من نحن؟</h4>
+                    <p class="text-xs text-slate-400 mt-2">قصة المنصة وهدفنا التطوعي.</p>
                 </div>
-                <div onclick="switchSection('report')" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 cursor-pointer border-b-4 border-red-500">
-                    <i data-lucide="flag" class="text-red-500 mb-2"></i>
-                    <h4 class="font-black dark:text-white italic text-sm">بلاغ عن رابط</h4>
+                <div onclick="switchSection('policy')" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 cursor-pointer">
+                    <h4 class="font-black dark:text-white">وثيقة الحقوق</h4>
+                    <p class="text-xs text-slate-400 mt-2">إخلاء المسؤولية وحفظ حقوق الملكية.</p>
                 </div>
-                <div onclick="switchSection('policy')" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 cursor-pointer border-b-4 border-gold">
-                    <i data-lucide="shield-check" class="text-gold mb-2"></i>
-                    <h4 class="font-black dark:text-white italic text-sm">حقوق الملكية</h4>
-                </div>
-                <div onclick="switchSection('join')" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 cursor-pointer">
-                    <i data-lucide="user-plus" class="text-brand-600 mb-2"></i>
-                    <h4 class="font-black dark:text-white italic text-sm">انضم للفريق</h4>
-                </div>
+                <a href="https://t.me/llTwasell" target="_blank" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 block">
+                    <h4 class="font-black dark:text-white">الدعم الفني</h4>
+                    <p class="text-xs text-slate-400 mt-2">تواصل معنا عبر تليجرام.</p>
+                </a>
             </div>
         </div>
 
         <div id="section-books" class="hidden section-fade space-y-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b pb-6 dark:border-slate-800">
-                <h2 class="text-3xl font-black dark:text-white italic">المكتبة الرقمية <span class="text-brand-600">(30+ ملف)</span></h2>
-                <div class="relative w-full md:w-96">
-                    <i data-lucide="search" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4"></i>
-                    <input type="text" id="bookSearch" onkeyup="searchBooks()" placeholder="ابحث عن مادة، مستر، أو كتاب..." class="w-full p-4 pr-10 bg-white dark:bg-slate-800 rounded-2xl border-2 border-slate-100 dark:border-slate-700 outline-none focus:border-brand-500 font-bold">
-                </div>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl w-fit mx-auto md:mx-0">
-                <button onclick="renderBooks('ministry')" class="book-tab px-6 py-3 rounded-xl font-black text-sm transition-all bg-brand-600 text-white">كتب الوزارة (12)</button>
-                <button onclick="renderBooks('external')" class="book-tab px-6 py-3 rounded-xl font-black text-sm transition-all text-slate-500">كتب خارجية (8)</button>
-                <button onclick="renderBooks('teachers')" class="book-tab px-6 py-3 rounded-xl font-black text-sm transition-all text-slate-500">مذكرات المدرسين (11)</button>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <h2 class="text-3xl font-black dark:text-white italic">المكتبة الرقمية <span class="text-brand-600">(كاملة)</span></h2>
+                <input type="text" id="bookSearch" onkeyup="searchBooks()" placeholder="ابحث عن كتاب أو مستر..." class="p-3 w-full md:w-80 bg-white dark:bg-slate-800 rounded-xl border-2 border-slate-100 dark:border-slate-700 font-bold">
             </div>
 
-            <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div class="flex flex-wrap gap-2 bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl w-fit">
+                <button onclick="renderBooks('ministry')" class="book-tab px-6 py-2 rounded-xl font-black text-sm transition-all bg-brand-600 text-white">كتب الوزارة</button>
+                <button onclick="renderBooks('external')" class="book-tab px-6 py-2 rounded-xl font-black text-sm transition-all text-slate-500">كتب خارجية</button>
+                <button onclick="renderBooks('teachers')" class="book-tab px-6 py-2 rounded-xl font-black text-sm transition-all text-slate-500">مذكرات المدرسين</button>
+            </div>
+
+            <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
         <div id="section-about" class="hidden section-fade max-w-3xl mx-auto py-10">
             <div class="premium-card p-8 rounded-[2rem] bg-white dark:bg-slate-800 border-t-8 border-t-brand-600">
-                <h2 class="text-3xl font-black mb-6 dark:text-white italic">منصة ثانية ثانوي الرسمية</h2>
-                <p class="text-slate-600 dark:text-slate-300 font-bold leading-relaxed mb-4">أكبر مبادرة تعليمية رقمية تهدف لتوفير المصادر الدراسية لطلاب الصف الثاني الثانوي مجاناً بالكامل وبأعلى جودة تنظيمية.</p>
-                <button onclick="switchSection('home')" class="text-brand-600 font-black italic">← العودة للرئيسية</button>
-            </div>
-        </div>
-
-        <div id="section-report" class="hidden section-fade max-w-2xl mx-auto py-10">
-            <div class="premium-card p-8 rounded-[2rem] bg-white dark:bg-slate-800 border-t-8 border-t-red-500 text-center">
-                <h2 class="text-2xl font-black mb-4 dark:text-white">مركز البلاغات الفوري</h2>
-                <p class="text-sm text-slate-500 mb-6 font-bold">هل وجدت رابطاً لا يعمل؟ أو محتوى ينتهك حقوقك؟ بلغنا فوراً عبر التليجرام الرسمي.</p>
-                <a href="https://t.me/llTwasell" target="_blank" class="block py-4 bg-red-600 text-white rounded-2xl font-black shadow-lg shadow-red-100">ارسل بلاغاً الآن</a>
+                <h2 class="text-3xl font-black mb-4 dark:text-white italic">من نحن؟</h2>
+                <p class="font-bold text-slate-600 dark:text-slate-300">نحن مبادرة شبابية تطوعية تهدف لتسهيل الوصول للمصادر التعليمية مجاناً لطلاب ثانية ثانوي.</p>
+                <button onclick="switchSection('home')" class="mt-6 text-brand-600 font-black italic">رجوع للرئيسية</button>
             </div>
         </div>
 
         <div id="section-policy" class="hidden section-fade max-w-3xl mx-auto py-10">
             <div class="premium-card p-8 rounded-[2rem] bg-white dark:bg-slate-800 border-t-8 border-t-gold">
-                <h2 class="text-2xl font-black mb-6 dark:text-white italic">سياسة حقوق الملكية</h2>
-                <p class="text-slate-600 dark:text-slate-300 font-bold text-sm mb-4">نحن مجرد وسيط لتنظيم الروابط المتاحة بالفعل على الإنترنت لخدمة الطالب. إذا كنت صاحب حق وترغب في إزالة محتواك، تواصل معنا وسنستجيب فوراً بكل احترام لمجهودك.</p>
-            </div>
-        </div>
-
-        <div id="section-join" class="hidden section-fade max-w-2xl mx-auto py-10">
-            <div class="premium-card p-8 rounded-[2rem] bg-white dark:bg-slate-800 text-center border-t-8 border-t-brand-600">
-                <h2 class="text-2xl font-black mb-4 dark:text-white">كن جزءاً من النجاح</h2>
-                <p class="text-sm text-slate-500 mb-8 font-bold italic">نبحث عن متطوعين ومدرسين للمساهمة في تطوير المنصة الرسمية.</p>
-                <a href="https://t.me/llTwasell" target="_blank" class="px-10 py-4 bg-brand-600 text-white rounded-2xl font-black inline-block shadow-lg">تقديم طلب انضمام</a>
+                <h2 class="text-3xl font-black mb-4 dark:text-white italic">إخلاء المسؤولية</h2>
+                <p class="font-bold text-slate-600 dark:text-slate-300">المنصة وسيط تنظيمي فقط، وجميع الحقوق محفوظة لأصحابها. للحذف تواصل معنا.</p>
+                <button onclick="switchSection('home')" class="mt-6 text-brand-600 font-black italic">رجوع للرئيسية</button>
             </div>
         </div>
 
     </main>
 
     <footer class="mt-10 py-10 border-t border-slate-100 dark:border-slate-800 text-center">
-        <p class="font-black text-brand-900 dark:text-white italic mb-4">منصة ثانية ثانوي الرسمية</p>
-        <div class="flex justify-center gap-6">
+        <p class="font-black text-brand-900 dark:text-white italic">منصة ثانية ثانوي الرسمية</p>
+        <div class="flex justify-center gap-6 mt-4">
              <a href="https://youtube.com/@sanaye-2sec" target="_blank" class="text-red-600"><i data-lucide="youtube"></i></a>
              <a href="https://t.me/sanaye20011" target="_blank" class="text-blue-500"><i data-lucide="send"></i></a>
              <a href="https://whatsapp.com/channel/0029VbBGyUFLtOjM90pzeC2y" target="_blank" class="text-green-500"><i data-lucide="message-circle"></i></a>
         </div>
-        <p class="text-[10px] text-slate-400 mt-6 font-bold uppercase tracking-widest italic italic italic">© 2026 OFFICIAL 2SEC PLATFORM</p>
     </footer>
 
     <script>
         lucide.createIcons();
 
-        // قاعدة البيانات العملاقة (كل الـ 30 رابط)
+        // قاعدة البيانات (كل الـ 30 رابط اللي بعتهم بالظبط)
         const platformData = {
             books: [
                 // كتب الوزارة
-                { title: 'علم نفس - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/930', type: 'رسمي' },
-                { title: 'تاريخ - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/931', type: 'رسمي' },
-                { title: 'فيزياء - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/932', type: 'رسمي' },
-                { title: 'إنجليزي - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/934', type: 'رسمي' },
-                { title: 'رياضة بحتة - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/935', type: 'رسمي' },
-                { title: 'تطبيقية - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/937', type: 'رسمي' },
-                { title: 'رياضة عامة (أدبي) - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/938', type: 'رسمي' },
-                { title: 'لغة عربية - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/939', type: 'رسمي' },
-                { title: 'كيمياء - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/941', type: 'رسمي' },
-                { title: 'تربية وطنية - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/942', type: 'رسمي' },
-                { title: 'فلسفة - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/929', type: 'رسمي' },
-                { title: 'جغرافيا - كتاب الوزارة', category: 'ministry', url: 'https://t.me/sanaye20011/933', type: 'رسمي' },
+                { title: 'كتاب المدرسة علم نفس', category: 'ministry', url: 'https://t.me/sanaye20011/930' },
+                { title: 'كتاب المدرسة تاريخ', category: 'ministry', url: 'https://t.me/sanaye20011/931' },
+                { title: 'كتاب المدرسة فيزياء', category: 'ministry', url: 'https://t.me/sanaye20011/932' },
+                { title: 'كتاب المدرسة انجليزي', category: 'ministry', url: 'https://t.me/sanaye20011/934' },
+                { title: 'كتاب المدرسة رياضه بحته', category: 'ministry', url: 'https://t.me/sanaye20011/935' },
+                { title: 'كتاب المدرسة تطبيقية', category: 'ministry', url: 'https://t.me/sanaye20011/937' },
+                { title: 'كتاب المدرسة رياضه عامه ادبي', category: 'ministry', url: 'https://t.me/sanaye20011/938' },
+                { title: 'كتاب المدرسة عربي', category: 'ministry', url: 'https://t.me/sanaye20011/939' },
+                { title: 'كتاب المدرسة كيمياء', category: 'ministry', url: 'https://t.me/sanaye20011/941' },
+                { title: 'كتاب المدرسة وطنية', category: 'ministry', url: 'https://t.me/sanaye20011/942' },
 
                 // كتب خارجية
-                { title: 'كتاب الامتحان فيزياء', category: 'external', url: 'https://t.me/sanaye20011/829', type: 'خارجي' },
-                { title: 'كتاب المعاصر بحتة', category: 'external', url: 'https://t.me/sanaye20011/846', type: 'خارجي' },
-                { title: 'كتاب المعاصر إنجليزي كامل', category: 'external', url: 'https://t.me/sanaye20011/1078', type: 'خارجي' },
-                { title: 'كتاب كيان لغة عربية (شرح)', category: 'external', url: 'https://t.me/sanaye20011/1156', type: 'خارجي' },
-                { title: 'ملحق كتاب كيان لغة عربية', category: 'external', url: 'https://t.me/sanaye20011/1093', type: 'خارجي' },
-                { title: 'كتاب العمالقة إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1174', type: 'خارجي' },
-                { title: 'إجابات كتاب العمالقة إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1181', type: 'إجابات' },
-                { title: 'كتاب الامتحان كيمياء', category: 'external', url: 'https://t.me/sanaye20011/1241', type: 'خارجي' },
+                { title: 'كتاب الامتحان فيزياء', category: 'external', url: 'https://t.me/sanaye20011/829' },
+                { title: 'كتاب المعاصر بحته', category: 'external', url: 'https://t.me/sanaye20011/846' },
+                { title: 'كتاب المعاصر انجليزي كامل', category: 'external', url: 'https://t.me/sanaye20011/1078' },
+                { title: 'كتاب كيان شرح عربي', category: 'external', url: 'https://t.me/sanaye20011/1156' },
+                { title: 'ملحق كتاب كيان عربي', category: 'external', url: 'https://t.me/sanaye20011/1093' },
+                { title: 'كتاب العمالقه انجليزي', category: 'external', url: 'https://t.me/sanaye20011/1174' },
+                { title: 'اجابات كتاب العمالقه انجليزي', category: 'external', url: 'https://t.me/sanaye20011/1181' },
+                { title: 'كتاب الامتحان كيمياء', category: 'external', url: 'https://t.me/sanaye20011/1241' },
 
                 // مذكرات مدرسين
-                { title: 'رياضة (تدريبات) - مستر أحمد عصام', category: 'teachers', url: 'https://t.me/sanaye20011/1032', type: 'مذكرة' },
-                { title: 'فيزياء (شرح) - مستر محمد عبد المعبود', category: 'teachers', url: 'https://t.me/sanaye20011/1066', type: 'مذكرة' },
-                { title: 'فيزياء (أسئلة) - مستر محمد عبد المعبود', category: 'teachers', url: 'https://t.me/sanaye20011/1066', type: 'مذكرة' },
-                { title: 'كيمياء (كامل) - مستر خالد صقر', category: 'teachers', url: 'https://t.me/sanaye20011/1194', type: 'مذكرة' },
-                { title: 'فيزياء (شرح) - مستر محمود مجدي', category: 'teachers', url: 'https://t.me/sanaye20011/1229', type: 'مذكرة' },
-                { title: 'عربي (شرح) - القيصر محمد طارق', category: 'teachers', url: 'https://t.me/sanaye20011/1234', type: 'مذكرة' },
-                { title: 'عربي (قصة) - القيصر محمد طارق', category: 'teachers', url: 'https://t.me/sanaye20011/1234', type: 'مذكرة' },
-                { title: 'رياضة (الورش) - مستر أحمد عصام', category: 'teachers', url: 'https://t.me/sanaye20011/1240', type: 'مذكرة' },
-                { title: 'كيمياء - مستر محمد عبد الجواد', category: 'teachers', url: 'https://t.me/sanaye20011/1274', type: 'مذكرة' },
-                { title: 'إجابات كيمياء - مستر محمد عبد الجواد', category: 'teachers', url: 'https://t.me/sanaye20011/1328', type: 'إجابات' },
-                { title: 'عربي (شامل) - مستر محمد صلاح', category: 'teachers', url: 'https://t.me/sanaye20011/1300', type: 'مذكرة' },
-                { title: 'إنجليزي (شرح) - مستر محمد رضوان', category: 'teachers', url: 'https://t.me/sanaye20011/1375', type: 'مذكرة' },
-                { title: 'تاريخ (كلام مؤرخين) - مستر أحمد عادل', category: 'teachers', url: 'https://t.me/sanaye20011/1353', type: 'مذكرة' },
-                { title: 'تاريخ (نواتج تعلم) - مستر أحمد عادل', category: 'teachers', url: 'https://t.me/sanaye20011/1383', type: 'مذكرة' }
+                { title: 'تدريبات مستر احمد عصام رياضة', category: 'teachers', url: 'https://t.me/sanaye20011/1032' },
+                { title: 'كتاب الورش مستر احمد عصام رياضة', category: 'teachers', url: 'https://t.me/sanaye20011/1240' },
+                { title: 'شرح مستر محمد عبد المعبد فيزياء', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
+                { title: 'أسئلة مستر محمد عبد المعبد فيزياء', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
+                { title: 'كتاب مستر خالد صقر كيمياء كامل', category: 'teachers', url: 'https://t.me/sanaye20011/1194' },
+                { title: 'شرح مستر محمود مجدي فيزياء', category: 'teachers', url: 'https://t.me/sanaye20011/1229' },
+                { title: 'عربي القيصر محمد طارق شرح', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
+                { title: 'عربي القيصر محمد طارق قصة', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
+                { title: 'كتاب مستر محمد عبد الجواد كيمياء', category: 'teachers', url: 'https://t.me/sanaye20011/1274' },
+                { title: 'اجابات مستر محمد عبد الجواد كيمياء', category: 'teachers', url: 'https://t.me/sanaye20011/1328' },
+                { title: 'عربي مستر محمد صلاح كامل', category: 'teachers', url: 'https://t.me/sanaye20011/1300' },
+                { title: 'انجلشاوي مستر محمد رضوان', category: 'teachers', url: 'https://t.me/sanaye20011/1375' },
+                { title: 'كلام مؤرخين مستر احمد عادل تاريخ', category: 'teachers', url: 'https://t.me/sanaye20011/1353' },
+                { title: 'نواتج تعلم مستر احمد عادل تاريخ', category: 'teachers', url: 'https://t.me/sanaye20011/1383' }
             ]
         };
 
-        let currentCategory = 'ministry';
+        let currentCat = 'ministry';
 
         function switchSection(id) {
-            const sections = ['home', 'books', 'about', 'report', 'policy', 'join'];
-            sections.forEach(s => document.getElementById('section-' + s).classList.add('hidden'));
+            ['home', 'books', 'about', 'policy'].forEach(s => document.getElementById('section-' + s).classList.add('hidden'));
             document.getElementById('section-' + id).classList.remove('hidden');
-            window.scrollTo(0,0);
             if(id === 'books') renderBooks('ministry');
         }
 
-        function renderBooks(category) {
-            currentCategory = category;
+        function renderBooks(cat) {
+            currentCat = cat;
             document.querySelectorAll('.book-tab').forEach(b => {
                 b.classList.remove('bg-brand-600', 'text-white');
                 b.classList.add('text-slate-500');
             });
             event.target.classList.add('bg-brand-600', 'text-white');
-            displayBooks(platformData.books.filter(b => b.category === category));
+            display(platformData.books.filter(b => b.category === cat));
         }
 
-        function displayBooks(books) {
+        function display(list) {
             const grid = document.getElementById('books-grid');
-            grid.innerHTML = books.map(book => `
-                <div class="premium-card bg-white dark:bg-slate-800 rounded-[2rem] p-5 flex flex-col justify-between group overflow-hidden relative">
-                    <div class="absolute -right-4 -top-4 w-20 h-20 bg-brand-50 dark:bg-brand-900/20 rounded-full group-hover:scale-150 transition-all"></div>
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="badge ${book.category === 'ministry' ? 'bg-green-100 text-green-600' : book.category === 'external' ? 'bg-amber-100 text-gold' : 'bg-brand-100 text-brand-600'}">${book.type}</span>
-                            <i data-lucide="file-text" class="text-slate-300 w-5 h-5"></i>
-                        </div>
-                        <h4 class="text-md font-black dark:text-white leading-snug mb-6 h-12 overflow-hidden italic">${book.title}</h4>
+            grid.innerHTML = list.map(b => `
+                <div class="premium-card bg-white dark:bg-slate-800 rounded-2xl overflow-hidden flex flex-col">
+                    <div class="book-cover flex items-center justify-center p-4">
+                        <h4 class="text-white font-black text-center text-sm z-10 italic">${b.title}</h4>
                     </div>
-                    <a href="${book.url}" target="_blank" class="w-full py-4 bg-brand-600 text-white rounded-2xl font-black text-sm text-center italic hover:bg-slate-900 transition-all shadow-lg shadow-brand-100 relative z-10">تحميل مباشر PDF</a>
+                    <div class="p-4 flex flex-col gap-3">
+                        <a href="${b.url}" target="_blank" class="w-full py-3 bg-brand-600 text-white rounded-xl text-xs font-black text-center italic hover:bg-slate-900 transition-all">فتح الرابط المباشر</a>
+                    </div>
                 </div>
             `).join('');
-            lucide.createIcons();
         }
 
         function searchBooks() {
             const term = document.getElementById('bookSearch').value.toLowerCase();
-            const filtered = platformData.books.filter(b => 
-                b.title.toLowerCase().includes(term)
-            );
-            displayBooks(filtered);
+            display(platformData.books.filter(b => b.category === currentCat && b.title.toLowerCase().includes(term)));
         }
 
         function toggleTheme() {
