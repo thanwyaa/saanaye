@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCYY1H22CQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XCYY1H22CQ');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png">
+    <link rel="manifest" href="manifest.json">
     <title>منصة ثانية ثانوي الرسمية  </title>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -112,9 +117,6 @@
         }
         html.dark .glass-header { background-color: rgba(15, 23, 42, 0.85); border-bottom: 1px solid #334155; }
         html:not(.dark) .glass-header { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e2e8f0; }
-
-        /* نقطة الإشعارات */
-        .notification-dot { position: absolute; top: -2px; right: -2px; width: 10px; height: 10px; background: #ef4444; border-radius: 50%; border: 2px solid white; }
     </style>
 </head>
 <body>
@@ -132,24 +134,26 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-2">
-                <button id="installBtn" class="hidden bg-brand-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 hover:scale-105 transition-transform">
-                    <i data-lucide="download" class="w-4 h-4"></i> تثبيت
-                </button>
-
-                <button onclick="requestPermission()" class="p-2.5 rounded-full bg-gray-100 dark:bg-slate-800 text-brand-600 relative">
-                    <i data-lucide="bell" class="w-5 h-5"></i>
-                    <span class="notification-dot"></span>
-                </button>
-
-                <button onclick="toggleTheme()" class="p-2.5 rounded-full bg-gray-100 dark:bg-slate-800 text-slate-700 dark:text-yellow-400 hover:scale-110 transition-transform">
-                    <i data-lucide="sun" id="theme-icon-sun" class="hidden dark:block w-5 h-5"></i>
-                    <i data-lucide="moon" id="theme-icon-moon" class="block dark:hidden w-5 h-5"></i>
-                </button>
-            </div>
+            <button onclick="toggleTheme()" class="p-2.5 rounded-full bg-gray-100 dark:bg-slate-800 text-slate-700 dark:text-yellow-400 hover:scale-110 transition-transform">
+                <i data-lucide="sun" id="theme-icon-sun" class="hidden dark:block w-5 h-5"></i>
+                <i data-lucide="moon" id="theme-icon-moon" class="block dark:hidden w-5 h-5"></i>
+            </button>
         </div>
     </header>
-
+<div id="install-modal" style="display: none;" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 text-right">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center relative">
+        <button onclick="closeInstallModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-white text-xl">✕</button>
+        <div class="mb-4 flex justify-center">
+            <img src="favicon.png" alt="Logo" class="w-16 h-16 rounded-xl shadow-md">
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">ثبت المنصة على موبايلك! 📲</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm mb-6">عشان توصل للكتب أسرع، وتستقبل إشعارات بالدروس الجديدة.</p>
+        <div class="flex flex-col gap-3">
+            <button id="confirm-install" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg">تثبيت التطبيق الآن</button>
+            <button onclick="closeInstallModal()" class="text-gray-500 text-sm font-medium">ليس الآن</button>
+        </div>
+    </div>
+</div>
     <div class="h-24"></div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[70vh]">
@@ -174,12 +178,16 @@
                     <button onclick="switchSection('books')" class="w-full sm:w-auto btn-main px-8 py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-3">
                         <i data-lucide="library"></i> مكتبة الكتب PDF
                     </button>
-                    <button onclick="switchSection('study')" class="w-full sm:w-auto bg-white dark:bg-slate-800 text-slate-800 dark:text-white border-2 border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:border-brand-500 transition-colors">
-                        <i data-lucide="users" class="text-blue-500"></i> غرفة المذاكرة
+                    <button onclick="switchSection('teachers')" class="w-full sm:w-auto bg-white dark:bg-slate-800 text-slate-800 dark:text-white border-2 border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:border-brand-500 transition-colors">
+                        <i data-lucide="monitor-play" class="text-red-500"></i> شرح المدرسين أونلاين
                     </button>
                 </div>
             </div>
-
+<div style="text-align: center; margin: 20px 0;">
+    <a href="dashboard.html" style="text-decoration: none; background: #3498db; color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 1.2rem; display: inline-block; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);">
+        🚀 ادخل غرفة المذاكرة الذكية (جديد)
+    </a>
+</div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
                 <div onclick="switchSection('about')" class="premium-card p-8 rounded-3xl text-center cursor-pointer group">
                     <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/40 text-brand-600 dark:text-brand-400 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="info" class="w-8 h-8"></i></div>
@@ -195,22 +203,6 @@
                     <div class="w-16 h-16 bg-green-50 dark:bg-green-900/40 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="headphones" class="w-8 h-8"></i></div>
                     <h3 class="text-xl font-black mb-2 dark:text-white">الدعم الفني</h3>
                     <p class="text-sm font-medium text-slate-500 dark:text-slate-400">تواصل معنا المباشر عبر تليجرام.</p>
-                </a>
-            </div>
-        </div>
-
-        <div id="section-study" class="fade-in hidden max-w-4xl mx-auto">
-            <button onclick="switchSection('home')" class="mb-6 text-slate-500 font-bold flex items-center gap-2">
-                <i data-lucide="arrow-right" class="w-4 h-4"></i> العودة للرئيسية
-            </button>
-            <div class="premium-card p-10 rounded-[2.5rem] text-center bg-gradient-to-br from-brand-600 to-blue-400 text-white shadow-2xl">
-                <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i data-lucide="coffee" class="w-10 h-10"></i>
-                </div>
-                <h2 class="text-3xl font-black mb-4">غرفة المذاكرة الجماعية</h2>
-                <p class="text-lg opacity-90 mb-8 font-medium">مكان مخصص لك ولزملائك لتبادل الأسئلة، الملازم، والتشجيع المتبادل.</p>
-                <a href="https://t.me/sanaye20011" target="_blank" class="inline-flex items-center gap-3 bg-white text-brand-600 px-10 py-4 rounded-2xl font-black text-xl hover:scale-105 transition-transform">
-                    <i data-lucide="send"></i> انضم للغرفة الآن
                 </a>
             </div>
         </div>
@@ -273,7 +265,7 @@
                 </div>
                 
                 <div class="space-y-6 text-lg text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
-                    <p>أهلاً بك في <strong>منصة ثانية ثانوي الرسمية</strong>. نحن كيان تعليمي رقمي وتطوعي، تم تأسيسه بجهود شبابية خلصة لخدمة الطالب المصري في المرحلة الثانوية.</p>
+                    <p>أهلاً بك في <strong>منصة ثانية ثانوي الرسمية</strong>. نحن كيان تعليمي رقمي وتطوعي، تم تأسيسه بجهود شبابية خالصة لخدمة الطالب المصري في المرحلة الثانوية.</p>
                     
                     <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-700 my-6">
                         <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-3 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5"></i> الهدف من إنشاء المنصة:</h3>
@@ -314,19 +306,19 @@
                     <ul class="space-y-4 text-slate-700 dark:text-slate-300 font-medium text-lg">
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
-                            <div><strong>المجانية التامة:</strong> يُمنع منعاً باتاً استغلال أي كتاب، مذكرة، أو محتوى متوفر على هذه المنصة لأغراض تجارية أو بيعه للطلاب بمقابل مادي.</div>
+                            <div><strong>المجانية التامة:</strong> يُمنع منعاً باتاً استغلال أي كتاب، مذكرة، أو محتوى متوفر على هذه المنصة لأغراض تجارية أو بيعه للطلاب بمقابل مادي. هذا المحتوى تم توفيره للمساعدة فقط.</div>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
-                            <div><strong>طبيعة المنصة:</strong> المنصة ليست جهة طباعة أو دار نشر، نحن مجرد "وسيط تعليمي منظم" نقوم بجمع الملفات والروابط المتداولة مسبقاً.</div>
+                            <div><strong>طبيعة المنصة:</strong> المنصة ليست جهة طباعة أو دار نشر، نحن مجرد "وسيط تعليمي منظم" نقوم بجمع الملفات والروابط المتداولة مسبقاً على جروبات وصفحات الإنترنت المتخلفة لتسهيل الوصول إليها.</div>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
-                            <div><strong>حفظ الحقوق الفكرية:</strong> جميع الكتب والملازم المرفوعة هي ملك خالص لأصحابها ومؤلفيها. نحن نقدر مجهودهم العظيم ونساهم فقط في توصيل العلم.</div>
+                            <div><strong>حفظ الحقوق الفكرية:</strong> جميع الكتب والملازم المرفوعة هي ملك خالص لأصحابها ومؤلفيها ودور النشر الخاصة بها. نحن نقدر مجهودهم العظيم ونساهم فقط في توصيل العلم للطلاب غير القادرين.</div>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
-                            <div><strong>آلية الحذف السريع:</strong> إذا كنت معلمًا، أو مؤلفًا، وترى أن وجود المادة العلمية يسبب لك ضرراً، نرجو منك التواصل معنا فوراً، ونتعهد بحذف المحتوى خلال 24 ساعة.</div>
+                            <div><strong>آلية الحذف السريع:</strong> إذا كنت معلمًا، أو مؤلفًا، أو تمثل دار نشر، وترى أن وجود المادة العلمية الخاصة بك هنا يسبب لك أو لمؤسستك ضرراً، نرجو منك التواصل معنا فوراً عبر الدعم الفني، ونتعهد قانونياً وأخلاقياً بحذف الرابط والمحتوى خلال 24 ساعة كحد أقصى.</div>
                         </li>
                     </ul>
                 </div>
@@ -337,97 +329,279 @@
 
     <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-8 italic">تابعنا وتواصل معنا عبر منصاتنا الرسمية</h3>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-8">تابعنا وتواصل معنا عبر منصاتنا الرسمية</h3>
             
             <div class="flex flex-wrap justify-center gap-6 sm:gap-10 mb-10">
                 <a href="https://youtube.com/channel/UC0iA20TU33GN50A-Ob4tNUA?si=fx44vbKiYyesszaL" target="_blank" class="group flex flex-col items-center gap-2">
-                    <div class="w-14 h-14 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-2xl flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                    <div class="w-14 h-14 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-2xl flex items-center justify-center group-hover:bg-red-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-red-500/30 transition-all duration-300">
                         <i data-lucide="youtube" class="w-7 h-7"></i>
                     </div>
-                    <span class="font-bold text-sm">يوتيوب</span>
+                    <span class="font-bold text-sm text-slate-600 dark:text-slate-400">يوتيوب</span>
                 </a>
                 
                 <a href="https://t.me/sanaye20011" target="_blank" class="group flex flex-col items-center gap-2">
-                    <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-500 rounded-2xl flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
+                    <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-500 rounded-2xl flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/30 transition-all duration-300">
                         <i data-lucide="send" class="w-7 h-7"></i>
                     </div>
-                    <span class="font-bold text-sm">تليجرام</span>
+                    <span class="font-bold text-sm text-slate-600 dark:text-slate-400">قناة التليجرام</span>
                 </a>
 
                 <a href="https://whatsapp.com/channel/0029VbBGyUFLtOjM90pzeC2y" target="_blank" class="group flex flex-col items-center gap-2">
-                    <div class="w-14 h-14 bg-green-50 dark:bg-green-900/20 text-green-500 rounded-2xl flex items-center justify-center group-hover:bg-green-500 group-hover:text-white transition-all duration-300">
+                    <div class="w-14 h-14 bg-green-50 dark:bg-green-900/20 text-green-500 rounded-2xl flex items-center justify-center group-hover:bg-green-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-green-500/30 transition-all duration-300">
                         <i data-lucide="message-circle" class="w-7 h-7"></i>
                     </div>
-                    <span class="font-bold text-sm">واتساب</span>
+                    <span class="font-bold text-sm text-slate-600 dark:text-slate-400">واتساب</span>
+                </a>
+
+                <a href="https://t.me/llTwasell" target="_blank" class="group flex flex-col items-center gap-2">
+                    <div class="w-14 h-14 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-2xl flex items-center justify-center group-hover:bg-slate-700 group-hover:text-white group-hover:shadow-lg transition-all duration-300">
+                        <i data-lucide="headset" class="w-7 h-7"></i>
+                    </div>
+                    <span class="font-bold text-sm text-slate-600 dark:text-slate-400">الدعم الفني</span>
                 </a>
             </div>
             
-            <p class="text-sm font-bold text-slate-400">© 2024 منصة ثانية ثانوي الرسمية. صُنع بكل حب للطالب المصري.</p>
+            <p class="text-sm font-bold text-slate-400 dark:text-slate-500">© 2024 منصة ثانية ثانوي الرسمية. صُنع بكل حب للطالب المصري.</p>
         </div>
     </footer>
 
     <script>
-        // تكوين Firebase (ضع بيانات مشروعك هنا لتعمل الإشعارات)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            projectId: "YOUR_PROJECT_ID",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
+        // ==========================================
+        // 1. قاعدة بيانات الكتب (من الروابط اللي بعتها)
+        // ==========================================
+        const platformData = {
+            books: [
+                // كتب الوزارة
+                { title: 'علم نفس', category: 'ministry', url: 'https://t.me/sanaye20011/930' },
+                { title: 'تاريخ', category: 'ministry', url: 'https://t.me/sanaye20011/931' },
+                { title: 'فيزياء', category: 'ministry', url: 'https://t.me/sanaye20011/932' },
+                { title: 'إنجليزي', category: 'ministry', url: 'https://t.me/sanaye20011/934' },
+                { title: 'رياضة بحتة', category: 'ministry', url: 'https://t.me/sanaye20011/935' },
+                { title: 'تطبيقية', category: 'ministry', url: 'https://t.me/sanaye20011/937' },
+                { title: 'رياضة عامة (أدبي)', category: 'ministry', url: 'https://t.me/sanaye20011/938' },
+                { title: 'لغة عربية', category: 'ministry', url: 'https://t.me/sanaye20011/939' },
+                { title: 'كيمياء', category: 'ministry', url: 'https://t.me/sanaye20011/941' },
+                { title: 'تربية وطنية', category: 'ministry', url: 'https://t.me/sanaye20011/942' },
+
+                // الكتب الخارجية
+                { title: 'كتاب الامتحان - فيزياء', category: 'external', url: 'https://t.me/sanaye20011/829' },
+                { title: 'كتاب المعاصر - بحتة', category: 'external', url: 'https://t.me/sanaye20011/846' },
+                { title: 'كتاب المعاصر - إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1078' },
+                { title: 'كتاب كيان - عربي (شرح)', category: 'external', url: 'https://t.me/sanaye20011/1156' },
+                { title: 'ملحق كتاب كيان - عربي', category: 'external', url: 'https://t.me/sanaye20011/1093' },
+                { title: 'العمالقة - إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1174' },
+                { title: 'إجابات العمالقة - إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1181' },
+                { title: 'كتاب الامتحان - كيمياء', category: 'external', url: 'https://t.me/sanaye20011/1241' },
+
+                // كتب المدرسين
+                { title: 'تدريبات رياضة - أ/ أحمد عصام', category: 'teachers', url: 'https://t.me/sanaye20011/1032' },
+                { title: 'ورش رياضة - أ/ أحمد عصام', category: 'teachers', url: 'https://t.me/sanaye20011/1240' },
+                { title: 'شرح فيزياء - أ/ محمد عبدالمعبود', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
+                { title: 'أسئلة فيزياء - أ/ محمد عبدالمعبود', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
+                { title: 'كيمياء كامل - أ/ خالد صقر', category: 'teachers', url: 'https://t.me/sanaye20011/1194' },
+                { title: 'شرح فيزياء - أ/ محمود مجدي', category: 'teachers', url: 'https://t.me/sanaye20011/1229' },
+                { title: 'شرح عربي - القيصر محمد طارق', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
+                { title: 'قصة عربي - القيصر محمد طارق', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
+                { title: 'كيمياء - أ/ محمد عبدالجواد', category: 'teachers', url: 'https://t.me/sanaye20011/1274' },
+                { title: 'إجابات كيمياء - أ/ محمد عبدالجواد', category: 'teachers', url: 'https://t.me/sanaye20011/1328' },
+                { title: 'عربي كامل - أ/ محمد صلاح', category: 'teachers', url: 'https://t.me/sanaye20011/1300' }
+            ]
         };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const messaging = firebase.messaging();
 
-        // طلب إذن الإشعارات
-        function requestPermission() {
-            messaging.requestPermission().then(() => {
-                return messaging.getToken();
-            }).then((token) => {
-                console.log("Token: ", token);
-                alert("تم تفعيل الإشعارات بنجاح!");
-            }).catch((err) => {
-                console.log("Error: ", err);
-            });
-        }
-
-        // منطق تثبيت التطبيق PWA
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBtn').classList.remove('hidden');
-        });
-
-        document.getElementById('installBtn').addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        document.getElementById('installBtn').classList.add('hidden');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        });
-
-        // دوال التنقل والوظائف
+        // تفعيل أيقونات Lucide
         lucide.createIcons();
 
+        // ==========================================
+        // 2. نظام الوضع الليلي (Dark Mode) الدقيق
+        // ==========================================
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+        initTheme();
+
         function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
         }
 
+        // ==========================================
+        // 3. التنقل بين الصفحات (SPA Logic)
+        // ==========================================
+        const sections = ['home', 'books', 'teachers', 'about', 'policy'];
         function switchSection(id) {
-            ['home', 'books', 'teachers', 'about', 'policy', 'study'].forEach(s => {
-                const el = document.getElementById('section-' + s);
-                if(el) el.classList.add('hidden');
+            sections.forEach(sec => {
+                document.getElementById('section-' + sec).classList.add('hidden');
+                document.getElementById('section-' + sec).classList.remove('block');
             });
             document.getElementById('section-' + id).classList.remove('hidden');
-            window.scrollTo(0,0);
+            document.getElementById('section-' + id).classList.add('block');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if(id === 'books') renderBooks('ministry');
+            if(id === 'teachers') renderTeachers('physics'); // افتراضي
         }
 
-        // ملاحظة: دوال renderBooks و renderTeachers يجب أن تظل كما هي في كودك الأصلي
+        // ==========================================
+        // 4. عرض الكتب (الديزاين الجديد الفخم للكتب)
+        // ==========================================
+        function renderBooks(category) {
+            // تفعيل التاب المختار
+            document.querySelectorAll('.book-tab').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white');
+                btn.classList.add('bg-transparent');
+            });
+            event.target.classList.remove('bg-transparent', 'text-slate-700', 'dark:text-slate-300');
+            event.target.classList.add('bg-brand-600', 'text-white');
+
+            const container = document.getElementById('books-grid');
+            const filteredBooks = platformData.books.filter(b => b.category === category);
+
+            if(filteredBooks.length === 0){
+                container.innerHTML = `<div class="col-span-full text-center py-10 font-bold text-slate-500">جاري رفع الملفات الخاصة بهذا القسم...</div>`;
+                return;
+            }
+
+            container.innerHTML = filteredBooks.map(book => `
+                <div class="premium-card rounded-2xl flex flex-col overflow-hidden h-full group">
+                    <div class="book-cover h-36 flex items-center justify-center p-4">
+                        <i data-lucide="book" class="book-icon-bg"></i>
+                        <h4 class="text-white font-black text-center text-lg z-10 leading-snug drop-shadow-md">${book.title}</h4>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-end bg-white dark:bg-slate-800">
+                        <a href="${book.url}" target="_blank" class="w-full text-center py-3 rounded-xl font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 hover:bg-brand-600 hover:text-white dark:hover:bg-brand-500 dark:hover:text-white transition-colors flex justify-center items-center gap-2">
+                            <i data-lucide="external-link" class="w-4 h-4"></i> فتح الكتاب
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // ==========================================
+        // 5. عرض المدرسين (مجهزة لإضافة الفيديوهات لاحقاً)
+        // ==========================================
+        function renderTeachers(subject) {
+            document.querySelectorAll('.subject-tab').forEach(btn => {
+                btn.classList.remove('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
+                btn.classList.add('border-transparent');
+            });
+            event.target.classList.remove('border-transparent');
+            event.target.classList.add('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
+
+            const container = document.getElementById('teachers-list');
+            // حالياً رسالة لحين تجهيزك لروابط يوتيوب
+            container.innerHTML = `
+                <div class="text-center py-16 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-600">
+                    <i data-lucide="video" class="w-12 h-12 text-slate-400 mx-auto mb-4 opacity-50"></i>
+                    <p class="text-xl font-bold text-slate-500 dark:text-slate-400">قريباً.. سيتم إضافة أفضل قنوات وفيديوهات شرح لهذه المادة.</p>
+                </div>
+            `;
+            lucide.createIcons();
+        }
     </script>
 </body>
+<style>
+  #install-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); display: none; align-items: center;
+    justify-content: center; z-index: 10000;
+  }
+  .modal-content {
+    background: white; padding: 25px; border-radius: 15px;
+    width: 90%; max-width: 400px; text-align: center; direction: rtl;
+    font-family: sans-serif;
+  }
+  .modal-content h3 { margin-top: 0; color: #1a73e8; }
+  .modal-content p { color: #555; line-height: 1.6; }
+  .btn-install {
+    background: #1a73e8; color: white; border: none; padding: 12px 25px;
+    border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px;
+  }
+  .btn-close {
+    background: #eee; color: #333; border: none; padding: 10px;
+    border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px;
+  }
+</style>
+
+<div id="install-modal">
+  <div class="modal-content">
+    <h3>📢 منصة ثانية ثانوي الرسمية</h3>
+    <p>ثبّت المنصة على جهازك عشان توصلك الإشعارات والكتب الجديدة أول بأول وتدخل للمحتوى بسرعة.</p>
+    <button class="btn-install" id="confirm-install">تثبيت الآن ✅</button>
+    <button class="btn-close" onclick="closeModal()">إغلاق</button>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
+
+<script>
+  // إعدادات فايربيس
+  const firebaseConfig = {
+    apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
+    authDomain: "sanaayee.firebaseapp.com",
+    projectId: "sanaayee",
+    storageBucket: "sanaayee.firebasestorage.app",
+    messagingSenderId: "1048456368002",
+    appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
+    measurementId: "G-XCYY1H22CQ"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
+
+  let deferredPrompt;
+  const modal = document.getElementById('install-modal');
+
+  // طلب الإذن للإشعارات أول ما يدخل
+  window.addEventListener('load', () => {
+    if ("Notification" in window) {
+      Notification.requestPermission();
+    }
+  });
+
+  // التقاط حدث التثبيت
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // تظهر بعد 4 ثواني بالظبط زي ما طلبت
+    setTimeout(() => {
+      if (deferredPrompt) modal.style.display = 'flex';
+    }, 4000); 
+  });
+
+  // تنفيذ التثبيت
+  document.getElementById('confirm-install').addEventListener('click', async () => {
+    if (deferredPrompt) {
+      // إرسال الإحصائية لجوجل (عشان تظهر في الصور اللي بعتها)
+      if (typeof gtag === 'function') { gtag('event', 'click_install_btn'); }
+      
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        modal.style.display = 'none';
+        deferredPrompt = null;
+      }
+    }
+  });
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  window.addEventListener('appinstalled', () => {
+    modal.style.display = 'none';
+    deferredPrompt = null;
+  });
+</script>
+</script>
 </html>
