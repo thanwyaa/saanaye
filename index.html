@@ -188,6 +188,12 @@
         🚀 ادخل غرفة المذاكرة الذكية (جديد)
     </a>
 </div>
+          <button onclick="showStudentCreations()" class="p-2.5 rounded-2xl bg-white/80 dark:bg-slate-800 shadow-sm border border-gray-100 dark:border-slate-700 flex flex-col items-center justify-center gap-1 hover:scale-105 transition-all">
+    <div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+        <i data-lucide="palette" class="w-6 h-6 text-purple-600"></i>
+    </div>
+    <span class="text-xs font-bold dark:text-gray-200">الإبداعات</span>
+</button>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
                 <div onclick="switchSection('about')" class="premium-card p-8 rounded-3xl text-center cursor-pointer group">
                     <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/40 text-brand-600 dark:text-brand-400 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="info" class="w-8 h-8"></i></div>
@@ -432,7 +438,7 @@
                 localStorage.theme = 'dark';
             }
         }
-
+<div id="creations-placeholder"></div>
         // ==========================================
         // 3. التنقل بين الصفحات (SPA Logic)
         // ==========================================
@@ -603,5 +609,33 @@
     deferredPrompt = null;
   });
 </script>
+  // وظيفة لجلب قسم إبداعات الطلاب من الملف الخارجي
+function showStudentCreations() {
+    const placeholder = document.getElementById('creations-placeholder');
+    
+    // إذا كان المكان فارغاً، قم بتحميل الملف
+    if (placeholder.innerHTML.trim() === "") {
+        fetch('student-creations.html')
+            .then(response => {
+                if (!response.ok) throw new Error('لم يتم العثور على الملف');
+                return response.text();
+            })
+            .then(data => {
+                placeholder.innerHTML = data;
+                // تفعيل الأيقونات والأشكال في القسم الجديد
+                if (window.lucide) lucide.createIcons();
+                // الانتقال للقسم
+                switchSection('creations');
+            })
+            .catch(err => {
+                console.error('خطأ:', err);
+                alert('عذراً، تعذر تحميل قسم الإبداعات حالياً.');
+            });
+    } else {
+        // إذا كان محملاً مسبقاً، اظهر القسم فقط
+        switchSection('creations');
+    }
+}
 </script>
 </html>
+
