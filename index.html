@@ -3,207 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ثانية ثانوي الرسمية</title>
+    <title>منصة ثانية ثانوي الرسمية  </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { tajawal: ['Tajawal', 'sans-serif'] },
-                    colors: { brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 800: '#1e40af', 900: '#1e3a8a' }, gold: '#ca8a04' }
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        gold: '#ca8a04'
+                    }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Tajawal', sans-serif; transition: 0.3s; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* إصلاح جذري للوضع الليلي والنهاري */
         html.dark body { background-color: #0f172a; color: #f8fafc; }
-        .premium-card { transition: 0.3s; border: 1px solid rgba(148, 163, 184, 0.1); }
-        .premium-card:hover { transform: translateY(-5px); border-color: #3b82f6; box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.2); }
-        .glass { backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.9); position: fixed; width: 100%; top: 0; z-index: 1000; }
-        html.dark .glass { background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid #1e293b; }
-        .section-fade { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .book-cover { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); position: relative; overflow: hidden; height: 120px; border-radius: 15px 15px 0 0; }
+        html:not(.dark) body { background-color: #f8fafc; color: #0f172a; }
+
+        /* تأثيرات الكروت الفخمة */
+        .premium-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        html.dark .premium-card {
+            background-color: #1e293b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+        html:not(.dark) .premium-card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .premium-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15);
+        }
+
+        /* تصميم غلاف الكتاب بدون صور خارجية */
+        .book-cover {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        html.dark .book-cover {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 2px solid #3b82f6;
+        }
+        .book-icon-bg {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            color: white;
+        }
+
+        /* أزرار فخمة */
+        .btn-main {
+            background: linear-gradient(to right, #1e40af, #2563eb);
+            color: white !important;
+            transition: all 0.3s;
+        }
+        .btn-main:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        /* حركة التنقل */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* بلور الهيدر */
+        .glass-header {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        html.dark .glass-header { background-color: rgba(15, 23, 42, 0.85); border-bottom: 1px solid #334155; }
+        html:not(.dark) .glass-header { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e2e8f0; }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <header class="glass border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+    <header class="fixed w-full top-0 z-50 glass-header transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
             <div class="flex items-center gap-3 cursor-pointer" onclick="switchSection('home')">
-                <img src="https://i.ibb.co/dyLKg9t/file-0000000019687243878a13e9b38ee2f9.png" class="w-10 h-10 rounded-lg shadow-md">
-                <h1 class="text-lg font-black text-brand-900 dark:text-white">منصة ثانية ثانوي <span class="text-brand-600">الرسمية</span></h1>
+                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-xl shadow-sm p-1 border border-gray-200 flex-shrink-0">
+                    <img src="https://i.ibb.co/dyLKg9t/file-0000000019687243878a13e9b38ee2f9.png" alt="لوجو المنصة" class="w-full h-full object-contain rounded-lg">
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black text-brand-900 dark:text-white leading-tight">منصة ثانية ثانوي <span class="text-brand-600 dark:text-brand-500">الرسمية</span></h1>
+                    <p class="text-[10px] sm:text-xs font-bold text-gold tracking-wider">أكبر صرح تعليمي مجاني</p>
+                </div>
             </div>
-            <button onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400">
-                <i data-lucide="sun" class="hidden dark:block w-5 h-5"></i>
-                <i data-lucide="moon" class="block dark:hidden w-5 h-5"></i>
+
+            <button onclick="toggleTheme()" class="p-2.5 rounded-full bg-gray-100 dark:bg-slate-800 text-slate-700 dark:text-yellow-400 hover:scale-110 transition-transform">
+                <i data-lucide="sun" id="theme-icon-sun" class="hidden dark:block w-5 h-5"></i>
+                <i data-lucide="moon" id="theme-icon-moon" class="block dark:hidden w-5 h-5"></i>
             </button>
         </div>
     </header>
 
     <div class="h-24"></div>
 
-    <main class="max-w-7xl mx-auto px-4 py-6 min-h-screen">
-        
-        <div id="section-home" class="section-fade">
-            <div class="text-center py-12">
-                <h2 class="text-4xl md:text-6xl font-black mb-6 dark:text-white italic underline decoration-brand-500 underline-offset-8">الصرح التعليمي الأكبر</h2>
-                <p class="text-lg text-slate-500 font-bold mb-10">جميع الكتب الخارجية والوزارية ومذكرات العمالقة في مكان واحد.</p>
-                <button onclick="switchSection('books')" class="px-12 py-5 bg-brand-600 text-white rounded-2xl font-black shadow-2xl hover:scale-105 transition-all">دخول المكتبة الشاملة 📚</button>
-            </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[70vh]">
+
+        <div id="section-home" class="fade-in block">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-                <div onclick="switchSection('about')" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 cursor-pointer">
-                    <h4 class="font-black dark:text-white">من نحن؟</h4>
-                    <p class="text-xs text-slate-400 mt-2">قصة المنصة وهدفنا التطوعي.</p>
+            <div class="text-center py-10 sm:py-16">
+                <div class="inline-flex items-center gap-2 px-5 py-2 bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded-full text-sm font-bold mb-6 border border-brand-100 dark:border-brand-800">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i> مرحباً بك في منصة ثانية ثانوي الرسمية
                 </div>
-                <div onclick="switchSection('policy')" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 cursor-pointer">
-                    <h4 class="font-black dark:text-white">وثيقة الحقوق</h4>
-                    <p class="text-xs text-slate-400 mt-2">إخلاء المسؤولية وحفظ حقوق الملكية.</p>
+                
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-black mb-6 leading-tight text-slate-900 dark:text-white">
+                    جميع الكتب في مكان واحد..<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-blue-400">سهلناها عليك!</span>
+                </h2>
+                
+                <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium mb-10 leading-relaxed">
+                    وفرنا لك كل المصادر التعليمية، الكتب المدرسية، الملازم، والشروحات في مكان واحد لتوفير وقتك ومجهودك.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <button onclick="switchSection('books')" class="w-full sm:w-auto btn-main px-8 py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-3">
+                        <i data-lucide="library"></i> مكتبة الكتب PDF
+                    </button>
+                    <button onclick="switchSection('teachers')" class="w-full sm:w-auto bg-white dark:bg-slate-800 text-slate-800 dark:text-white border-2 border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:border-brand-500 transition-colors">
+                        <i data-lucide="monitor-play" class="text-red-500"></i> شرح المدرسين أونلاين
+                    </button>
                 </div>
-                <a href="https://t.me/llTwasell" target="_blank" class="premium-card p-6 rounded-3xl bg-white dark:bg-slate-800 block">
-                    <h4 class="font-black dark:text-white">الدعم الفني</h4>
-                    <p class="text-xs text-slate-400 mt-2">تواصل معنا عبر تليجرام.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
+                <div onclick="switchSection('about')" class="premium-card p-8 rounded-3xl text-center cursor-pointer group">
+                    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/40 text-brand-600 dark:text-brand-400 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="info" class="w-8 h-8"></i></div>
+                    <h3 class="text-xl font-black mb-2 dark:text-white">من نحن؟</h3>
+                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">تعرف على قصة المنصة والهدف من إنشائها.</p>
+                </div>
+                <div onclick="switchSection('policy')" class="premium-card p-8 rounded-3xl text-center cursor-pointer group">
+                    <div class="w-16 h-16 bg-amber-50 dark:bg-amber-900/40 text-gold rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="shield-check" class="w-8 h-8"></i></div>
+                    <h3 class="text-xl font-black mb-2 dark:text-white">وثيقة المنصة</h3>
+                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">إخلاء المسؤولية وقوانين الاستخدام.</p>
+                </div>
+                <a href="https://t.me/llTwasell" target="_blank" class="premium-card p-8 rounded-3xl text-center cursor-pointer group block">
+                    <div class="w-16 h-16 bg-green-50 dark:bg-green-900/40 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="headphones" class="w-8 h-8"></i></div>
+                    <h3 class="text-xl font-black mb-2 dark:text-white">الدعم الفني</h3>
+                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">تواصل معنا المباشر عبر تليجرام.</p>
                 </a>
             </div>
         </div>
 
-        <div id="section-books" class="hidden section-fade space-y-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <h2 class="text-3xl font-black dark:text-white italic">المكتبة الرقمية <span class="text-brand-600">(كاملة)</span></h2>
-                <input type="text" id="bookSearch" onkeyup="searchBooks()" placeholder="ابحث عن كتاب أو مستر..." class="p-3 w-full md:w-80 bg-white dark:bg-slate-800 rounded-xl border-2 border-slate-100 dark:border-slate-700 font-bold">
+        <div id="section-books" class="fade-in hidden">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                <h2 class="text-3xl font-black flex items-center gap-3 dark:text-white">
+                    <i data-lucide="book-open" class="text-brand-600 dark:text-brand-400 w-8 h-8"></i> مكتبة الكتب
+                </h2>
+                <button onclick="switchSection('home')" class="text-slate-500 hover:text-brand-600 dark:text-slate-400 font-bold flex items-center gap-2">
+                    الرجوع للرئيسية <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
             </div>
 
-            <div class="flex flex-wrap gap-2 bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl w-fit">
-                <button onclick="renderBooks('ministry')" class="book-tab px-6 py-2 rounded-xl font-black text-sm transition-all bg-brand-600 text-white">كتب الوزارة</button>
-                <button onclick="renderBooks('external')" class="book-tab px-6 py-2 rounded-xl font-black text-sm transition-all text-slate-500">كتب خارجية</button>
-                <button onclick="renderBooks('teachers')" class="book-tab px-6 py-2 rounded-xl font-black text-sm transition-all text-slate-500">مذكرات المدرسين</button>
+            <div class="flex flex-wrap gap-2 justify-center mb-10 bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 w-fit mx-auto">
+                <button onclick="renderBooks('ministry')" class="book-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-700 dark:text-slate-300">كتب الوزارة</button>
+                <button onclick="renderBooks('external')" class="book-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-700 dark:text-slate-300">كتب خارجية</button>
+                <button onclick="renderBooks('teachers')" class="book-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-700 dark:text-slate-300">كتب المدرسين</button>
+                <button onclick="renderBooks('students')" class="book-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-700 dark:text-slate-300">ملخصات بخط الطلاب</button>
             </div>
 
-            <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                </div>
         </div>
 
-        <div id="section-about" class="hidden section-fade max-w-3xl mx-auto py-10">
-            <div class="premium-card p-8 rounded-[2rem] bg-white dark:bg-slate-800 border-t-8 border-t-brand-600">
-                <h2 class="text-3xl font-black mb-4 dark:text-white italic">من نحن؟</h2>
-                <p class="font-bold text-slate-600 dark:text-slate-300">نحن مبادرة شبابية تطوعية تهدف لتسهيل الوصول للمصادر التعليمية مجاناً لطلاب ثانية ثانوي.</p>
-                <button onclick="switchSection('home')" class="mt-6 text-brand-600 font-black italic">رجوع للرئيسية</button>
+        <div id="section-teachers" class="fade-in hidden">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                <h2 class="text-3xl font-black flex items-center gap-3 dark:text-white">
+                    <i data-lucide="monitor-play" class="text-red-500 w-8 h-8"></i> شرح المدرسين أونلاين
+                </h2>
+                <button onclick="switchSection('home')" class="text-slate-500 hover:text-brand-600 dark:text-slate-400 font-bold flex items-center gap-2">
+                    الرجوع للرئيسية <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
+                <button onclick="renderTeachers('arabic')" class="subject-tab py-3 px-2 rounded-xl font-bold border-2 border-transparent bg-white dark:bg-slate-800 dark:text-white shadow-sm hover:border-brand-500 transition-all text-sm sm:text-base">لغة عربية</button>
+                <button onclick="renderTeachers('english')" class="subject-tab py-3 px-2 rounded-xl font-bold border-2 border-transparent bg-white dark:bg-slate-800 dark:text-white shadow-sm hover:border-brand-500 transition-all text-sm sm:text-base">لغة إنجليزية</button>
+                <button onclick="renderTeachers('physics')" class="subject-tab py-3 px-2 rounded-xl font-bold border-2 border-transparent bg-white dark:bg-slate-800 dark:text-white shadow-sm hover:border-brand-500 transition-all text-sm sm:text-base">فيزياء</button>
+                <button onclick="renderTeachers('chemistry')" class="subject-tab py-3 px-2 rounded-xl font-bold border-2 border-transparent bg-white dark:bg-slate-800 dark:text-white shadow-sm hover:border-brand-500 transition-all text-sm sm:text-base">كيمياء</button>
+                <button onclick="renderTeachers('biology')" class="subject-tab py-3 px-2 rounded-xl font-bold border-2 border-transparent bg-white dark:bg-slate-800 dark:text-white shadow-sm hover:border-brand-500 transition-all text-sm sm:text-base">أحياء</button>
+                <button onclick="renderTeachers('math')" class="subject-tab py-3 px-2 rounded-xl font-bold border-2 border-transparent bg-white dark:bg-slate-800 dark:text-white shadow-sm hover:border-brand-500 transition-all text-sm sm:text-base">رياضيات</button>
+            </div>
+
+            <div id="teachers-list" class="space-y-6">
+                </div>
+        </div>
+
+        <div id="section-about" class="fade-in hidden max-w-4xl mx-auto">
+            <button onclick="switchSection('home')" class="mb-6 text-slate-500 hover:text-brand-600 dark:text-slate-400 font-bold flex items-center gap-2">
+                <i data-lucide="arrow-right" class="w-4 h-4"></i> العودة
+            </button>
+            
+            <div class="premium-card p-8 sm:p-12 rounded-[2rem] border-t-8 border-t-brand-600">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 bg-brand-50 dark:bg-brand-900/30 rounded-2xl text-brand-600 dark:text-brand-400">
+                        <i data-lucide="users" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">من نحن؟</h2>
+                </div>
+                
+                <div class="space-y-6 text-lg text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
+                    <p>أهلاً بك في <strong>منصة ثانية ثانوي الرسمية</strong>. نحن كيان تعليمي رقمي وتطوعي، تم تأسيسه بجهود شبابية خالصة لخدمة الطالب المصري في المرحلة الثانوية.</p>
+                    
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-700 my-6">
+                        <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-3 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5"></i> الهدف من إنشاء المنصة:</h3>
+                        <p>الهدف الأساسي والرئيسي هو <strong>"تحقيق العدالة التعليمية"</strong> والمساهمة في تخفيف العبء المادي الكبير عن كاهل أولياء الأمور. نحن نؤمن تماماً أن التعليم وتوفر المصادر الدراسية هو حق أصيل لكل طالب، ولا يجب أن يكون العائق المادي سبباً في تعثر أي طالب عن تحقيق حلمه.</p>
+                    </div>
+
+                    <p>نقوم يومياً بالبحث، والتجميع، والتنظيم الدقيق لكافة المواد التعليمية، الكتب، الشروحات، والمذكرات المتاحة بشكل متناثر على شبكة الإنترنت، لنضعها بين يديك هنا في قالب منظم، محترم، ومجاني بالكامل.</p>
+                    <p class="text-center font-bold text-brand-600 dark:text-brand-400 mt-8">دعواتكم لنا بالتوفيق، ونتمنى لكم عاماً دراسياً مليئاً بالنجاح والتفوق. 🎓</p>
+                </div>
             </div>
         </div>
 
-        <div id="section-policy" class="hidden section-fade max-w-3xl mx-auto py-10">
-            <div class="premium-card p-8 rounded-[2rem] bg-white dark:bg-slate-800 border-t-8 border-t-gold">
-                <h2 class="text-3xl font-black mb-4 dark:text-white italic">إخلاء المسؤولية</h2>
-                <p class="font-bold text-slate-600 dark:text-slate-300">المنصة وسيط تنظيمي فقط، وجميع الحقوق محفوظة لأصحابها. للحذف تواصل معنا.</p>
-                <button onclick="switchSection('home')" class="mt-6 text-brand-600 font-black italic">رجوع للرئيسية</button>
+        <div id="section-policy" class="fade-in hidden max-w-4xl mx-auto">
+            <button onclick="switchSection('home')" class="mb-6 text-slate-500 hover:text-brand-600 dark:text-slate-400 font-bold flex items-center gap-2">
+                <i data-lucide="arrow-right" class="w-4 h-4"></i> العودة
+            </button>
+            
+            <div class="premium-card p-8 sm:p-12 rounded-[2rem] border-t-8 border-t-gold">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 bg-amber-50 dark:bg-amber-900/30 rounded-2xl text-gold">
+                        <i data-lucide="scale" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">إخلاء المسؤولية ووثيقة الحقوق</h2>
+                </div>
+
+                <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl border border-red-200 dark:border-red-900/50 mb-8">
+                    <h4 class="text-xl font-bold text-red-700 dark:text-red-400 mb-2 flex items-center gap-2">
+                        <i data-lucide="alert-triangle"></i> تنبيه وموافقة إلزامية
+                    </h4>
+                    <p class="text-red-900 dark:text-red-200 font-medium leading-relaxed text-sm sm:text-base">
+                        باستخدامك لهذه المنصة، فإنك تقر تماماً بموافقتك على كافة الشروط المذكورة أدناه وتتعهد بالالتزام بها. المنصة صُممت للمساعدة المجانية ولا تسعى لأي أهداف ربحية.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-3">البنود والقوانين المنظمة:</h3>
+                    
+                    <ul class="space-y-4 text-slate-700 dark:text-slate-300 font-medium text-lg">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
+                            <div><strong>المجانية التامة:</strong> يُمنع منعاً باتاً استغلال أي كتاب، مذكرة، أو محتوى متوفر على هذه المنصة لأغراض تجارية أو بيعه للطلاب بمقابل مادي.</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
+                            <div><strong>طبيعة المنصة:</strong> المنصة ليست جهة طباعة أو دار نشر، نحن مجرد "وسيط تعليمي منظم" نقوم بجمع الملفات والروابط المتداولة مسبقاً.</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
+                            <div><strong>حفظ الحقوق الفكرية:</strong> جميع الكتب والملازم المرفوعة هي ملك خالص لأصحابها ومؤلفيها. نحن نقدر مجهودهم العظيم ونساهم فقط في توصيل العلم.</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"></i>
+                            <div><strong>آلية الحذف السريع:</strong> إذا كنت معلمًا، أو مؤلفًا، وترى أن وجود المادة العلمية يسبب لك ضرراً، نرجو منك التواصل معنا فوراً، ونتعهد بحذف المحتوى خلال 24 ساعة.</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="mt-10 py-10 border-t border-slate-100 dark:border-slate-800 text-center">
-        <p class="font-black text-brand-900 dark:text-white italic">منصة ثانية ثانوي الرسمية</p>
-        <div class="flex justify-center gap-6 mt-4">
-             <a href="https://youtube.com/@sanaye-2sec" target="_blank" class="text-red-600"><i data-lucide="youtube"></i></a>
-             <a href="https://t.me/sanaye20011" target="_blank" class="text-blue-500"><i data-lucide="send"></i></a>
-             <a href="https://whatsapp.com/channel/0029VbBGyUFLtOjM90pzeC2y" target="_blank" class="text-green-500"><i data-lucide="message-circle"></i></a>
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-8 italic">تابعنا وتواصل معنا عبر منصاتنا الرسمية</h3>
+            
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-10 mb-10">
+                <a href="https://youtube.com/channel/UC0iA20TU33GN50A-Ob4tNUA?si=fx44vbKiYyesszaL" target="_blank" class="group flex flex-col items-center gap-2">
+                    <div class="w-14 h-14 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-2xl flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="youtube" class="w-7 h-7"></i>
+                    </div>
+                    <span class="font-bold text-sm">يوتيوب</span>
+                </a>
+                
+                <a href="https://t.me/sanaye20011" target="_blank" class="group flex flex-col items-center gap-2">
+                    <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-500 rounded-2xl flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="send" class="w-7 h-7"></i>
+                    </div>
+                    <span class="font-bold text-sm">تليجرام</span>
+                </a>
+
+                <a href="https://whatsapp.com/channel/0029VbBGyUFLtOjM90pzeC2y" target="_blank" class="group flex flex-col items-center gap-2">
+                    <div class="w-14 h-14 bg-green-50 dark:bg-green-900/20 text-green-500 rounded-2xl flex items-center justify-center group-hover:bg-green-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="message-circle" class="w-7 h-7"></i>
+                    </div>
+                    <span class="font-bold text-sm">واتساب</span>
+                </a>
+
+                <a href="https://t.me/llTwasell" target="_blank" class="group flex flex-col items-center gap-2">
+                    <div class="w-14 h-14 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-2xl flex items-center justify-center group-hover:bg-slate-700 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="headset" class="w-7 h-7"></i>
+                    </div>
+                    <span class="font-bold text-sm">الدعم الفني</span>
+                </a>
+            </div>
+            
+            <p class="text-sm font-bold text-slate-400">© 2024 منصة ثانية ثانوي الرسمية. صُنع بكل حب للطالب المصري.</p>
         </div>
     </footer>
 
     <script>
-        lucide.createIcons();
-
-        // قاعدة البيانات (كل الـ 30 رابط اللي بعتهم بالظبط)
+        // ==========================================
+        // 1. قاعدة بيانات الكتب الكاملة
+        // ==========================================
         const platformData = {
             books: [
-                // كتب الوزارة
-                { title: 'كتاب المدرسة علم نفس', category: 'ministry', url: 'https://t.me/sanaye20011/930' },
-                { title: 'كتاب المدرسة تاريخ', category: 'ministry', url: 'https://t.me/sanaye20011/931' },
-                { title: 'كتاب المدرسة فيزياء', category: 'ministry', url: 'https://t.me/sanaye20011/932' },
-                { title: 'كتاب المدرسة انجليزي', category: 'ministry', url: 'https://t.me/sanaye20011/934' },
-                { title: 'كتاب المدرسة رياضه بحته', category: 'ministry', url: 'https://t.me/sanaye20011/935' },
-                { title: 'كتاب المدرسة تطبيقية', category: 'ministry', url: 'https://t.me/sanaye20011/937' },
-                { title: 'كتاب المدرسة رياضه عامه ادبي', category: 'ministry', url: 'https://t.me/sanaye20011/938' },
-                { title: 'كتاب المدرسة عربي', category: 'ministry', url: 'https://t.me/sanaye20011/939' },
-                { title: 'كتاب المدرسة كيمياء', category: 'ministry', url: 'https://t.me/sanaye20011/941' },
-                { title: 'كتاب المدرسة وطنية', category: 'ministry', url: 'https://t.me/sanaye20011/942' },
-
-                // كتب خارجية
-                { title: 'كتاب الامتحان فيزياء', category: 'external', url: 'https://t.me/sanaye20011/829' },
-                { title: 'كتاب المعاصر بحته', category: 'external', url: 'https://t.me/sanaye20011/846' },
-                { title: 'كتاب المعاصر انجليزي كامل', category: 'external', url: 'https://t.me/sanaye20011/1078' },
-                { title: 'كتاب كيان شرح عربي', category: 'external', url: 'https://t.me/sanaye20011/1156' },
-                { title: 'ملحق كتاب كيان عربي', category: 'external', url: 'https://t.me/sanaye20011/1093' },
-                { title: 'كتاب العمالقه انجليزي', category: 'external', url: 'https://t.me/sanaye20011/1174' },
-                { title: 'اجابات كتاب العمالقه انجليزي', category: 'external', url: 'https://t.me/sanaye20011/1181' },
-                { title: 'كتاب الامتحان كيمياء', category: 'external', url: 'https://t.me/sanaye20011/1241' },
-
-                // مذكرات مدرسين
-                { title: 'تدريبات مستر احمد عصام رياضة', category: 'teachers', url: 'https://t.me/sanaye20011/1032' },
-                { title: 'كتاب الورش مستر احمد عصام رياضة', category: 'teachers', url: 'https://t.me/sanaye20011/1240' },
-                { title: 'شرح مستر محمد عبد المعبد فيزياء', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
-                { title: 'أسئلة مستر محمد عبد المعبد فيزياء', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
-                { title: 'كتاب مستر خالد صقر كيمياء كامل', category: 'teachers', url: 'https://t.me/sanaye20011/1194' },
-                { title: 'شرح مستر محمود مجدي فيزياء', category: 'teachers', url: 'https://t.me/sanaye20011/1229' },
-                { title: 'عربي القيصر محمد طارق شرح', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
-                { title: 'عربي القيصر محمد طارق قصة', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
-                { title: 'كتاب مستر محمد عبد الجواد كيمياء', category: 'teachers', url: 'https://t.me/sanaye20011/1274' },
-                { title: 'اجابات مستر محمد عبد الجواد كيمياء', category: 'teachers', url: 'https://t.me/sanaye20011/1328' },
-                { title: 'عربي مستر محمد صلاح كامل', category: 'teachers', url: 'https://t.me/sanaye20011/1300' },
-                { title: 'انجلشاوي مستر محمد رضوان', category: 'teachers', url: 'https://t.me/sanaye20011/1375' },
-                { title: 'كلام مؤرخين مستر احمد عادل تاريخ', category: 'teachers', url: 'https://t.me/sanaye20011/1353' },
-                { title: 'نواتج تعلم مستر احمد عادل تاريخ', category: 'teachers', url: 'https://t.me/sanaye20011/1383' }
+                { title: 'علم نفس', category: 'ministry', url: 'https://t.me/sanaye20011/930' },
+                { title: 'تاريخ', category: 'ministry', url: 'https://t.me/sanaye20011/931' },
+                { title: 'فيزياء', category: 'ministry', url: 'https://t.me/sanaye20011/932' },
+                { title: 'إنجليزي', category: 'ministry', url: 'https://t.me/sanaye20011/934' },
+                { title: 'رياضة بحتة', category: 'ministry', url: 'https://t.me/sanaye20011/935' },
+                { title: 'تطبيقية', category: 'ministry', url: 'https://t.me/sanaye20011/937' },
+                { title: 'رياضة عامة (أدبي)', category: 'ministry', url: 'https://t.me/sanaye20011/938' },
+                { title: 'لغة عربية', category: 'ministry', url: 'https://t.me/sanaye20011/939' },
+                { title: 'كيمياء', category: 'ministry', url: 'https://t.me/sanaye20011/941' },
+                { title: 'تربية وطنية', category: 'ministry', url: 'https://t.me/sanaye20011/942' },
+                { title: 'كتاب الامتحان - فيزياء', category: 'external', url: 'https://t.me/sanaye20011/829' },
+                { title: 'كتاب المعاصر - بحتة', category: 'external', url: 'https://t.me/sanaye20011/846' },
+                { title: 'كتاب المعاصر - إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1078' },
+                { title: 'كتاب كيان - عربي (شرح)', category: 'external', url: 'https://t.me/sanaye20011/1156' },
+                { title: 'ملحق كتاب كيان - عربي', category: 'external', url: 'https://t.me/sanaye20011/1093' },
+                { title: 'العمالقة - إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1174' },
+                { title: 'إجابات العمالقة - إنجليزي', category: 'external', url: 'https://t.me/sanaye20011/1181' },
+                { title: 'كتاب الامتحان - كيمياء', category: 'external', url: 'https://t.me/sanaye20011/1241' },
+                { title: 'تدريبات رياضة - أ/ أحمد عصام', category: 'teachers', url: 'https://t.me/sanaye20011/1032' },
+                { title: 'ورش رياضة - أ/ أحمد عصام', category: 'teachers', url: 'https://t.me/sanaye20011/1240' },
+                { title: 'شرح فيزياء - أ/ محمد عبدالمعبود', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
+                { title: 'أسئلة فيزياء - أ/ محمد عبدالمعبود', category: 'teachers', url: 'https://t.me/sanaye20011/1066' },
+                { title: 'كيمياء كامل - أ/ خالد صقر', category: 'teachers', url: 'https://t.me/sanaye20011/1194' },
+                { title: 'شرح فيزياء - أ/ محمود مجدي', category: 'teachers', url: 'https://t.me/sanaye20011/1229' },
+                { title: 'شرح عربي - القيصر محمد طارق', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
+                { title: 'قصة عربي - القيصر محمد طارق', category: 'teachers', url: 'https://t.me/sanaye20011/1234' },
+                { title: 'كيمياء - أ/ محمد عبدالجواد', category: 'teachers', url: 'https://t.me/sanaye20011/1274' },
+                { title: 'إجابات كيمياء - أ/ محمد عبدالجواد', category: 'teachers', url: 'https://t.me/sanaye20011/1328' },
+                { title: 'عربي كامل - أ/ محمد صلاح', category: 'teachers', url: 'https://t.me/sanaye20011/1300' }
             ]
         };
 
-        let currentCat = 'ministry';
+        lucide.createIcons();
+
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+        initTheme();
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
 
         function switchSection(id) {
-            ['home', 'books', 'about', 'policy'].forEach(s => document.getElementById('section-' + s).classList.add('hidden'));
-            document.getElementById('section-' + id).classList.remove('hidden');
-            if(id === 'books') renderBooks('ministry');
-        }
-
-        function renderBooks(cat) {
-            currentCat = cat;
-            document.querySelectorAll('.book-tab').forEach(b => {
-                b.classList.remove('bg-brand-600', 'text-white');
-                b.classList.add('text-slate-500');
+            ['home', 'books', 'teachers', 'about', 'policy'].forEach(sec => {
+                document.getElementById('section-' + sec).classList.add('hidden');
+                document.getElementById('section-' + sec).classList.remove('block');
             });
-            event.target.classList.add('bg-brand-600', 'text-white');
-            display(platformData.books.filter(b => b.category === cat));
+            document.getElementById('section-' + id).classList.remove('hidden');
+            document.getElementById('section-' + id).classList.add('block');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if(id === 'books') renderBooks('ministry');
+            if(id === 'teachers') renderTeachers('physics');
         }
 
-        function display(list) {
-            const grid = document.getElementById('books-grid');
-            grid.innerHTML = list.map(b => `
-                <div class="premium-card bg-white dark:bg-slate-800 rounded-2xl overflow-hidden flex flex-col">
-                    <div class="book-cover flex items-center justify-center p-4">
-                        <h4 class="text-white font-black text-center text-sm z-10 italic">${b.title}</h4>
+        function renderBooks(category) {
+            document.querySelectorAll('.book-tab').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white');
+                btn.classList.add('bg-transparent');
+            });
+            event.target.classList.remove('bg-transparent', 'text-slate-700', 'dark:text-slate-300');
+            event.target.classList.add('bg-brand-600', 'text-white');
+
+            const container = document.getElementById('books-grid');
+            const filteredBooks = platformData.books.filter(b => b.category === category);
+
+            if(filteredBooks.length === 0){
+                container.innerHTML = `<div class="col-span-full text-center py-10 font-bold text-slate-500 italic">جاري رفع الملفات الخاصة بهذا القسم...</div>`;
+                return;
+            }
+
+            container.innerHTML = filteredBooks.map(book => `
+                <div class="premium-card rounded-2xl flex flex-col overflow-hidden h-full group">
+                    <div class="book-cover h-36 flex items-center justify-center p-4">
+                        <i data-lucide="book" class="book-icon-bg"></i>
+                        <h4 class="text-white font-black text-center text-lg z-10 leading-snug drop-shadow-md">${book.title}</h4>
                     </div>
-                    <div class="p-4 flex flex-col gap-3">
-                        <a href="${b.url}" target="_blank" class="w-full py-3 bg-brand-600 text-white rounded-xl text-xs font-black text-center italic hover:bg-slate-900 transition-all">فتح الرابط المباشر</a>
+                    <div class="p-5 flex flex-col flex-grow justify-end bg-white dark:bg-slate-800">
+                        <a href="${book.url}" target="_blank" class="w-full text-center py-3 rounded-xl font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 hover:bg-brand-600 hover:text-white transition-colors flex justify-center items-center gap-2 italic underline decoration-brand-500">
+                            <i data-lucide="external-link" class="w-4 h-4"></i> فتح الكتاب
+                        </a>
                     </div>
                 </div>
             `).join('');
+            lucide.createIcons();
         }
 
-        function searchBooks() {
-            const term = document.getElementById('bookSearch').value.toLowerCase();
-            display(platformData.books.filter(b => b.category === currentCat && b.title.toLowerCase().includes(term)));
-        }
+        function renderTeachers(subject) {
+            document.querySelectorAll('.subject-tab').forEach(btn => {
+                btn.classList.remove('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
+                btn.classList.add('border-transparent');
+            });
+            event.target.classList.remove('border-transparent');
+            event.target.classList.add('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
 
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
-            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-        }
-
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+            const container = document.getElementById('teachers-list');
+            container.innerHTML = `
+                <div class="text-center py-16 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-600 italic">
+                    <i data-lucide="video" class="w-12 h-12 text-slate-400 mx-auto mb-4 opacity-50"></i>
+                    <p class="text-xl font-bold text-slate-500 dark:text-slate-400">قريباً.. سيتم إضافة أفضل قنوات وفيديوهات شرح لهذه المادة.</p>
+                </div>
+            `;
+            lucide.createIcons();
         }
     </script>
 </body>
