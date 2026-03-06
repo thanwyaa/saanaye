@@ -614,15 +614,37 @@ function sharePlatform() {
 
   let deferredPrompt;
   const modal = document.getElementById('install-modal');
-
-  // طلب الإذن للإشعارات أول ما يدخل
-  window.addEventListener('load', () => {
+// --- كود الربط الجديد بـ Firebase V14 ---
+window.addEventListener('load', async () => {
     if ("Notification" in window) {
-      Notification.requestPermission();
-    }
-  });
+        // طلب الإذن من الطالب
+        const permission = await Notification.requestPermission();
+        
+        if (permission === 'granted') {
+            console.log('تم السماح بالإشعارات.. جاري الربط بسيرفر Firebase');
+            
+            try {
+                // الحصول على التوكن باستخدام المفتاح اللي في الصورة
+                const token = await getToken(messaging, { 
+                    vapidKey: 'BIVoMGxyqy3GHnpcE7q-EhfHwva1Z3OFgbJEMsha1g4H05o8PA5XUZ5uOhmGGXjrLFX9v843D2Oqh35wVa2VjZo' 
+                });
 
-  // التقاط حدث التثبيت
+                if (token) {
+                    console.log("تم تسجيل الطالب بنجاح! التوكن هو:", token);
+                    // مبروك! دلوقتي الجهاز ده هيستلم أي إشعار تبعته من Firebase
+                } else {
+                    console.log('فشل في الحصول على التوكن. تأكد من إعدادات Firebase');
+                }
+            } catch (err) {
+                console.log('حدث خطأ أثناء الربط التقني:', err);
+            }
+        } else {
+            console.log('الطالب رفض إعطاء إذن للإشعارات.');
+        }
+    }
+});
+// ---------------------------------------
+    // التقاط حدث التثبيت
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -659,6 +681,7 @@ function sharePlatform() {
 </script>
 </script>
 </html>
+
 
 
 
