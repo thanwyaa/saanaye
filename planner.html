@@ -25,189 +25,169 @@
             background-image: radial-gradient(circle at 50% 50%, #111827 0%, #05070a 100%);
         }
 
+        /* زر العودة للمنصة */
+        .back-nav {
+            max-width: 700px;
+            margin: 10px auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .btn-back-platform {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            padding: 8px 15px;
+            border-radius: 10px;
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+        }
+        .btn-back-platform:hover {
+            background: rgba(0, 210, 255, 0.15);
+            transform: translateX(5px);
+        }
+
         .container { 
             max-width: 700px; 
-            margin: 20px auto; 
+            margin: 10px auto 40px auto; 
             background: var(--card); 
             border-radius: 30px; 
             padding: 30px; 
             border: 1px solid rgba(0, 210, 255, 0.3); 
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             position: relative;
-            overflow: hidden;
         }
 
-        /* Logo Branding */
-        .brand-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        .brand-header { text-align: center; margin-bottom: 30px; }
         .brand-name {
-            font-weight: 900;
-            font-size: 1.8rem;
+            font-weight: 900; font-size: 1.8rem;
             background: linear-gradient(to right, #00d2ff, #3a7bd5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .brand-tagline {
-            font-size: 0.8rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        .brand-tagline { font-size: 0.75rem; color: #64748b; letter-spacing: 2px; text-transform: uppercase; }
 
         .box { 
-            background: rgba(30, 41, 59, 0.5); 
-            padding: 20px; 
-            border-radius: 20px; 
-            margin-bottom: 20px; 
+            background: rgba(30, 41, 59, 0.5); padding: 20px; 
+            border-radius: 20px; margin-bottom: 20px; 
             border: 1px solid rgba(255,255,255,0.05); 
         }
 
-        label { display: block; margin-bottom: 10px; font-weight: 700; color: var(--primary); font-size: 0.95rem; }
+        label { display: block; margin-bottom: 10px; font-weight: 700; color: var(--primary); font-size: 0.9rem; }
 
         input, select { 
             width: 100%; padding: 14px; border-radius: 12px; 
             border: 1px solid #334155; background: #020617; 
-            color: #fff; font-family: 'Cairo'; font-size: 1rem; outline: none; transition: 0.3s;
+            color: #fff; font-family: 'Cairo'; font-size: 1rem; outline: none; box-sizing: border-box;
         }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,210,255,0.2); }
 
-        .btn-plus { background: #1e40af; color: #fff; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; font-size: 0.8rem; }
+        .btn-plus { background: #1e40af; color: #fff; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; }
 
         .btn-main { 
             width: 100%; padding: 20px; background: linear-gradient(45deg, var(--secondary), var(--primary)); 
             color: #fff; border: none; border-radius: 20px; font-weight: 900; font-size: 1.2rem; 
-            cursor: pointer; transition: 0.4s; margin-top: 10px;
+            cursor: pointer; transition: 0.4s;
         }
-        .btn-main:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4); }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4); }
 
-        /* Result Styles */
-        .task { 
-            background: rgba(15, 23, 42, 0.8); 
-            border-right: 5px solid var(--primary); 
-            padding: 20px; margin: 15px 0; border-radius: 15px; 
-            position: relative;
-        }
-        .task h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #f8fafc; }
-        .task p { margin: 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.6; }
-        .time-badge { 
-            position: absolute; left: 20px; top: 20px; 
-            background: rgba(0, 210, 255, 0.1); color: var(--primary); 
-            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 900;
-        }
-
+        /* Result Area */
+        .task { background: rgba(15, 23, 42, 0.8); border-right: 5px solid var(--primary); padding: 20px; margin: 15px 0; border-radius: 15px; position: relative; }
+        .time-badge { position: absolute; left: 20px; top: 20px; background: rgba(0, 210, 255, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 900; }
+        
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .btn-sub { padding: 15px; border-radius: 15px; border: none; color: #fff; font-weight: bold; cursor: pointer; font-family: 'Cairo'; transition: 0.3s; }
-        .btn-whatsapp { background: #25d366; }
-        .btn-pdf { background: #ef4444; }
-        .btn-img { background: #6366f1; }
+        .btn-sub { padding: 15px; border-radius: 15px; border: none; color: #fff; font-weight: bold; cursor: pointer; font-family: 'Cairo'; }
+        .btn-whatsapp { background: #25d366; } .btn-pdf { background: #ef4444; } .btn-img { background: #6366f1; }
 
-        .footer-logo { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer-logo p { font-size: 0.7rem; color: #475569; margin: 2px; }
+        .footer-logo { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; color: #475569; }
 
         .hidden { display: none; }
-        @media (max-width: 500px) { .actions-grid { grid-template-columns: 1fr; } .time-badge { position: relative; left: 0; top: 0; display: inline-block; margin-bottom: 10px; } }
+        @media (max-width: 500px) { .actions-grid { grid-template-columns: 1fr; } .time-badge { position: relative; left: 0; top: 0; margin-bottom: 10px; display: inline-block; } }
     </style>
 </head>
 <body>
 
+<div class="back-nav" id="nav-top">
+    <a href="index.html" class="btn-back-platform">🔙 العودة للمنصة الرسمية</a>
+</div>
+
 <div class="container" id="input-page">
     <div class="brand-header">
         <div class="brand-name">منصة ثانية ثانوي</div>
-        <div class="brand-tagline">النظام الرسمي لتوليد الجداول الذكية</div>
+        <div class="brand-tagline">نظام توليد الخطط القتالية الذكي</div>
     </div>
     
     <div class="box">
-        <label>👤 اسم البطل (أو اللقب):</label>
-        <input type="text" id="user_name" placeholder="مثلاً: دكتور أحمد المستقبلي">
+        <label>👤 اسم البطل (سيظهر في الجدول):</label>
+        <input type="text" id="user_name" placeholder="مثلاً: المهندس أحمد">
     </div>
 
     <div class="box">
-        <label>🎯 حلمك إيه؟ (هدف اليوم):</label>
-        <input type="text" id="user_goal" placeholder="مثلاً: تقفيل امتحان الفيزياء / دخول هندسة">
-    </div>
-
-    <div class="box">
-        <label>⏰ ميعاد الاستيقاظ لبدء المهمة:</label>
+        <label>⏰ ميعاد الاستيقاظ:</label>
         <input type="time" id="wake" value="07:00">
     </div>
 
     <div class="box">
-        <label>🔥 المادة البعبع (تركيز 200%):</label>
-        <input type="text" id="boss" placeholder="المادة اللي شايلة همها">
-    </div>
-
-    <div id="subs_container">
-        <div class="box">
-            <label>📚 مواد إضافية للمراجعة:</label>
-            <div id="subs_list">
-                <input type="text" class="sub-in" placeholder="اسم المادة">
-            </div>
-            <button class="btn-plus" onclick="addInput('subs_list', 'اسم المادة')">+ إضافة مادة أخرى</button>
-        </div>
+        <label>🔥 المادة البعبع (الأهم اليوم):</label>
+        <input type="text" id="boss" placeholder="مثلاً: كيمياء">
     </div>
 
     <div class="box">
-        <label>🚶 هل لديك دروس سنتر اليوم؟</label>
+        <label>📚 مواد إضافية:</label>
+        <div id="subs_list">
+            <input type="text" class="sub-in" placeholder="اسم المادة">
+        </div>
+        <button class="btn-plus" onclick="addInput('subs_list')">+ مادة إضافية</button>
+    </div>
+
+    <div class="box">
+        <label>🚶 هل لديك دروس سنتر؟</label>
         <select id="is_lesson" onchange="checkLesson()">
-            <option value="no">يوم منزلي (للمذاكرة المكثفة)</option>
-            <option value="yes">نعم، لدي مواعيد سناتر</option>
+            <option value="no">يوم مخصص للبيت</option>
+            <option value="yes">نعم، لدي دروس</option>
         </select>
-        
-        <div id="lesson_zone" class="hidden" style="margin-top:20px; border-top: 1px dashed #334155; pt-15px;">
-            <p style="font-size:0.8rem; color:#94a3b8;">أدخل مواعيد الدروس بدقة (من-إلى):</p>
-            <div id="lessons_list">
+        <div id="lesson_zone" class="hidden">
+            <div id="lessons_list" style="margin-top:15px;">
                 <div style="display:flex; gap:10px; margin-bottom:10px;">
-                    <input type="time" class="l-start"> 
-                    <input type="time" class="l-end" placeholder="النهاية">
+                    <input type="time" class="l-start"> <input type="time" class="l-end">
                 </div>
             </div>
-            <button class="btn-plus" onclick="addLesson()">+ إضافة موعد درس آخر</button>
+            <button class="btn-plus" onclick="addLesson()">+ موعد درس آخر</button>
         </div>
     </div>
 
-    <button class="btn-main" onclick="startAI()">توليد الجدول القتالي الآن 🔥</button>
+    <button class="btn-main" onclick="startAI()">توليد الجدول الرسمي 🔥</button>
 </div>
 
 <div id="capture-area" class="hidden">
     <div class="container">
         <div class="brand-header">
             <div class="brand-name">منصة ثانية ثانوي الرسمية</div>
-            <p style="color:var(--primary); font-weight: bold; margin-bottom:0;" id="out_name"></p>
-            <p style="color:#64748b; font-size:0.8rem;" id="out_goal"></p>
+            <p id="out_name" style="margin:5px 0; color:var(--primary); font-weight:bold;"></p>
         </div>
 
         <div id="output"></div>
 
         <div class="footer-logo">
-            <p>تم تصميم هذا الجدول بواسطة الذكاء الاصطناعي الخاص بـ</p>
+            <p>تم التوليد بواسطة الذكاء الاصطناعي لمنصة ثانية ثانوي</p>
             <p style="color:var(--primary); font-weight:900;">THANWYAA.GITHUB.IO/SAANAYE</p>
-            <p>© 2026 جميع الحقوق محفوظة لمنصة ثانية ثانوي</p>
         </div>
 
         <div class="actions-grid no-print">
-            <button class="btn-sub btn-img" onclick="saveImg()">📸 حفظ كصورة</button>
-            <button class="btn-sub btn-pdf" onclick="savePdf()">📄 تحميل PDF</button>
-            <button class="btn-sub btn-whatsapp" onclick="shareWhatsApp()">📢 مشاركة المنصة</button>
-            <button class="btn-sub" style="background:#475569;" onclick="window.location.reload()">🔄 تعديل البيانات</button>
+            <button class="btn-sub btn-img" onclick="saveImg()">📸 حفظ صورة</button>
+            <button class="btn-sub btn-pdf" onclick="savePdf()">📄 ملف PDF</button>
+            <button class="btn-sub btn-whatsapp" onclick="shareWhatsApp()">📢 مشاركة</button>
+            <button class="btn-sub" style="background:#475569;" onclick="window.location.reload()">🔄 تعديل</button>
         </div>
     </div>
 </div>
 
 <script>
-    const tips = [
-        "ضع هاتفك في غرفة أخرى أثناء جلسة 'الوحش' 📵",
-        "اشرب كوب ماء كل 45 دقيقة لتنشيط خلايا المخ 💧",
-        "المذاكرة بـ 'ورقة وقلم' ترفع نسبة التركيز لـ 90% ✍️",
-        "النجاح هو مجموع مجهودات صغيرة تتكرر كل يوم 🚀",
-        "منصة ثانية ثانوي تثق في قدرتك على التغيير 🔥"
-    ];
-
-    function addInput(id, ph) {
-        let i = document.createElement('input'); 
-        i.type = 'text'; i.className = 'sub-in'; i.placeholder = ph; i.style.marginTop = "10px";
+    function addInput(id) {
+        let i = document.createElement('input'); i.type = 'text'; i.className = 'sub-in'; 
+        i.placeholder = 'اسم المادة'; i.style.marginTop = '10px';
         document.getElementById(id).appendChild(i);
     }
 
@@ -226,71 +206,49 @@
 
     function startAI() {
         const name = document.getElementById('user_name').value || "بطل ثانية ثانوي";
-        const goal = document.getElementById('user_goal').value || "النجاح والتفوق";
         let cur = toMin(document.getElementById('wake').value);
         let boss = document.getElementById('boss').value || "المادة الأساسية";
         let subs = Array.from(document.getElementsByClassName('sub-in')).map(i=>i.value).filter(v=>v);
         let lessons = Array.from(document.querySelectorAll('#lessons_list div')).map(d=>({s:toMin(d.children[0].value), e:toMin(d.children[1].value)})).filter(l=>l.s&&l.e).sort((a,b)=>a.s-b.s);
 
-        document.getElementById('out_name').innerText = "المحارب: " + name;
-        document.getElementById('out_goal').innerText = "الهدف اليومي: " + goal;
+        document.getElementById('out_name').innerText = "الخطة القتالية لـ: " + name;
 
-        let res = `<div style="background:rgba(0, 210, 255, 0.05); padding:15px; border-radius:15px; border:1px solid rgba(0,210,255,0.2); margin-bottom:20px; font-size:0.85rem; text-align:center; color:#cbd5e1;">💡 <b>نصيحة المنصة:</b> ${tips[Math.floor(Math.random()*tips.length)]}</div>`;
+        let res = `<div style="background:rgba(0, 210, 255, 0.05); padding:12px; border-radius:15px; border:1px solid rgba(0,210,255,0.2); margin-bottom:20px; font-size:0.8rem; text-align:center;">💡 نصيحة المنصة: ابدأ بالأصعب دائماً وأنت في قمة نشاطك!</div>`;
 
-        // 1. بداية اليوم
-        res += makeTask(cur, cur+45, "🌅 طقوس البداية", "صلاة الفجر/الصبح + فطور سريع + تجهيز المكتب. (بدون موبايل!)", "normal");
-        cur += 45;
+        // أول جلسة: الوحش
+        res += makeTask(cur, cur+120, "⚔️ مهمة كسر العظام: " + boss, "أهم جلسة تركيز في اليوم. حل وتطبيق مكثف.", "boss");
+        cur += 150;
 
-        // 2. جلسة الوحش
-        res += makeTask(cur, cur+120, "⚔️ معركة الـ " + boss, "تركيز عميق (Deep Work). حل أصعب المسائل والأسئلة الآن.", "boss");
-        cur += 135; // ساعتين وربع شاملة راحة صغيرة
-
-        // 3. التعامل مع الدروس
-        lessons.forEach((l, index) => {
-            // وقت قبل الدرس لو فيه فراغ
+        lessons.forEach((l, i) => {
             if (l.s - cur > 60) {
-                res += makeTask(cur, l.s-40, "📖 مراجعة سريعة", "تجهيز واجب الدرس أو مراجعة الحصة السابقة.", "normal");
+                res += makeTask(cur, l.s-40, "📖 مراجعة سريعة", "استعد للدرس القادم بمراجعة سريعة.", "normal");
             }
-            
-            res += makeTask(l.s-40, l.e+45, "🚌 مهمة السنتر: درس رقم " + (index+1), "تشمل وقت المواصلات والحصة ووقت العودة للمنزل.", "lesson");
-            cur = l.e + 60; // راحة بعد السنتر
+            res += makeTask(l.s-40, l.e+45, "🚌 السنتر: درس " + (i+1), "وقت الحصة + الانتقالات + راحة بسيطة.", "lesson");
+            cur = l.e + 60;
         });
 
-        // 4. المواد الإضافية
         subs.forEach(sub => {
-            res += makeTask(cur, cur+60, "✅ إنجاز مادة: " + sub, "قراءة بتركيز + حل تطبيق شامل على ما تم ذاكرته.", "sub");
+            res += makeTask(cur, cur+60, "✅ تحدي مادة: " + sub, "مذاكرة مركزة لمدة ساعة مع حل أسئلة.", "normal");
             cur += 80;
         });
 
-        // 5. الختام
-        res += makeTask(cur, cur+30, "🌙 مراجعة ليلية", "مراجعة العناوين الرئيسية لما تم إنجازه اليوم وتجهيز شنطة الغد.", "normal");
-
+        document.getElementById('nav-top').classList.add('hidden');
         document.getElementById('input-page').classList.add('hidden');
         document.getElementById('capture-area').classList.remove('hidden');
         document.getElementById('output').innerHTML = res;
     }
 
     function makeTask(s, e, title, desc, type) {
-        let borderColor = "var(--primary)";
-        if(type === 'boss') borderColor = "var(--accent)";
-        if(type === 'lesson') borderColor = "#fbbf24";
-
-        return `
-            <div class="task" style="border-right-color: ${borderColor}">
-                <div class="time-badge">${toStr(s)} - ${toStr(e)}</div>
-                <h3>${title}</h3>
-                <p>${desc}</p>
-            </div>
-        `;
+        let color = type === 'boss' ? 'var(--accent)' : (type === 'lesson' ? '#fbbf24' : 'var(--primary)');
+        return `<div class="task" style="border-right-color:${color}"><div class="time-badge">${toStr(s)} - ${toStr(e)}</div><h3>${title}</h3><p>${desc}</p></div>`;
     }
 
-    // التصدير
     function saveImg() {
         const actions = document.querySelector('.no-print');
         actions.style.display = 'none';
         html2canvas(document.querySelector("#capture-area"), { backgroundColor: "#05070a", scale: 2 }).then(canvas => {
             let link = document.createElement('a');
-            link.download = 'جدول_منصة_ثانية_ثانوي.png';
+            link.download = 'Study_Plan_Thanwyaa.png';
             link.href = canvas.toDataURL();
             link.click();
             actions.style.display = 'grid';
@@ -300,19 +258,12 @@
     function savePdf() {
         const actions = document.querySelector('.no-print');
         actions.style.display = 'none';
-        const element = document.querySelector("#capture-area");
-        const opt = {
-            margin: 5, filename: 'Study_Plan_Official.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, backgroundColor: "#05070a" },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save().then(() => { actions.style.display = 'grid'; });
+        html2pdf().set({ margin: 5, filename: 'Plan.pdf', html2canvas: { scale: 2, backgroundColor: "#05070a" }, jsPDF: { format: 'a4' } })
+        .from(document.querySelector("#capture-area")).save().then(() => { actions.style.display = 'grid'; });
     }
 
     function shareWhatsApp() {
-        const text = "يا بطل، هندست جدولي الرسمي لثانية ثانوي بالذكاء الاصطناعي! 🔥🚀\nادخل اعمل جدولك الآن من هنا: https://thanwyaa.github.io/saanaye/";
-        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+        window.open(`https://wa.me/?text=${encodeURIComponent("هندست جدولي الرسمي لثانية ثانوي! 🔥🚀\nاعمل جدولك هنا: https://thanwyaa.github.io/saanaye/")}`);
     }
 </script>
 </body>
