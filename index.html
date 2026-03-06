@@ -120,10 +120,7 @@
     </style>
 </head>
 <body>
-<div id="top-notification" style="display: block; position: relative; width: 100%; z-index: 10000; background: #2563eb; color: white; padding: 12px; text-align: center; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
-    <span id="notif-text">📢 تنبيه: تم رفع مذكرات شهر مارس الجديدة!</span>
-    <button onclick="this.parentElement.style.display='none'" style="margin-right: 15px; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 5px; padding: 2px 10px;">إغلاق ×</button>
-</div>
+
     <header class="fixed w-full top-0 z-50 glass-header transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             
@@ -143,6 +140,11 @@
             </button>
         </div>
     </header>
+  <div style="margin-top: 85px; background: linear-gradient(90deg, #ed213a, #93291e); color: white; padding: 10px 0; font-weight: bold; z-index: 40; position: relative; border-bottom: 2px solid #ffd700;">
+    <marquee behavior="scroll" direction="right" scrollamount="7" onmouseover="this.stop();" onmouseout="this.start();">
+         🔥 تنبيه هام: تم رفع مذكرات ليلة الامتحان الآن.. ذاكر بذكاء مع منصة المستقبل 🚀 | 📢 انضم لقناة التليجرام الرسمية | 📚 مكتبة الكتب محدثة بالكامل لعام 2026
+    </marquee>
+</div>
 <div id="install-modal" style="display: none;" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 text-right">
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center relative">
         <button onclick="closeInstallModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-white text-xl">✕</button>
@@ -608,6 +610,7 @@
 </script>
 </script>
 </html>
+
 
 
 
