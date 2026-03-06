@@ -120,7 +120,10 @@
     </style>
 </head>
 <body>
-
+<div id="top-notification" style="display: block; position: relative; width: 100%; z-index: 10000; background: #2563eb; color: white; padding: 12px; text-align: center; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+    <span id="notif-text">📢 تنبيه: تم رفع مذكرات شهر مارس الجديدة!</span>
+    <button onclick="this.parentElement.style.display='none'" style="margin-right: 15px; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 5px; padding: 2px 10px;">إغلاق ×</button>
+</div>
     <header class="fixed w-full top-0 z-50 glass-header transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             
@@ -605,6 +608,7 @@
 </script>
 </script>
 </html>
+
 
 
 
