@@ -1,101 +1,81 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المخطط الذكي | منصة ثانية ثانوي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; }
-        .nav-back { background: #fff; padding: 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .container { max-width: 800px; margin: 30px auto; background: #fff; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 3px solid #2563eb; }
-        input, select { width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 2px solid #e2e8f0; font-family: 'Cairo'; }
-        button { background: #2563eb; color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
-        .result-box { display: none; padding: 20px; border: 4px solid #1e40af; background: #fff; border-radius: 15px; margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
-        th { background: #1e40af; color: white; }
-    </style>
-</head>
-<body>
+function showResult() {
+    document.getElementById('setup').style.display = "none";
+    document.getElementById('result-area').style.display = "block";
 
-    <div class="nav-back">
-        <a href="index.html" style="text-decoration: none; color: #2563eb; font-weight: bold; display: flex; align-items: center; gap: 8px;">
-            <i class="fas fa-arrow-right"></i> العودة للمنصة
-        </a>
-        <span style="font-weight: 900; color: #1e40af;">🤖 المساعد الذكي</span>
-    </div>
+    // 1. تجميع البيانات الأساسية
+    let name = data[0] || "يا بطل";
+    let wakeTime = data[1]; // مثلا 07:00
+    let hasCenter = data[2] === "آه" || data[2] === "ايوه";
+    let centerDetails = data[3]; // مثلا من 2 لـ 5
+    let travel = parseInt(data[4]) || 0;
+    let mainSub = data[5];
+    let otherSubs = data[6].split('-');
+    let restTime = parseInt(data[8]) || 1; // ساعات الراحة
 
-    <div class="container">
-        <div id="setup">
-            <h2 id="q-text">جاهز نصمم جدولك المثالي؟</h2>
-            <div id="input-area">
-                <input type="text" id="ans" placeholder="اكتب إجابتك هنا...">
-            </div>
-            <button onclick="handleLogic()">المتابعة للخطوة التالية ⬅️</button>
+    // 2. تحويل الوقت لنظام يقبل الحساب
+    let currentTime = new Date(`2026-01-01 ${wakeTime}`);
+    let scheduleHTML = `<div style="border: 3px solid #1e40af; border-radius: 15px; overflow: hidden; background: #fff; font-family: 'Cairo';">
+        <div style="background: #1e40af; color: white; padding: 15px; text-align: center;">
+            <h3 style="margin:0;">🎯 الجدول الذكي لـ ${name}</h3>
+            <small>بناءً على تحليل نشاطك وظروف دروسك</small>
         </div>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #f1f5f9;">
+                <th style="padding: 10px; border: 1px solid #ddd;">الوقت</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">النشاط الذكي</th>
+            </tr>`;
 
-        <div id="result-area" class="result-box">
-            <h2 style="text-align: center;">📋 جدولك اليومي المخصص</h2>
-            <div id="table-content"></div>
-            <p style="text-align: center; color: #ef4444; font-weight: bold;">📸 خد سكرين شوت دلوقتي يا بطل!</p>
-            <button onclick="window.location.reload()" style="background: #64748b; margin-top: 10px;">إعادة تصميم الجدول 🔄</button>
-        </div>
-    </div>
-
-<script>
-    let step = 0;
-    let data = {};
-    const questions = [
-        "حابب أناديك بإسم إيه؟ 😊",
-        "ناوي تصحى الساعة كام؟ (مثلاً 07:00 ص)",
-        "عندك دروس 'بره البيت' (سنتر) النهاردة؟ (آه / لأ)",
-        "لو عندك سنتر، هتبدأ الساعة كام وترجع كام؟",
-        "بتاخد كام دقيقة في المواصلات؟",
-        "إيه أكتر مادة 'بعبع' وعاوز تخلص منها؟",
-        "إيه المواد التانية اللي وراك؟",
-        "بتحب تذاكر فترات طويلة ولا قصيرة؟",
-        "محتاج وقت قد إيه للأكل والراحة؟",
-        "إيه هدفك اللي لازم يتحقق النهاردة؟",
-        "عندك ماتش أو مشوار غير المذاكرة؟",
-        "بتحب تذاكر بليل ولا الصبح؟",
-        "اكتب رسالة تشجيعية لنفسك..",
-        "تتعهد إنك تلتزم بالجدول ده؟ (مستعد! 🔥)"
-    ];
-
-    function handleLogic() {
-        let val = document.getElementById('ans').value;
-        if(!val && step > 0) return alert("جاوب الأول يا بطل!");
-        data[step] = val;
-        document.getElementById('ans').value = "";
-        step++;
-
-        if(step < questions.length) {
-            document.getElementById('q-text').innerText = questions[step];
-        } else {
-            showResult();
-        }
+    // دالة مساعدة لزيادة الوقت وتنسيقه
+    function addMinutes(date, minutes) {
+        return new Date(date.getTime() + minutes * 60000);
+    }
+    function formatTime(date) {
+        return date.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
     }
 
-    function showResult() {
-        document.getElementById('setup').style.display = "none";
-        document.getElementById('result-area').style.display = "block";
-        let tableHTML = `
-            <table>
-                <tr><th>المهمة</th><th>التفاصيل</th></tr>
-                <tr><td>الاستيقاظ</td><td>${data[1]}</td></tr>
-                <tr><td>الأولوية القصوى</td><td>تخلص من <b>${data[5]}</b></td></tr>
-                <tr><td>بقية المواد</td><td>${data[6]}</td></tr>
-                <tr><td>الدروس والمشاوير</td><td>${data[3]} (${data[2]})</td></tr>
-                <tr><td>هدفك اليومي</td><td>${data[9]}</td></tr>
-            </table>
-            <div style="margin-top: 15px; padding: 10px; border-right: 4px solid #2563eb; background: #f0f9ff;">
-                <i>"${data[12]}"</i>
-            </div>
-        `;
-        document.getElementById('table-content').innerHTML = tableHTML;
+    // --- بداية خوارزمية التوزيع الذكي ---
+
+    // أ- فترة الصباح (المادة البعبع)
+    let session1End = addMinutes(currentTime, 120); // مذكرتين لمدة ساعتين
+    scheduleHTML += `<tr>
+        <td style="padding:10px; border:1px solid #ddd; font-weight:bold;">${formatTime(currentTime)} - ${formatTime(session1End)}</td>
+        <td style="padding:10px; border:1px solid #ddd;">البداية القوية مع <b>${mainSub}</b>. ده وقت ذروة مخك، استغله صح! 🔥</td>
+    </tr>`;
+    currentTime = addMinutes(session1End, 30); // راحة 30 دقيقة
+
+    // ب- فترة الدروس (حساب المواصلات والراحة)
+    if (hasCenter) {
+        scheduleHTML += `<tr style="background: #fff1f2;">
+            <td style="padding:10px; border:1px solid #ddd;">فترة السنتر</td>
+            <td style="padding:10px; border:1px solid #ddd;">وقت الدروس: ${centerDetails}. (حسبنا لك ${travel} دقيقة مواصلات). حاول تسمع بودكاست تعليمي في الطريق 🎧</td>
+        </tr>`;
+        // نفترض العودة الساعة 6 مساءً كمثال لو البيانات مش دقيقة
+        currentTime = new Date(`2026-01-01 18:00`); 
     }
-</script>
-</body>
-</html>
+
+    // ج- فترة العودة والراحة الإجبارية
+    let afterLessonRest = addMinutes(currentTime, 30);
+    scheduleHTML += `<tr style="background: #f0fdf4;">
+        <td style="padding:10px; border:1px solid #ddd;">${formatTime(currentTime)} - ${formatTime(afterLessonRest)}</td>
+        <td style="padding:10px; border:1px solid #ddd;"><b>فترة راحة إجبارية ☕</b>. افصل تماماً عن المذاكرة عشان تشحن طاقتك.</td>
+    </tr>`;
+    currentTime = afterLessonRest;
+
+    // د- توزيع المواد الباقية
+    otherSubs.forEach(sub => {
+        let subEnd = addMinutes(currentTime, 60);
+        scheduleHTML += `<tr>
+            <td style="padding:10px; border:1px solid #ddd;">${formatTime(currentTime)} - ${formatTime(subEnd)}</td>
+            <td style="padding:10px; border:1px solid #ddd;">مذاكرة <b>${sub}</b>. ركز على الحل أكتر من القراءة دلوقتي. ✍️</td>
+        </tr>`;
+        currentTime = addMinutes(subEnd, 15); // بريك قصير
+    });
+
+    scheduleHTML += `</table>
+        <div style="padding: 15px; background: #eff6ff; text-align: center; border-top: 2px solid #1e40af;">
+            <p style="margin:0; font-weight: bold; color: #1e40af;">💡 نصيحة الذكاء الصناعي: ${data[12]}</p>
+        </div>
+    </div>`;
+
+    document.getElementById('table-content').innerHTML = tableHTML;
+}
