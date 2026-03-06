@@ -3,264 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المحرك الذكي V13 | ثانية ثانوي</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>منصة ثانية ثانوي | نظام الماكينة V13.5</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --neon: #00f2ff; --glow: #7000ff; --dark: #020205; }
-        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: #fff; overflow-x: hidden; }
-        .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-            background: radial-gradient(circle at 50% 50%, #101025 0%, #020205 100%); }
-        .main-card { background: rgba(10, 10, 20, 0.8); backdrop-filter: blur(30px); border: 1px solid rgba(0, 242, 255, 0.15); border-radius: 3rem; box-shadow: 0 0 60px rgba(0,0,0,1); }
-        .step-layer { display: none; animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
-        .step-layer.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); filter: blur(15px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
-        .input-pro { background: rgba(255,255,255,0.03) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: var(--neon) !important; padding: 1.3rem !important; border-radius: 1.2rem !important; width: 100%; outline: none; transition: 0.4s; }
-        .input-pro:focus { border-color: var(--neon) !important; box-shadow: 0 0 25px rgba(0, 242, 255, 0.3); transform: scale(1.02); }
-        .btn-action { background: linear-gradient(135deg, var(--neon), var(--glow)); color: #000; font-weight: 900; transition: 0.4s; text-transform: uppercase; }
-        .btn-action:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 242, 255, 0.4); }
-        .timeline-mark { border-right: 4px solid var(--neon); padding-right: 2rem; position: relative; }
-        .timeline-mark::after { content: '⚡'; position: absolute; right: -16px; top: 0; background: var(--dark); font-size: 14px; color: var(--neon); padding: 2px; }
-        #alert-box { visibility: hidden; position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #ff0055; color: white; padding: 15px 30px; border-radius: 50px; z-index: 1000; font-weight: bold; }
-        #alert-box.show { visibility: visible; animation: pop 0.3s; }
-        @keyframes pop { from { bottom: 0; } to { bottom: 40px; } }
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #9d00ff;
+            --deep-space: #020205;
+            --danger: #ff0055;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--deep-space);
+            color: white;
+            overflow-x: hidden;
+            background: radial-gradient(circle at top right, #0a0a25 0%, #020205 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            border-radius: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 4px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-dot.active {
+            background: var(--neon-cyan);
+            width: 30px;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: black;
+            font-weight: 900;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.4);
+        }
+
+        .schedule-item {
+            border-right: 5px solid var(--neon-cyan);
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 12px;
+            padding: 18px;
+            border-radius: 15px 0 0 15px;
+            transition: 0.3s;
+        }
+
+        .schedule-item:hover { background: rgba(255, 255, 255, 0.07); transform: translateX(-5px); }
+        .type-lesson { border-right-color: var(--neon-purple); }
+        .type-break { border-right-color: #00ff88; }
+        .type-monster { border-right-color: var(--danger); box-shadow: inset 50px 0 50px -50px rgba(255, 0, 85, 0.2); }
+        .type-warning { border-right-color: #ff9900; background: rgba(255, 153, 0, 0.05); }
+
+        input, select {
+            background: rgba(0, 0, 0, 0.6) !important;
+            border: 2px solid rgba(255, 255, 255, 0.05) !important;
+            color: var(--neon-cyan) !important;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        input:focus { border-color: var(--neon-cyan) !important; box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+
+        .hidden-step { display: none; }
+        .active-step { display: flex; animation: fadeIn 0.6s forwards; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="p-4 md:p-12 flex items-center justify-center min-h-screen">
-    <div class="bg-animate"></div>
-    <div id="alert-box">أثبت حضورك وكمل بياناتك يا وحش! 🛡️</div>
+<body class="min-h-screen flex flex-col items-center py-10 px-4">
 
-    <div id="main-container" class="w-full max-w-4xl main-card p-10 md:p-16 relative">
-        <div class="mb-12 flex justify-between items-center border-b border-white/5 pb-6">
-            <div class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 italic uppercase">Thanwyaa V13</div>
-            <div class="flex gap-2" id="progress-dots"></div>
-        </div>
-
-        <div id="wizard-flow">
-            <div class="step-layer active" data-step="1">
-                <h2 class="text-5xl font-black mb-6 leading-tight text-white">مين البطل اللي هيقفل <span class="text-cyan-400 italic">ثانية ثانوي</span>؟ ⚔️</h2>
-                <p class="text-gray-500 mb-8 text-lg">أنا مش مجرد جدول، أنا محرك نموك. قولي اسمك وهدفك عشان نبدأ المعركة.</p>
-                <div class="space-y-4">
-                    <input type="text" id="name" placeholder="اسمك الثنائي يا بطل..." class="input-pro">
-                    <input type="text" id="goal" placeholder="الحلم اللي هتوصله (هندسة، طب، 100%...)؟" class="input-pro">
-                </div>
-            </div>
-
-            <div class="step-layer" data-step="2">
-                <h2 class="text-4xl font-black mb-8 text-cyan-400">ساعة الصفر ⏱️</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div><label class="text-xs font-bold text-gray-400 mb-2 block uppercase tracking-widest">وقت الاستيقاظ (بدء المهمة)</label><input type="time" id="wake" class="input-pro"></div>
-                    <div><label class="text-xs font-bold text-gray-400 mb-2 block uppercase tracking-widest">وقت النوم (إيقاف التشغيل)</label><input type="time" id="sleep" class="input-pro"></div>
-                </div>
-            </div>
-
-            <div class="step-layer" data-step="3">
-                <h2 class="text-4xl font-black mb-8 text-purple-500">خريطة السناتر 🗺️</h2>
-                <p class="text-gray-400 mb-6 italic italic">عندك كام درس النهاردة؟ (إحنا هنحسب لك وقت اللبس والمواصلات والفصلان بعد الدرس)</p>
-                <select id="lessonCount" onchange="createLessonFields()" class="input-pro mb-6">
-                    <option value="0">يوم البيت (أقصى إنتاجية)</option>
-                    <option value="1">عندي درس واحد</option>
-                    <option value="2">عندي درسين</option>
-                    <option value="3">عندي 3 دروس (يوم انتحاري)</option>
-                </select>
-                <div id="lessonInputs" class="space-y-4"></div>
-            </div>
-
-            <div class="step-layer" data-step="4">
-                <h2 class="text-4xl font-black mb-8">فرز الأسلحة ⚔️</h2>
-                <div class="space-y-4">
-                    <input type="text" id="hardSubject" placeholder="المادة البعبع (إللي بتخاف منها)؟" class="input-pro">
-                    <input type="text" id="easySubject" placeholder="المادة الحبيبة (إللي بتفك بيها)؟" class="input-pro">
-                    <input type="text" id="mainTask" placeholder="إيه أهم واجب لازم يخلص النهاردة (إجباري)؟" class="input-pro">
-                </div>
-            </div>
-
-            <div class="step-layer" data-step="5">
-                <h2 class="text-4xl font-black mb-8 text-pink-500">قتل المشتتات 🚫</h2>
-                <select id="distraction" class="input-pro mb-6">
-                    <option value="الموبايل">الموبايل والتايم لاين</option>
-                    <option value="النوم">الكسل والنوم الزايد</option>
-                    <option value="السرحان">السرحان وضياع التركيز</option>
-                </select>
-                <input type="text" id="reward" placeholder="مكافأة الانتهاء (هتدلع نفسك بإيه)؟" class="input-pro">
-            </div>
-
-            <div class="flex justify-between mt-16 pt-10 border-t border-white/5">
-                <button id="backBtn" onclick="navigate(-1)" class="text-gray-500 font-black hover:text-white transition uppercase tracking-tighter hidden">رجوع للخلف</button>
-                <button id="nextBtn" onclick="navigate(1)" class="btn-action px-16 py-5 rounded-2xl mr-auto">الخطوة التالية <i class="fas fa-arrow-left mr-3"></i></button>
-                <button id="finalBtn" onclick="buildSystem()" class="hidden btn-action px-16 py-5 rounded-2xl mr-auto animate-pulse">توليد الخطة القتالية 🔥</button>
-            </div>
-        </div>
-
-        <div id="dashboard" class="hidden">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-                <button onclick="saveAsPDF()" class="bg-red-500/10 text-red-500 border border-red-500/20 p-4 rounded-2xl font-black hover:bg-red-500 hover:text-white transition"><i class="fas fa-file-pdf ml-2"></i> حفظ PDF</button>
-                <button onclick="saveAsShot()" class="bg-cyan-500/10 text-cyan-500 border border-cyan-500/20 p-4 rounded-2xl font-black hover:bg-cyan-500 hover:text-white transition"><i class="fas fa-camera ml-2"></i> سكرين شوت</button>
-                <button onclick="shareLink()" class="bg-green-500/10 text-green-500 border border-green-500/20 p-4 rounded-2xl font-black hover:bg-green-500 hover:text-white transition"><i class="fas fa-share-alt ml-2"></i> دعوة المحاربين</button>
-            </div>
-
-            <div id="render-area" class="bg-[#05050a] p-10 md:p-16 rounded-[4rem] border-2 border-cyan-500/20 relative overflow-hidden">
-                <div class="text-center mb-16">
-                    <h1 class="text-4xl font-black text-cyan-400 mb-2 italic tracking-tighter">OFFICIAL STUDY PROTOCOL</h1>
-                    <p class="text-gray-500 text-xs uppercase tracking-[0.5em]">البطل: <span id="res-name" class="text-white"></span> | المهمة: <span id="res-goal" class="text-white"></span></p>
-                </div>
-
-                <div id="schedule-output" class="space-y-10"></div>
-
-                <div class="mt-16 p-8 rounded-[2rem] bg-gradient-to-r from-cyan-900/40 to-purple-900/40 border border-white/5 text-center relative">
-                    <div class="text-[10px] text-cyan-400 font-bold uppercase mb-4">توجيهات القيادة المركزية</div>
-                    <p class="text-lg text-gray-200">النهاردة ممنوع تقرب من <span id="res-dist" class="text-red-500 font-black uppercase"></span>. ركز في الـ <span id="res-hard" class="text-cyan-400 font-black"></span>، وعند الإنجاز المكافأة هي <span id="res-prize" class="text-green-400 font-black"></span>!</p>
-                </div>
-
-                <div class="mt-12 text-center text-[10px] text-gray-800 font-black tracking-widest uppercase">
-                    thanwyaa.github.io/saanaye/ • 2026 SYSTEM
-                </div>
-            </div>
-            <button onclick="location.reload()" class="w-full mt-8 text-gray-700 text-xs hover:text-cyan-400 transition">إعادة تعيين وبدء يوم جديد</button>
-        </div>
+    <div class="w-full max-w-2xl mb-10 text-center">
+        <h2 class="text-xs font-black tracking-[0.5em] text-cyan-500 mb-4 opacity-70 uppercase">Titan Protocol V13.5</h2>
+        <div id="dots-container" class="flex justify-center gap-2 mb-4"></div>
+        <div class="text-xs font-bold text-gray-500">جاري معالجة البيانات: <span id="percent" class="text-white">0%</span></div>
     </div>
 
-    <script>
-        let currentStep = 1;
-        const totalSteps = 5;
-
-        // Init Progress Dots
-        const dots = document.getElementById('progress-dots');
-        for(let i=1; i<=totalSteps; i++) {
-            dots.innerHTML += `<div id="dot-${i}" class="w-2 h-2 rounded-full bg-white/10 transition-all duration-500"></div>`;
-        }
-        updateDots();
-
-        function navigate(d) {
-            const currentLayer = document.querySelector(`[data-step="${currentStep}"]`);
-            if(d === 1) {
-                const fields = currentLayer.querySelectorAll('input, select');
-                for(let f of fields) { if(!f.value) { showAlert(); return; } }
-            }
-            currentLayer.classList.remove('active');
-            currentStep += d;
-            document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
-            updateUI();
-        }
-
-        function updateUI() {
-            document.getElementById('backBtn').classList.toggle('hidden', currentStep === 1);
-            document.getElementById('nextBtn').classList.toggle('hidden', currentStep === totalSteps);
-            document.getElementById('finalBtn').classList.toggle('hidden', currentStep !== totalSteps);
-            updateDots();
-        }
-
-        function updateDots() {
-            for(let i=1; i<=totalSteps; i++) {
-                document.getElementById(`dot-${i}`).className = i === currentStep ? 'w-8 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f2ff]' : 'w-2 h-2 rounded-full bg-white/10';
-            }
-        }
-
-        function showAlert() {
-            const b = document.getElementById('alert-box');
-            b.className = 'show';
-            setTimeout(()=>b.className='', 2500);
-        }
-
-        function createLessonFields() {
-            const count = document.getElementById('lessonCount').value;
-            const box = document.getElementById('lessonInputs');
-            box.innerHTML = '';
-            for(let i=1; i<=count; i++) {
-                box.innerHTML += `
-                <div class="p-6 bg-white/5 rounded-3xl border border-white/10 space-y-3">
-                    <input type="text" id="ln_${i}" placeholder="اسم الدرس رقم ${i}" class="input-pro text-sm">
-                    <div class="grid grid-cols-2 gap-3">
-                        <input type="time" id="ls_${i}" class="input-pro text-xs">
-                        <input type="time" id="le_${i}" class="input-pro text-xs">
+    <main class="w-full max-w-2xl">
+        
+        <div id="wizard-view" class="glass-card p-8 md:p-14 relative overflow-hidden">
+            <div id="chat-box" class="min-h-[300px] flex flex-col justify-center items-center text-center">
+                <div id="bot-bubble" class="text-2xl md:text-3xl font-black mb-10 leading-tight">
                     </div>
-                </div>`;
-            }
+                <div id="input-container" class="w-full">
+                    </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-12 pt-8 border-t border-white/5">
+                <button id="btn-back" onclick="handleBack()" class="text-gray-500 hover:text-white font-black text-sm transition hidden uppercase">رجوع</button>
+                <button id="btn-next" onclick="handleNext()" class="btn-action px-12 py-4 rounded-2xl mr-auto flex items-center gap-2">
+                    <span>استمرار</span>
+                    <i class="fas fa-chevron-left text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="result-view" class="hidden">
+            <div id="schedule-capture" class="bg-[#020205] p-8 border-2 border-white/5 rounded-[2.5rem] mb-8 relative">
+                <div class="absolute top-0 right-0 p-8 opacity-10">
+                    <i class="fas fa-shield-halved text-6xl"></i>
+                </div>
+                
+                <div class="text-center mb-10">
+                    <div class="text-[10px] text-cyan-400 font-black tracking-widest uppercase mb-2">The Official Schedule</div>
+                    <h1 class="text-3xl font-black text-white italic">دستور ثانية ثانوي الرسمي</h1>
+                    <p id="res-student-info" class="text-gray-500 text-xs mt-2 font-bold"></p>
+                </div>
+                
+                <div id="schedule-list" class="space-y-4"></div>
+
+                <div class="mt-12 p-6 bg-gradient-to-r from-red-900/20 to-transparent border-r-4 border-red-500 rounded-xl">
+                    <h4 class="text-red-500 font-black text-sm mb-2 flex items-center gap-2">
+                        <i class="fas fa-triangle-exclamation"></i> تحذير من الماكينة:
+                    </h4>
+                    <p class="text-[11px] text-gray-400 leading-relaxed font-bold">
+                        الجدول ده مش مجرد ورق، ده ميثاق نجاح. الموبايل هو العدو الأول في ساعات "الوحش". لو كسرت الجدول النهاردة، إنت بتكسر حلمك بكرة.
+                    </p>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-white/5 text-center">
+                    <p class="text-[9px] text-gray-800 font-black tracking-[0.3em] uppercase">thanwyaa.github.io/saanaye/</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <button onclick="takeScreenshot()" class="bg-white/5 hover:bg-white/10 p-5 rounded-3xl font-black border border-white/10 transition flex flex-col items-center gap-2">
+                    <i class="fas fa-camera text-cyan-400"></i>
+                    <span class="text-xs uppercase">حفظ كصورة</span>
+                </button>
+                <button onclick="shareWhatsApp()" class="bg-green-600/10 hover:bg-green-600/20 p-5 rounded-3xl font-black border border-green-600/20 transition flex flex-col items-center gap-2">
+                    <i class="fab fa-whatsapp text-green-500"></i>
+                    <span class="text-xs uppercase">شير مع المحاربين</span>
+                </button>
+            </div>
+            <button onclick="location.reload()" class="w-full text-gray-600 text-[10px] font-bold hover:text-white transition uppercase tracking-widest">إنشاء خطة جديدة لليوم القادم</button>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 0;
+        let responses = {};
+        
+        const workflow = [
+            { id: 'name', q: "أهلاً بك في نظام الماكينة.. اسم المحارب إيه؟", type: 'text' },
+            { id: 'shoba', q: "منور يا [name].. إنت شعبة (علمي علوم) ولا (رياضة) ولا (أدبي)؟", type: 'select', options: ['علمي علوم', 'علمي رياضة', 'أدبي'] },
+            { id: 'wake_up', q: "ساعة الصفر (هتصحى كام؟)", type: 'time', default: '07:00' },
+            { id: 'monster', q: "إيه أكتر مادة بتخاف منها ومحتاجين نخلص عليها؟", type: 'text' },
+            { id: 'easy', q: "وإيه المادة اللي بتستمتع بمذاكرتها وفهمها؟", type: 'text' },
+            { id: 'lesson_count', q: "عندك كام درس النهاردة؟ (0 لـ 4)", type: 'number', min: 0, max: 4 },
+            { id: 'phone_time', q: "بتضيع كام ساعة على السوشيال ميديا في العادي؟", type: 'number', min: 0 },
+            { id: 'reward', q: "إيه الجائزة اللي هتدلع بيها نفسك لما تخلص؟", type: 'text' },
+            { id: 'motivation', q: "كلمة تشجعك لما تحس إنك تعبت؟", type: 'text' },
+            { id: 'final_step', q: "المحرك جاهز لتوليد جدولك القتالي يا [name].. جاهز للانطلاق؟", type: 'info' }
+        ];
+
+        function createDots() {
+            const container = document.getElementById('dots-container');
+            container.innerHTML = '';
+            workflow.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = `step-dot ${i <= currentStep ? 'active' : ''}`;
+                container.appendChild(dot);
+            });
+            document.getElementById('percent').innerText = Math.round((currentStep / (workflow.length - 1)) * 100) + "%";
         }
 
-        function toMin(t) { let [h, m] = t.split(':').map(Number); return h * 60 + m; }
-        function toStr(m) { let hh = Math.floor(m/60)%24, mm = m%60, p = hh>=12?'م':'ص'; hh = hh%12||12; return `${hh}:${mm<10?'0'+mm:mm} ${p}`; }
-
-        function buildSystem() {
-            document.getElementById('wizard-flow').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
+        function renderStep() {
+            const step = workflow[currentStep];
+            let qText = step.q.replace('[name]', responses.name || 'يا بطل');
+            document.getElementById('bot-bubble').innerText = qText;
             
-            document.getElementById('res-name').innerText = document.getElementById('name').value;
-            document.getElementById('res-goal').innerText = document.getElementById('goal').value;
-            document.getElementById('res-dist').innerText = document.getElementById('distraction').value;
-            document.getElementById('res-hard').innerText = document.getElementById('hardSubject').value;
-            document.getElementById('res-prize').innerText = document.getElementById('reward').value;
+            const container = document.getElementById('input-container');
+            container.innerHTML = '';
 
-            let cur = toMin(document.getElementById('wake').value);
-            let end = toMin(document.getElementById('sleep').value);
-            let html = '';
+            if (step.type === 'text' || step.type === 'number') {
+                const el = document.createElement('input');
+                el.type = step.type;
+                el.placeholder = "اكتب هنا...";
+                el.className = "w-full p-5 rounded-2xl text-2xl outline-none transition-all";
+                el.value = responses[step.id] || '';
+                container.appendChild(el);
+                el.focus();
+            } else if (step.type === 'select') {
+                const el = document.createElement('select');
+                el.className = "w-full p-5 rounded-2xl text-2xl outline-none appearance-none cursor-pointer";
+                step.options.forEach(opt => {
+                    const o = document.createElement('option');
+                    o.value = opt; o.innerText = opt;
+                    el.appendChild(o);
+                });
+                el.value = responses[step.id] || step.options[0];
+                container.appendChild(el);
+            } else if (step.type === 'time') {
+                const el = document.createElement('input');
+                el.type = 'time';
+                el.className = "w-full p-5 rounded-2xl text-2xl outline-none";
+                el.value = responses[step.id] || step.default;
+                container.appendChild(el);
+            }
 
-            // 1. بداية المعركة
-            html += block(cur, cur+40, "🚀 تفعيل الأنظمة", "أذكار الصباح + صلاة + 10 دقايق تمارين هوائية (ممنوع الموبايل).");
-            cur += 45;
+            document.getElementById('btn-back').classList.toggle('hidden', currentStep === 0);
+            document.getElementById('btn-next').innerText = currentStep === workflow.length - 1 ? "توليد الجدول" : "استمرار";
+            createDots();
+        }
 
-            // 2. جلسة التركيز العميق (المادة البعبع)
-            html += block(cur, cur+120, `⚔️ معركة الـ ${document.getElementById('hardSubject').value}`, "دي أهم فترة في يومك. تركيز 100% ولازم تخلص الجزء الصعب الأول.");
-            cur += 135;
+        function handleNext() {
+            const step = workflow[currentStep];
+            const input = document.querySelector('#input-container input, #input-container select');
+            
+            if (input && step.type !== 'info' && !input.value) {
+                alert("يا بطل، الخانة دي إجبارية عشان الجدول يطلع مظبوط!");
+                return;
+            }
 
-            // 3. الدروس والسناتر
-            const lCount = document.getElementById('lessonCount').value;
-            for(let i=1; i<=lCount; i++) {
-                let s = toMin(document.getElementById('ls_'+i).value);
-                let e = toMin(document.getElementById('le_'+i).value);
-                
-                if (cur < s-40) {
-                    html += block(cur, s-45, `📖 مراجعة تكتيكية: ${document.getElementById('easySubject').value}`, "استغل الوقت ده في مذاكرة خفيفة للمادة اللي بتحبها.");
+            if (input) responses[step.id] = input.value;
+
+            if (step.id === 'lesson_count') {
+                const count = parseInt(responses.lesson_count);
+                workflow.splice(currentStep + 1, workflow.filter(w => w.dynamic).length);
+                for(let i=1; i<=count; i++) {
+                    workflow.splice(currentStep + i*2 - 1, 0, 
+                        { id: `l_${i}_name`, q: `اسم مادة الدرس رقم ${i}؟`, type: 'text', dynamic: true },
+                        { id: `l_${i}_time`, q: `ميعاد درس ${i} هيبدأ كام؟`, type: 'time', default: '14:00', dynamic: true }
+                    );
                 }
-                
-                html += block(s-40, e+60, `🚍 السنتر: ${document.getElementById('ln_'+i).value}`, "شامل وقت اللبس والنزول + الدرس + ساعة كاملة راحة إجبارية بعد الرجوع.");
-                cur = e + 65;
             }
 
-            // 4. إنهاء المهمة
-            if (cur < end - 60) {
-                html += block(cur, end-35, "✅ تقفيل الواجبات والمهام", `إنجاز واجب: ${document.getElementById('mainTask').value} وتجهيز شنطة بكرة.`);
+            if (currentStep < workflow.length - 1) {
+                currentStep++;
+                renderStep();
+            } else {
+                showSchedule();
             }
-            html += block(end-30, end, "🔌 وضع السكون", "فصل الأجهزة الذكية والاستعداد لنوم عميق لإعادة الشحن.");
-
-            document.getElementById('schedule-output').innerHTML = html;
         }
 
-        function block(s, e, t, d) {
-            return `
-            <div class="timeline-mark">
-                <span class="text-cyan-400 font-black text-xs uppercase italic">${toStr(s)} - ${toStr(e)}</span>
-                <h4 class="text-white font-black text-xl mt-1 italic">${t}</h4>
-                <p class="text-gray-500 text-xs leading-relaxed mt-2">${d}</p>
-            </div>`;
+        function handleBack() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderStep();
+            }
         }
 
-        function saveAsPDF() {
-            const el = document.getElementById('render-area');
-            html2pdf().set({
-                margin: 5, filename: 'جدول_منصة_ثانية_ثانوي_الرسمي.pdf',
-                html2canvas: { scale: 3, backgroundColor: '#05050a' },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).from(el).save();
+        function showSchedule() {
+            document.getElementById('wizard-view').classList.add('hidden');
+            document.getElementById('result-view').classList.remove('active-step'); 
+            document.getElementById('result-view').style.display = 'block';
+            document.getElementById('res-student-info').innerText = `${responses.name} | شعبة ${responses.shoba} | الهدف: النجاح الساحق`;
+
+            const list = document.getElementById('schedule-list');
+            list.innerHTML = '';
+            
+            let time = responses.wake_up;
+            const addItem = (t, act, note, type) => {
+                const item = document.createElement('div');
+                item.className = `schedule-item type-${type}`;
+                item.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-cyan-400 font-black text-xs tracking-tighter">${t}</span>
+                        <span class="font-black text-sm text-white text-right flex-1 px-4">${act}</span>
+                    </div>
+                    <div class="text-[10px] text-gray-500 text-right mt-1 italic">${note}</div>
+                `;
+                list.appendChild(item);
+            };
+
+            const addMins = (t, m) => {
+                let [h, min] = t.split(':').map(Number);
+                let d = new Date(); d.setHours(h, min + m);
+                return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+            };
+
+            addItem(time, "الاستيقاظ + الصلاة + الفطور", "ممنوع لمس الهاتف تماماً في هذه المرحلة", "break");
+            
+            time = addMins(time, 45);
+            addItem(time, `جلسة الوحش: ${responses.monster}`, "تركيز عميق 100%، هذه المادة تحدد مستقبلك", "monster");
+            
+            time = addMins(time, 120);
+            addItem(time, "استراحة تجديد الطاقة", "شرب مياه + تمارین إطالة بسيطة", "break");
+
+            let lCount = parseInt(responses.lesson_count);
+            let lessons = [];
+            for(let i=1; i<=lCount; i++) {
+                lessons.push({ name: responses[`l_${i}_name`], t: responses[`l_${i}_time`] });
+            }
+            lessons.sort((a,b) => a.t.localeCompare(b.t));
+
+            if(lCount === 0) {
+                addItem(time, "مذاكرة مكثفة + حل امتحانات", "يوم بدون دروس يعني يوم إنجاز عالمي", "monster");
+                time = addMins(time, 120);
+            }
+
+            lessons.forEach(l => {
+                addItem(addMins(l.t, -45), `تجهيز وتحرك لدرس ${l.name}`, "وقت المواصلات (ممنوع ضياع التركيز)", "lesson");
+                addItem(l.t, `حضور درس ${l.name}`, "ركز في كل كلمة، أنت بطل", "lesson");
+                addItem(addMins(l.t, 120), "ساعة راحة وفصلان (إجباري)", "ارتاح من تعب السنتر عشان تقدر تكمل", "break");
+                time = addMins(l.t, 180);
+            });
+
+            addItem(time, "تحذير: منطقة خطر (المشتتات)", `ارمي الموبايل فوراً، ركز في ${responses.easy}`, "warning");
+            
+            time = addMins(time, 20);
+            addItem(time, `مذاكرة المادة الحبيبة: ${responses.easy}`, "وقت الاستمتاع بالمعلومات الخفيفة", "break");
+
+            addItem(addMins(time, 90), `وقت الجائزة: ${responses.reward}`, "إنجاز عظيم! استمتع بمكافأتك", "break");
+            addItem("23:00", "النوم (إعادة شحن الماكينة)", "مخك بيثبت المعلومات دلوقتي، تصبح على خير", "monster");
         }
 
-        function saveAsShot() {
-            html2canvas(document.getElementById('render-area'), { scale: 3, backgroundColor: '#05050a' }).then(c => {
-                const a = document.createElement('a');
-                a.download = 'جدولي_القتالي.png';
-                a.href = c.toDataURL();
-                a.click();
+        function takeScreenshot() {
+            const area = document.getElementById('schedule-capture');
+            html2canvas(area, { 
+                scale: 3,
+                backgroundColor: '#020205',
+                useCORS: true 
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `جدول_تانية_ثانوي_الرسمي.png`;
+                link.href = canvas.toDataURL();
+                link.click();
             });
         }
 
-        function shareLink() {
-            const text = "يا بطل، أنا بدأت أهندس مستقبلي بجدول منصة ثانية ثانوي! تعال جربه معايا من هنا: https://thanwyaa.github.io/saanaye/";
-            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+        function shareWhatsApp() {
+            const msg = encodeURIComponent("يا بطل، أنا هندست جدولي الرسمي لثانية ثانوي على الماكينة الذكية! تعال اعمل جدولك إنت كمان ووريني همتك: https://thanwyaa.github.io/saanaye/");
+            window.open(`https://wa.me/?text=${msg}`);
         }
+
+        window.onload = renderStep;
     </script>
 </body>
 </html>
