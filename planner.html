@@ -3,157 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Master Planner | منصة ثانية ثانوي</title>
+    <title>AI Command Center | ثانية ثانوي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        :root { --neon: #3b82f6; --bg: #020617; --card: #0f172a; --success: #10b981; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #e2e8f0; margin: 0; padding: 10px; }
-        .container { max-width: 650px; margin: auto; background: var(--card); border-radius: 24px; padding: 25px; border: 1px solid #1e40af; box-shadow: 0 0 40px rgba(59, 130, 246, 0.1); }
-        .input-group { background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #334155; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #94a3b8; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #020617; color: #fff; box-sizing: border-box; font-family: 'Cairo'; margin-bottom: 10px; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: 'Cairo'; }
-        .btn-blue { background: var(--neon); color: white; }
-        .btn-plus { background: transparent; color: var(--neon); border: 1px dashed var(--neon); padding: 5px; font-size: 0.8rem; margin-bottom: 10px; }
-        .task-card { background: #1e293b; border-right: 6px solid var(--neon); padding: 15px; margin: 10px 0; border-radius: 10px; }
-        .time-badge { background: var(--neon); color: #fff; padding: 2px 8px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
-        .footer-link { text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #334155; color: var(--neon); font-weight: bold; font-size: 0.8rem; }
+        :root { --main: #00f2ff; --danger: #ff0055; --bg: #050505; --panel: #111; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 15px; }
+        .ai-card { max-width: 600px; margin: auto; background: var(--panel); border-radius: 15px; padding: 25px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0,242,255,0.1); }
+        h1 { color: var(--main); text-align: center; font-weight: 900; letter-spacing: -1px; margin-bottom: 30px; }
+        .q-box { background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-right: 4px solid var(--main); }
+        label { display: block; margin-bottom: 10px; font-weight: bold; color: #aaa; font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #000; color: var(--main); font-family: 'Cairo'; margin-bottom: 10px; }
+        .btn-ai { width: 100%; padding: 18px; background: var(--main); color: #000; border: none; border-radius: 10px; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        .btn-ai:hover { box-shadow: 0 0 20px var(--main); transform: scale(1.02); }
+        .task { background: #000; border: 1px solid #222; padding: 15px; margin: 15px 0; border-radius: 10px; border-right: 5px solid var(--main); position: relative; }
+        .task.lesson { border-right-color: var(--danger); }
+        .time-tag { position: absolute; left: 10px; top: 10px; background: #222; padding: 2px 8px; border-radius: 5px; font-size: 0.7rem; color: var(--main); }
+        .footer-promo { text-align: center; border-top: 1px solid #333; margin-top: 20px; padding: 10px; font-size: 0.8rem; color: var(--main); }
         .hidden { display: none; }
-        @media print { .no-print { display: none; } }
+        .btn-share { background: #25d366; color: #fff; margin-top: 10px; }
+        .btn-pdf { background: #ff5722; color: #fff; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container" id="setup">
-    <h2 style="text-align:center; color:var(--neon); margin-top:0;">🧠 المحرك الذكي V6.0</h2>
+<div class="ai-card" id="setup">
+    <h1>OPERATIONAL LOGIC V7</h1>
     
-    <div class="input-group">
-        <label>⏰ متى ستبدأ يومك؟ (الاستيقاظ)</label>
-        <input type="time" id="wake" value="07:00">
-        
-        <label>🔋 مستوى طاقتك الآن؟</label>
-        <select id="energy">
-            <option value="high">وحش مستعد للكسح 🔥</option>
-            <option value="mid">نص نص (عايز زقة) ☕</option>
-            <option value="low">فصلان وعايز أنجز 😴</option>
-        </select>
+    <div class="q-box">
+        <label>⏰ هتفوق من الغيبوبة (تصحى) الساعة كام؟</label>
+        <input type="time" id="wake" value="08:00">
     </div>
 
-    <div class="input-group">
-        <label>💀 المادة البعبع (الأولوية):</label>
-        <input type="text" id="boss" placeholder="مثلاً: فيزياء">
-        
-        <label>📚 مواد التحدي الأخرى:</label>
-        <div id="subs-list"><input type="text" class="sub-in" placeholder="اسم المادة"></div>
-        <button class="btn btn-plus" onclick="addItem('subs-list', 'sub-in', 'مادة أخرى')">+ إضافة مادة</button>
+    <div class="q-box">
+        <label>🎯 إيه المادة اللي "قارفة" عيشتك وعايز تدوس عليها؟</label>
+        <input type="text" id="boss" placeholder="فيزياء، رياضة..">
     </div>
 
-    <div class="input-group">
-        <label>🚶 هل لديك دروس خارجية؟</label>
-        <select id="has_lesson" onchange="document.getElementById('lesson_zone').classList.toggle('hidden', this.value === 'no')">
-            <option value="no">لا، يومي في البيت</option>
-            <option value="yes">نعم، لدي دروس</option>
-        </select>
-        <div id="lesson_zone" class="hidden">
-            <label>مواعيد الدروس (من .. إلى):</label>
-            <div id="lessons-list">
-                <div style="display:flex; gap:5px;"><input type="time" class="l-start"> <input type="time" class="l-end"></div>
-            </div>
-            <button class="btn btn-plus" onclick="addLesson()">+ إضافة درس آخر</button>
+    <div id="subs-cont" class="q-box">
+        <label>📚 باقي المهام (اكتب المادة ودوس +):</label>
+        <div id="subs-list"><input type="text" class="sub-in" placeholder="مادة إضافية"></div>
+        <button onclick="addIn('subs-list','sub-in')" style="background:none; border:1px dashed var(--main); color:var(--main); width:100%; margin-top:5px; border-radius:5px; cursor:pointer;">+ إضافة مادة</button>
+    </div>
+
+    <div class="q-box">
+        <label>🚶 الدروس (السناتر قتلتنا):</label>
+        <div id="lessons-list">
+            <div style="display:flex; gap:5px;"><input type="time" class="l-s" placeholder="بدء"> <input type="time" class="l-e" placeholder="انتهاء"></div>
         </div>
+        <button onclick="addLesson()" style="background:none; border:1px dashed var(--danger); color:var(--danger); width:100%; margin-top:5px; border-radius:5px; cursor:pointer;">+ إضافة درس</button>
     </div>
 
-    <button class="btn btn-blue" onclick="runAI()">توليد الجدول الأسطوري 🔥</button>
+    <div class="q-box">
+        <label>🧠 مودك إيه النهاردة؟ (الـ AI هيوزع المجهود بناءً عليه):</label>
+        <select id="mood">
+            <option value="beast">وحش كاسح - هفرم المنهج 🔥</option>
+            <option value="chill">رايق - بس عايز أنجز ☕</option>
+            <option value="dead">ميت - عايز أنقذ ما يمكن إنقاذه 💀</option>
+        </select>
+    </div>
+
+    <button class="btn-ai" onclick="generate()">تفعيل البروتوكول الذكي 🔥</button>
 </div>
 
-<div class="container hidden" id="result-screen">
-    <div id="pdf-content">
-        <h2 style="text-align: center; color: var(--neon); margin-bottom:5px;">COMMAND CENTER 🚀</h2>
-        <p style="text-align: center; font-size: 0.8rem; margin-top:0;" id="ai-date"></p>
-        
-        <div id="output"></div>
-
-        <div class="footer-link">
-            🔗 تم التوليد بواسطة منصة ثانية ثانوي الذكية:<br>
+<div class="ai-card hidden" id="result">
+    <div id="pdf-area">
+        <h2 style="text-align:center; color:var(--main);">MISSION REPORT 📑</h2>
+        <p id="status-msg" style="text-align:center; font-size:0.8rem; color:#888;"></p>
+        <div id="schedule"></div>
+        <div class="footer-promo">
+            🚀 تم التخطيط بواسطة "محرك ثانية ثانوي الذكي" <br>
             thanwyaa.github.io
         </div>
     </div>
-
-    <div class="no-print">
-        <button class="btn" style="background:var(--success); color:white;" onclick="downloadPDF()">📥 حفظ كـ PDF (لقطة شاشة)</button>
-        <button class="btn" style="background:#8b5cf6; color:white;" onclick="sharePlatform()">📤 شارك المنصة مع أصحابك</button>
-        <button class="btn" style="background:#475569; color:white;" onclick="window.location.reload()">🔄 إعادة التخطيط</button>
-    </div>
+    
+    <button class="btn-ai btn-pdf" onclick="savePDF()">📥 حفظ كـ PDF (احترافي)</button>
+    <button class="btn-ai btn-share" onclick="share()">📤 مشاركة مع "الفشلة" صحابك</button>
+    <button class="btn-ai" style="background:#333; color:#fff; margin-top:10px;" onclick="window.location.reload()">🔄 إعادة المحاولة</button>
 </div>
 
 <script>
-const tips = [
-    "ابعد الموبايل عنك 10 متر فوراً 📵", "اشرب مية كتير، مخك شغال بالترطيب 💧", "ذاكر 50 دقيقة وفصل 10 دقايق ⏱️",
-    "ابدأ بالأصعب دايماً وأنت فريش 💪", "نظم مكتبك، الفوضى بتعمل تشتت 🧹", "لو مادة تقيلة، قسمها أجزاء صغار ✂️",
-    "ماتسهرش بعد الساعة 12 😴", "استخدم ورق وقلم، الكتابة بتثبت المعلومة ✍️", "أنت قد التحدي، مفيش حاجة صعبة عليك 🔥",
-    "ثق في قدراتك، أنت أذكى مما تتخيل 💡", "ابدأ دلوقتي، مش بكرة! 🏹", "اشرح الدرس لحيطة، المعلومة هتثبت 🗣️",
-    "5 دقائق رياضة بتجدد الدورة الدموية 🏃", "لو تعبت نام 20 دقيقة (Power Nap) ⚡", "النجاح محتاج استمرار مش ذكاء خارق 📈"
+const aiQuotes = [
+    "المنهج مش صعب، أنت اللي سحلت نفسك في التيك توك. ابدأ!",
+    "لو تانية ثانوي عدت بسلام، الباقي لعب عيال. دوس!",
+    "المستقبل مش مستني حد، يا تفرم يا تتفرم.",
+    "الذكاء الحقيقي إنك تبدأ وأنت مش طايق نفسك."
 ];
 
-function addItem(parentId, className, ph) {
-    let i = document.createElement('input'); i.className = className; i.placeholder = ph;
-    document.getElementById(parentId).appendChild(i);
+function addIn(p, c) {
+    let i = document.createElement('input'); i.className = c; i.placeholder = "مادة تانية";
+    document.getElementById(p).appendChild(i);
 }
 
 function addLesson() {
-    let d = document.createElement('div'); d.style.display = 'flex'; d.style.gap = '5px';
-    d.innerHTML = `<input type="time" class="l-start"> <input type="time" class="l-end">`;
+    let d = document.createElement('div'); d.style.display="flex"; d.style.gap="5px";
+    d.innerHTML = `<input type="time" class="l-s"> <input type="time" class="l-e">`;
     document.getElementById('lessons-list').appendChild(d);
 }
 
 function toMin(t) { let [h, m] = t.split(':').map(Number); return h * 60 + m; }
 function toStr(m) { let hh = Math.floor(m/60)%24, mm = m%60, p = hh>=12?'م':'ص'; hh = hh%12||12; return `${hh}:${mm<10?'0'+mm:mm} ${p}`; }
 
-function runAI() {
+function generate() {
     let cur = toMin(document.getElementById('wake').value);
     let boss = document.getElementById('boss').value;
-    let energy = document.getElementById('energy').value;
+    let mood = document.getElementById('mood').value;
     let subs = Array.from(document.getElementsByClassName('sub-in')).map(i=>i.value).filter(v=>v);
     let lessons = Array.from(document.querySelectorAll('#lessons-list div')).map(d=>({s:toMin(d.children[0].value), e:toMin(d.children[1].value)})).filter(l=>l.s&&l.e).sort((a,b)=>a.s-b.s);
 
-    let res = `<div style="background:#1e3a8a; padding:12px; border-radius:12px; margin-bottom:15px; border-left:5px solid #60a5fa; font-size:0.85rem;">💡 <b>نصيحة الذكاء الصناعي:</b> ${tips[Math.floor(Math.random()*tips.length)]}</div>`;
+    let html = `<div style="padding:10px; background:#222; border-radius:8px; margin-bottom:15px; font-size:0.8rem; border-left:4px solid var(--main);">🤖 <b>توجيه الـ AI:</b> ${aiQuotes[Math.floor(Math.random()*aiQuotes.length)]}</div>`;
 
-    // المهمة الكبرى (بتتأثر بالطاقة)
-    let bossTime = energy === 'high' ? 150 : (energy === 'mid' ? 120 : 90);
-    let e1 = cur + bossTime;
-    res += `<div class="task-card"><span class="time-badge">${toStr(cur)} - ${toStr(e1)}</span><h3 style="margin:5px 0;">⚔️ مهمة كسر العظام: ${boss}</h3><p style="margin:0; font-size:0.8rem; color:#94a3b8;">بما إن طاقتك ${energy==='high'?'في العالي':'متوسطة'}، ده أنسب وقت للبعبع.</p></div>`;
-    cur = e1 + 30;
+    // 1. بلوك الوحش
+    let bossDuration = mood === 'beast' ? 180 : (mood === 'chill' ? 120 : 60);
+    html += `<div class="task"><span class="time-tag">${toStr(cur)} - ${toStr(cur+bossDuration)}</span><h3>🚀 المهمة الانتحارية: ${boss}</h3><p style="font-size:0.8rem; color:#888;">تركيز مطلق بنظام الـ Deep Work. الموبيل بره الأوضة!</p></div>`;
+    cur += bossDuration + 30;
 
-    subs.forEach(sub => {
+    // 2. توزيع الباقي مع فحص الدروس
+    subs.forEach(s => {
         lessons.forEach(l => {
-            if (cur + 40 > l.s - 30 && cur < l.e) {
-                res += `<div class="task-card" style="border-color:#ef4444; background:#450a0a;"><span class="time-badge" style="background:#ef4444">${toStr(l.s-30)} - ${toStr(l.e+40)}</span><h3 style="margin:5px 0;">🚧 وقت السنتر (خارج البيت)</h3></div>`;
-                cur = l.e + 40;
+            if (cur + 30 > l.s - 45 && cur < l.e) {
+                html += `<div class="task lesson"><span class="time-tag">${toStr(l.s-45)} - ${toStr(l.e+45)}</span><h3>🚧 استنزاف: الدرس والمواصلات</h3><p style="font-size:0.8rem; color:#888;">وقت مستقطع للسنتر. اشحن طاقتك.</p></div>`;
+                cur = l.e + 45;
             }
         });
-        let eS = cur + 60;
-        res += `<div class="task-card" style="border-color:var(--success);"><span class="time-badge" style="background:var(--success)">🕒 ${toStr(cur)} - ${toStr(eS)}</span><h3 style="margin:5px 0;">🎯 تحدي: ${sub}</h3><p style="margin:0; font-size:0.8rem;">خلص تمارين الدرس ده في الساعة دي.</p></div>`;
-        cur = eS + 15;
+        html += `<div class="task"><span class="time-tag">${toStr(cur)} - ${toStr(cur+60)}</span><h3>✅ تصفية: ${s}</h3><p style="font-size:0.8rem; color:#888;">حل تمارين وسد ثغرات. أنجز!</p></div>`;
+        cur += 75;
     });
 
     document.getElementById('setup').classList.add('hidden');
-    document.getElementById('result-screen').classList.remove('hidden');
-    document.getElementById('output').innerHTML = res;
-    document.getElementById('ai-date').innerText = new Date().toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('schedule').innerHTML = html;
+    document.getElementById('status-msg').innerText = `تم تحليل البيانات بنجاح.. وضع التشغيل: ${mood}`;
 }
 
-function downloadPDF() {
-    const element = document.getElementById('pdf-content');
-    const opt = { margin: 0.5, filename: 'جدول من قناه تانيه ثانوي الرسميه.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#0f172a' }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } };
-    html2pdf().set(opt).from(element).save();
+function savePDF() {
+    const opt = { margin: 10, filename: 'AI_Plan.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#050505' }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
+    html2pdf().set(opt).from(document.getElementById('pdf-area')).save();
 }
 
-function sharePlatform() {
+function share() {
     if (navigator.share) {
-        navigator.share({ title: 'منصة ثانية ثانوي الذكية', text: 'عملت جدولي بالذكاء الصناعي في ثواني! جرب المنصة من هنا:', url: 'https://thanwyaa.github.io' });
-    } else {
-        alert("انسخ الرابط وابعته لأصحابك: https://thanwyaa.github.io");
+        navigator.share({ title: 'AI Planner', text: 'جدولي طالع من المخابرات! شوف المنصة دي:', url: 'https://thanwyaa.github.io' });
     }
 }
 </script>
