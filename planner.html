@@ -3,134 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Battle Plan | غرفة عمليات تانية ثانوي</title>
+    <title>AI Master Planner | منصة ثانية ثانوي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        :root { --primary: #3b82f6; --bg: #020617; --card: #0f172a; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 15px; }
-        .container { max-width: 650px; margin: auto; background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid #1e40af; box-shadow: 0 10px 50px rgba(0,0,0,0.5); }
-        h2 { color: var(--primary); text-align: center; font-weight: 900; }
-        .box { background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #334155; background: #020617; color: #fff; box-sizing: border-box; font-size: 1rem; }
-        .btn-plus { background: #1e40af; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 5px; }
-        .btn-main { width: 100%; padding: 18px; background: var(--primary); color: #fff; border: none; border-radius: 15px; font-weight: 900; font-size: 1.3rem; cursor: pointer; transition: 0.3s; }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); }
-        .task { background: #1e293b; border-right: 6px solid var(--primary); padding: 15px; margin: 15px 0; border-radius: 10px; animation: slideIn 0.5s ease; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-        .time { color: var(--primary); font-weight: 900; font-size: 1.1rem; }
+        :root { --neon: #3b82f6; --bg: #020617; --card: #0f172a; --success: #10b981; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #e2e8f0; margin: 0; padding: 10px; }
+        .container { max-width: 650px; margin: auto; background: var(--card); border-radius: 24px; padding: 25px; border: 1px solid #1e40af; box-shadow: 0 0 40px rgba(59, 130, 246, 0.1); }
+        .input-group { background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #334155; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #94a3b8; font-size: 0.9rem; }
+        input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #020617; color: #fff; box-sizing: border-box; font-family: 'Cairo'; margin-bottom: 10px; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: 'Cairo'; }
+        .btn-blue { background: var(--neon); color: white; }
+        .btn-plus { background: transparent; color: var(--neon); border: 1px dashed var(--neon); padding: 5px; font-size: 0.8rem; margin-bottom: 10px; }
+        .task-card { background: #1e293b; border-right: 6px solid var(--neon); padding: 15px; margin: 10px 0; border-radius: 10px; }
+        .time-badge { background: var(--neon); color: #fff; padding: 2px 8px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
+        .footer-link { text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #334155; color: var(--neon); font-weight: bold; font-size: 0.8rem; }
         .hidden { display: none; }
-        .nav { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .nav a { color: #64748b; text-decoration: none; font-weight: bold; }
+        @media print { .no-print { display: none; } }
     </style>
 </head>
 <body>
 
-<div class="nav"><a href="index.html">🔙 العودة للمنصة</a> <span>V4.0 الذكاء الشغال 🧠</span></div>
-
-<div class="container" id="input-page">
-    <h2>غرفة عمليات المذاكرة 🚀</h2>
+<div class="container" id="setup">
+    <h2 style="text-align:center; color:var(--neon); margin-top:0;">🧠 المحرك الذكي V6.0</h2>
     
-    <div class="box">
-        <label>⏰ هتصحي "بالثانية" الساعة كام؟</label>
+    <div class="input-group">
+        <label>⏰ متى ستبدأ يومك؟ (الاستيقاظ)</label>
         <input type="time" id="wake" value="07:00">
+        
+        <label>🔋 مستوى طاقتك الآن؟</label>
+        <select id="energy">
+            <option value="high">وحش مستعد للكسح 🔥</option>
+            <option value="mid">نص نص (عايز زقة) ☕</option>
+            <option value="low">فصلان وعايز أنجز 😴</option>
+        </select>
     </div>
 
-    <div class="box">
-        <label>🔥 المادة البعبع (اللي مطلع عينك):</label>
-        <input type="text" id="boss" placeholder="فيزياء، كيمياء...">
+    <div class="input-group">
+        <label>💀 المادة البعبع (الأولوية):</label>
+        <input type="text" id="boss" placeholder="مثلاً: فيزياء">
+        
+        <label>📚 مواد التحدي الأخرى:</label>
+        <div id="subs-list"><input type="text" class="sub-in" placeholder="اسم المادة"></div>
+        <button class="btn btn-plus" onclick="addItem('subs-list', 'sub-in', 'مادة أخرى')">+ إضافة مادة</button>
     </div>
 
-    <div class="box">
-        <label>📚 مواد التحدي (ضيف براحتك):</label>
-        <div id="subs">
-            <input type="text" class="sub-in" placeholder="اسم المادة">
-        </div>
-        <button class="btn-plus" onclick="addInput('subs', 'اسم المادة')">+ مادة كمان</button>
-    </div>
-
-    <div class="box">
-        <label>🚶 عندك دروس بره؟</label>
-        <select id="is_lesson" onchange="checkLesson()">
-            <option value="no">لأ، يومي في البيت</option>
-            <option value="yes">آه، عندي مواعيد</option>
+    <div class="input-group">
+        <label>🚶 هل لديك دروس خارجية؟</label>
+        <select id="has_lesson" onchange="document.getElementById('lesson_zone').classList.toggle('hidden', this.value === 'no')">
+            <option value="no">لا، يومي في البيت</option>
+            <option value="yes">نعم، لدي دروس</option>
         </select>
         <div id="lesson_zone" class="hidden">
-            <p style="font-size:0.8rem; color:#94a3b8;">دخل مواعيد الدروس بالظبط:</p>
-            <div id="lessons">
+            <label>مواعيد الدروس (من .. إلى):</label>
+            <div id="lessons-list">
                 <div style="display:flex; gap:5px;"><input type="time" class="l-start"> <input type="time" class="l-end"></div>
             </div>
-            <button class="btn-plus" onclick="addLesson()">+ درس كمان</button>
+            <button class="btn btn-plus" onclick="addLesson()">+ إضافة درس آخر</button>
         </div>
     </div>
 
-    <button class="btn-main" onclick="startAI()">توليد الخطة القاتلة 🔥</button>
+    <button class="btn btn-blue" onclick="runAI()">توليد الجدول الأسطوري 🔥</button>
 </div>
 
-<div class="container hidden" id="result-page">
-    <h2 id="ai-msg">Command Center</h2>
-    <div id="output"></div>
-    <button class="btn-main" style="background:#059669; margin-top:20px;" onclick="window.location.reload()">🔄 إعادة التخطيط</button>
+<div class="container hidden" id="result-screen">
+    <div id="pdf-content">
+        <h2 style="text-align: center; color: var(--neon); margin-bottom:5px;">COMMAND CENTER 🚀</h2>
+        <p style="text-align: center; font-size: 0.8rem; margin-top:0;" id="ai-date"></p>
+        
+        <div id="output"></div>
+
+        <div class="footer-link">
+            🔗 تم التوليد بواسطة منصة ثانية ثانوي الذكية:<br>
+            thanwyaa.github.io
+        </div>
+    </div>
+
+    <div class="no-print">
+        <button class="btn" style="background:var(--success); color:white;" onclick="downloadPDF()">📥 حفظ كـ PDF (لقطة شاشة)</button>
+        <button class="btn" style="background:#8b5cf6; color:white;" onclick="sharePlatform()">📤 شارك المنصة مع أصحابك</button>
+        <button class="btn" style="background:#475569; color:white;" onclick="window.location.reload()">🔄 إعادة التخطيط</button>
+    </div>
 </div>
 
 <script>
 const tips = [
-    "ابعد الموبايل عنك 10 متر، إشعاراتك عدوك الأول 📵", "لو زهقت غير مكانك، روح البلكونة أو الصالة ☀️", "ذاكر 50 دقيقة وفصل 10 دقايق، ده نظام الـ AI ⏱️",
-    "اشرب مية كتير، مخك بيعشق الهيدرجة 💧", "التكرار سر الشطار، راجع العناوين قبل ما تبدأ 🔁", "ابدأ بالأصعب دايماً وأنت في قمة نشاطك 💪",
-    "نظم مكتبك، الفوضى في المكان بتعمل فوضى في الدماغ 🧹", "لو مادة تقيلة، قسمها أجزاء صغيرة جداً ✂️", "كافئ نفسك بحاجة حلوة بعد كل إنجاز 🍫",
-    "ماتسهرش بعد الساعة 12، ده وقت حرق الخلايا 😴", "استخدم ورق وقلم، الكتابة بتثبت المعلومة ✍️", "تخيل فرحة أهلك يوم النتيجة، تستاهل التعب 🎓",
-    "أنت قد التحدي، مفيش حاجة صعبة على واحد زيك 🔥", "ثق في قدراتك، أنت أذكى مما تتخيل 💡", "ابدأ دلوقتي، مش بكرة! 🏹",
-    "قاعدة الـ 5 ثواني: عد 5-4-3-2-1 وقوم فوراً! 🚀", "اشرح الدرس لحيطة أو كلبك، المعلومة هتثبت 🗣️", "كل فاكهة بلاش سكريات مصنعة 🍎",
-    "الرياضة 5 دقايق بتجدد الدورة الدموية 🏃", "اسمع صوت مطر لو الدوشة حواليك كتير 🌧️", "خد سكرين شوت للجدول وخليه خلفية للموبايل 📸",
-    "حول الدرس لقصة مضحكة عشان تفتكرها 🎭", "غمض عينك وتخيل إنك بتشرح الدرس في لجنة 🧠", "بلاش كافيين كتير، كوباية واحدة كفاية ☕",
-    "لو تعبت نام 20 دقيقة (Power Nap) ⚡", "ركز في مادة واحدة، بلاش تشتت نفسك 🎯", "المذاكرة الجماعية فاشلة لو فيها رغي 🗣️",
-    "خلي هدفك الإتقان مش السرعة ✨", "النجاح محتاج استمرار مش ذكاء خارق 📈", "يا وحش، المنهج ده لُقمة في زورك، ابلعها! ⚔️"
+    "ابعد الموبايل عنك 10 متر فوراً 📵", "اشرب مية كتير، مخك شغال بالترطيب 💧", "ذاكر 50 دقيقة وفصل 10 دقايق ⏱️",
+    "ابدأ بالأصعب دايماً وأنت فريش 💪", "نظم مكتبك، الفوضى بتعمل تشتت 🧹", "لو مادة تقيلة، قسمها أجزاء صغار ✂️",
+    "ماتسهرش بعد الساعة 12 😴", "استخدم ورق وقلم، الكتابة بتثبت المعلومة ✍️", "أنت قد التحدي، مفيش حاجة صعبة عليك 🔥",
+    "ثق في قدراتك، أنت أذكى مما تتخيل 💡", "ابدأ دلوقتي، مش بكرة! 🏹", "اشرح الدرس لحيطة، المعلومة هتثبت 🗣️",
+    "5 دقائق رياضة بتجدد الدورة الدموية 🏃", "لو تعبت نام 20 دقيقة (Power Nap) ⚡", "النجاح محتاج استمرار مش ذكاء خارق 📈"
 ];
 
-function addInput(id, ph) {
-    let i = document.createElement('input'); i.type = 'text'; i.className = 'sub-in'; i.placeholder = ph;
-    document.getElementById(id).appendChild(i);
+function addItem(parentId, className, ph) {
+    let i = document.createElement('input'); i.className = className; i.placeholder = ph;
+    document.getElementById(parentId).appendChild(i);
 }
 
 function addLesson() {
     let d = document.createElement('div'); d.style.display = 'flex'; d.style.gap = '5px';
     d.innerHTML = `<input type="time" class="l-start"> <input type="time" class="l-end">`;
-    document.getElementById('lessons').appendChild(d);
+    document.getElementById('lessons-list').appendChild(d);
 }
-
-function checkLesson() { document.getElementById('lesson_zone').classList.toggle('hidden', document.getElementById('is_lesson').value === 'no'); }
 
 function toMin(t) { let [h, m] = t.split(':').map(Number); return h * 60 + m; }
 function toStr(m) { let hh = Math.floor(m/60)%24, mm = m%60, p = hh>=12?'م':'ص'; hh = hh%12||12; return `${hh}:${mm<10?'0'+mm:mm} ${p}`; }
 
-function startAI() {
+function runAI() {
     let cur = toMin(document.getElementById('wake').value);
     let boss = document.getElementById('boss').value;
+    let energy = document.getElementById('energy').value;
     let subs = Array.from(document.getElementsByClassName('sub-in')).map(i=>i.value).filter(v=>v);
-    let lessons = Array.from(document.querySelectorAll('#lessons div')).map(d=>({s:toMin(d.children[0].value), e:toMin(d.children[1].value)})).filter(l=>l.s&&l.e).sort((a,b)=>a.s-b.s);
+    let lessons = Array.from(document.querySelectorAll('#lessons-list div')).map(d=>({s:toMin(d.children[0].value), e:toMin(d.children[1].value)})).filter(l=>l.s&&l.e).sort((a,b)=>a.s-b.s);
 
-    let res = `<p style="background:#1e3a8a; padding:10px; border-radius:10px; text-align:center;">🌟 نصيحة الـ AI: ${tips[Math.floor(Math.random()*tips.length)]}</p>`;
+    let res = `<div style="background:#1e3a8a; padding:12px; border-radius:12px; margin-bottom:15px; border-left:5px solid #60a5fa; font-size:0.85rem;">💡 <b>نصيحة الذكاء الصناعي:</b> ${tips[Math.floor(Math.random()*tips.length)]}</div>`;
 
-    // بلوك 1: الوحش
-    let e1 = cur + 120;
-    res += `<div class="task"><span class="time">🕒 ${toStr(cur)} - ${toStr(e1)}</span><h3>⚔️ مهمة كسر العظام: ${boss}</h3><p>أصعب جزء في يومك، اخلص منه وأنت لسه فريش.</p></div>`;
+    // المهمة الكبرى (بتتأثر بالطاقة)
+    let bossTime = energy === 'high' ? 150 : (energy === 'mid' ? 120 : 90);
+    let e1 = cur + bossTime;
+    res += `<div class="task-card"><span class="time-badge">${toStr(cur)} - ${toStr(e1)}</span><h3 style="margin:5px 0;">⚔️ مهمة كسر العظام: ${boss}</h3><p style="margin:0; font-size:0.8rem; color:#94a3b8;">بما إن طاقتك ${energy==='high'?'في العالي':'متوسطة'}، ده أنسب وقت للبعبع.</p></div>`;
     cur = e1 + 30;
 
-    // توزيع المواد مع مراعاة الدروس
     subs.forEach(sub => {
         lessons.forEach(l => {
-            if (cur + 60 > l.s - 30 && cur < l.e) {
-                res += `<div class="task" style="border-color:#ef4444; background:#450a0a;"><span class="time">🚶 ${toStr(l.s-30)} - ${toStr(l.e+45)}</span><h3>⚠️ منطقة السنتر (خارج التغطية)</h3><p>حسبنا وقت لبس ومواصلات ورجوع. افصل تماماً.</p></div>`;
-                cur = l.e + 45;
+            if (cur + 40 > l.s - 30 && cur < l.e) {
+                res += `<div class="task-card" style="border-color:#ef4444; background:#450a0a;"><span class="time-badge" style="background:#ef4444">${toStr(l.s-30)} - ${toStr(l.e+40)}</span><h3 style="margin:5px 0;">🚧 وقت السنتر (خارج البيت)</h3></div>`;
+                cur = l.e + 40;
             }
         });
         let eS = cur + 60;
-        res += `<div class="task" style="border-color:#10b981;"><span class="time">🕒 ${toStr(cur)} - ${toStr(eS)}</span><h3>✅ تحدي المادة: ${sub}</h3><p>مهمة سريعة، حل وتطبيق بتركيز عالي.</p></div>`;
-        cur = eS + 20;
+        res += `<div class="task-card" style="border-color:var(--success);"><span class="time-badge" style="background:var(--success)">🕒 ${toStr(cur)} - ${toStr(eS)}</span><h3 style="margin:5px 0;">🎯 تحدي: ${sub}</h3><p style="margin:0; font-size:0.8rem;">خلص تمارين الدرس ده في الساعة دي.</p></div>`;
+        cur = eS + 15;
     });
 
-    document.getElementById('input-page').classList.add('hidden');
-    document.getElementById('result-page').classList.remove('hidden');
+    document.getElementById('setup').classList.add('hidden');
+    document.getElementById('result-screen').classList.remove('hidden');
     document.getElementById('output').innerHTML = res;
+    document.getElementById('ai-date').innerText = new Date().toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function downloadPDF() {
+    const element = document.getElementById('pdf-content');
+    const opt = { margin: 0.5, filename: 'جدول من قناه تانيه ثانوي الرسميه.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#0f172a' }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } };
+    html2pdf().set(opt).from(element).save();
+}
+
+function sharePlatform() {
+    if (navigator.share) {
+        navigator.share({ title: 'منصة ثانية ثانوي الذكية', text: 'عملت جدولي بالذكاء الصناعي في ثواني! جرب المنصة من هنا:', url: 'https://thanwyaa.github.io' });
+    } else {
+        alert("انسخ الرابط وابعته لأصحابك: https://thanwyaa.github.io");
+    }
 }
 </script>
 </body>
