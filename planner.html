@@ -1,81 +1,123 @@
-function showResult() {
-    document.getElementById('setup').style.display = "none";
-    document.getElementById('result-area').style.display = "block";
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Command Center | المخطط العبقري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background: #020617; color: #f8fafc; margin: 0; padding: 20px; }
+        .card { max-width: 600px; margin: auto; background: #0f172a; border-radius: 20px; padding: 25px; border: 2px solid #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
+        input, select { width: 90%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: white; }
+        button { width: 100%; padding: 15px; background: #3b82f6; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #2563eb; transform: scale(1.02); }
+        .step { display: none; }
+        .step.active { display: block; }
+        .task-card { background: #1e293b; border-right: 6px solid #3b82f6; padding: 15px; margin: 15px 0; border-radius: 8px; }
+        .time-tag { color: #60a5fa; font-weight: bold; font-size: 0.9rem; }
+        .nav-back { margin-bottom: 20px; display: inline-block; color: #94a3b8; text-decoration: none; }
+    </style>
+</head>
+<body>
 
-    // 1. تجميع البيانات الأساسية
-    let name = data[0] || "يا بطل";
-    let wakeTime = data[1]; // مثلا 07:00
-    let hasCenter = data[2] === "آه" || data[2] === "ايوه";
-    let centerDetails = data[3]; // مثلا من 2 لـ 5
-    let travel = parseInt(data[4]) || 0;
-    let mainSub = data[5];
-    let otherSubs = data[6].split('-');
-    let restTime = parseInt(data[8]) || 1; // ساعات الراحة
+<a href="index.html" class="nav-back">⬅️ رجوع للمنصة</a>
 
-    // 2. تحويل الوقت لنظام يقبل الحساب
-    let currentTime = new Date(`2026-01-01 ${wakeTime}`);
-    let scheduleHTML = `<div style="border: 3px solid #1e40af; border-radius: 15px; overflow: hidden; background: #fff; font-family: 'Cairo';">
-        <div style="background: #1e40af; color: white; padding: 15px; text-align: center;">
-            <h3 style="margin:0;">🎯 الجدول الذكي لـ ${name}</h3>
-            <small>بناءً على تحليل نشاطك وظروف دروسك</small>
+<div class="card" id="main-card">
+    <div id="steps-container">
+        <div class="step active" id="step0">
+            <h2>مرحلة تحليل البيانات 🧠</h2>
+            <p>بتصحى الساعة كام بالظبط؟ (مثلاً 07:00)</p>
+            <input type="time" id="wake_time" value="07:00">
+            <p>عندك درس بره البيت (سنتر)؟</p>
+            <select id="has_center">
+                <option value="no">لأ، يومي كله في البيت</option>
+                <option value="yes">آه، عندي سنتر</option>
+            </select>
+            <button onclick="nextStep(1)">الخطوة التالية</button>
         </div>
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr style="background: #f1f5f9;">
-                <th style="padding: 10px; border: 1px solid #ddd;">الوقت</th>
-                <th style="padding: 10px; border: 1px solid #ddd;">النشاط الذكي</th>
-            </tr>`;
 
-    // دالة مساعدة لزيادة الوقت وتنسيقه
-    function addMinutes(date, minutes) {
-        return new Date(date.getTime() + minutes * 60000);
-    }
-    function formatTime(date) {
-        return date.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
-    }
-
-    // --- بداية خوارزمية التوزيع الذكي ---
-
-    // أ- فترة الصباح (المادة البعبع)
-    let session1End = addMinutes(currentTime, 120); // مذكرتين لمدة ساعتين
-    scheduleHTML += `<tr>
-        <td style="padding:10px; border:1px solid #ddd; font-weight:bold;">${formatTime(currentTime)} - ${formatTime(session1End)}</td>
-        <td style="padding:10px; border:1px solid #ddd;">البداية القوية مع <b>${mainSub}</b>. ده وقت ذروة مخك، استغله صح! 🔥</td>
-    </tr>`;
-    currentTime = addMinutes(session1End, 30); // راحة 30 دقيقة
-
-    // ب- فترة الدروس (حساب المواصلات والراحة)
-    if (hasCenter) {
-        scheduleHTML += `<tr style="background: #fff1f2;">
-            <td style="padding:10px; border:1px solid #ddd;">فترة السنتر</td>
-            <td style="padding:10px; border:1px solid #ddd;">وقت الدروس: ${centerDetails}. (حسبنا لك ${travel} دقيقة مواصلات). حاول تسمع بودكاست تعليمي في الطريق 🎧</td>
-        </tr>`;
-        // نفترض العودة الساعة 6 مساءً كمثال لو البيانات مش دقيقة
-        currentTime = new Date(`2026-01-01 18:00`); 
-    }
-
-    // ج- فترة العودة والراحة الإجبارية
-    let afterLessonRest = addMinutes(currentTime, 30);
-    scheduleHTML += `<tr style="background: #f0fdf4;">
-        <td style="padding:10px; border:1px solid #ddd;">${formatTime(currentTime)} - ${formatTime(afterLessonRest)}</td>
-        <td style="padding:10px; border:1px solid #ddd;"><b>فترة راحة إجبارية ☕</b>. افصل تماماً عن المذاكرة عشان تشحن طاقتك.</td>
-    </tr>`;
-    currentTime = afterLessonRest;
-
-    // د- توزيع المواد الباقية
-    otherSubs.forEach(sub => {
-        let subEnd = addMinutes(currentTime, 60);
-        scheduleHTML += `<tr>
-            <td style="padding:10px; border:1px solid #ddd;">${formatTime(currentTime)} - ${formatTime(subEnd)}</td>
-            <td style="padding:10px; border:1px solid #ddd;">مذاكرة <b>${sub}</b>. ركز على الحل أكتر من القراءة دلوقتي. ✍️</td>
-        </tr>`;
-        currentTime = addMinutes(subEnd, 15); // بريك قصير
-    });
-
-    scheduleHTML += `</table>
-        <div style="padding: 15px; background: #eff6ff; text-align: center; border-top: 2px solid #1e40af;">
-            <p style="margin:0; font-weight: bold; color: #1e40af;">💡 نصيحة الذكاء الصناعي: ${data[12]}</p>
+        <div class="step" id="step1">
+            <h2>تحديد الأولويات 🎯</h2>
+            <p>إيه "البعبع" (أصعب مادة) اللي شاغلة بالك؟</p>
+            <input type="text" id="hard_sub" placeholder="فيزياء، كيمياء...">
+            <p>اكتب مادتين تانيين (افصل بينهم بـ - )</p>
+            <input type="text" id="easy_subs" placeholder="عربي - إنجليزي">
+            <button onclick="generateAIPlan()">توليد الخطة العبقرية 🔥</button>
         </div>
-    </div>`;
+    </div>
 
-    document.getElementById('table-content').innerHTML = tableHTML;
-}
+    <div id="result" style="display:none;">
+        <h1 style="text-align: center; color: #3b82f6;">COMMAND CENTER</h1>
+        <div id="ai-content"></div>
+        <button onclick="window.print()" style="margin-top: 20px; background: #059669;">📸 خد سكرين شوت للجدول</button>
+    </div>
+</div>
+
+<script>
+    function nextStep(s) {
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step' + s).classList.add('active');
+    }
+
+    function generateAIPlan() {
+        const wake = document.getElementById('wake_time').value;
+        const hard = document.getElementById('hard_sub').value;
+        const easy = document.getElementById('easy_subs').value.split('-');
+        const hasCenter = document.getElementById('has_center').value;
+
+        let [h, m] = wake.split(':').map(Number);
+        let currentMins = h * 60 + m;
+
+        function format(mins) {
+            let hh = Math.floor(mins / 60) % 24;
+            let mm = mins % 60;
+            let ampm = hh >= 12 ? 'م' : 'ص';
+            hh = hh % 12 || 12;
+            return `${hh}:${mm < 10 ? '0' + mm : mm} ${ampm}`;
+        }
+
+        let html = `<p style="background:#334155; padding:10px; border-radius:10px; text-align:center;">يومك متفصل بالدقيقة بناءً على طاقة مخك</p>`;
+
+        // 1. المهمة الانتحارية (ساعتين ونصف)
+        let end1 = currentMins + 150;
+        html += `<div class="task-card">
+            <div class="time-tag">${format(currentMins)} - ${format(end1)}</div>
+            <h3>🔥 مهمة كسر العظام: ${hard}</h3>
+            <p>ده وقت ذروة هرمونات التركيز. ممنوع تلمس الموبايل. خلص 3 دروس كاملين.</p>
+        </div>`;
+        
+        currentMins = end1 + 30; // راحة
+
+        // 2. بلوك السنتر أو المذاكرة التانية
+        if(hasCenter === 'yes') {
+            let endC = currentMins + 240;
+            html += `<div class="task-card" style="border-right-color: #ef4444;">
+                <div class="time-tag">${format(currentMins)} - ${format(endC)}</div>
+                <h3>🚶 مشوار السنتر + الدرس</h3>
+                <p>استغل وقت المواصلات في سماع كلمات أو مراجعة سريعة. أول ما ترجع ليك نص ساعة فصلان.</p>
+            </div>`;
+            currentMins = endC + 45;
+        }
+
+        // 3. المواد السهلة
+        easy.forEach(s => {
+            let endS = currentMins + 60;
+            html += `<div class="task-card" style="border-right-color: #10b981;">
+                <div class="time-tag">${format(currentMins)} - ${format(endS)}</div>
+                <h3>✅ تصفية حسابات: ${s}</h3>
+                <p>حل وتطبيق فقط. مخك دلوقتي مش بتاع فهم عميق، هو بتاع "تخليص مهام".</p>
+            </div>`;
+            currentMins = endS + 15;
+        });
+
+        html += `<div style="text-align:center; padding:15px; border:2px dashed #3b82f6; margin-top:10px;">
+            <b>نصيحة الـ AI:</b> نام قبل الساعة 12 عشان بكرة عندك معركة تانية! 😴
+        </div>`;
+
+        document.getElementById('steps-container').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('ai-content').innerHTML = html;
+    }
+</script>
+</body>
+</html>
