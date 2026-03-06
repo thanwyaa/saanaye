@@ -1,38 +1,137 @@
-function showResult() {
-    document.getElementById('setup').style.display = "none";
-    document.getElementById('result-area').style.display = "block";
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Battle Plan | غرفة عمليات تانية ثانوي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #3b82f6; --bg: #020617; --card: #0f172a; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 15px; }
+        .container { max-width: 650px; margin: auto; background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid #1e40af; box-shadow: 0 10px 50px rgba(0,0,0,0.5); }
+        h2 { color: var(--primary); text-align: center; font-weight: 900; }
+        .box { background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #334155; background: #020617; color: #fff; box-sizing: border-box; font-size: 1rem; }
+        .btn-plus { background: #1e40af; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 5px; }
+        .btn-main { width: 100%; padding: 18px; background: var(--primary); color: #fff; border: none; border-radius: 15px; font-weight: 900; font-size: 1.3rem; cursor: pointer; transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); }
+        .task { background: #1e293b; border-right: 6px solid var(--primary); padding: 15px; margin: 15px 0; border-radius: 10px; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .time { color: var(--primary); font-weight: 900; font-size: 1.1rem; }
+        .hidden { display: none; }
+        .nav { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .nav a { color: #64748b; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
 
-    // 1. حساب الوقت المتاح (افتراضياً)
-    let wakeUpTime = parseInt(data[1]) || 7; 
-    let travelTime = (parseInt(data[4]) || 0) / 60; // تحويل المواصلات لساعات
-    let sleepTime = 8; // وقت النوم الافتراضي
-    let chores = 2; // وقت أكل وصلاة
+<div class="nav"><a href="index.html">🔙 العودة للمنصة</a> <span>V4.0 الذكاء الشغال 🧠</span></div>
+
+<div class="container" id="input-page">
+    <h2>غرفة عمليات المذاكرة 🚀</h2>
     
-    let netStudyHours = 24 - sleepTime - chores - travelTime - 4; // 4 ساعات متوسط دروس
-    if(netStudyHours < 0) netStudyHours = 5; // أمان كود
+    <div class="box">
+        <label>⏰ هتصحي "بالثانية" الساعة كام؟</label>
+        <input type="time" id="wake" value="07:00">
+    </div>
 
-    // 2. توزيع المواد بذكاء
-    let mainSub = data[5]; // المادة البعبع
-    let otherSubs = data[6].split('-'); // تقطيع المواد التانية
-    
-    let mainSubTime = (netStudyHours * 0.5).toFixed(1); // 50% للمادة الصعبة
-    let othersTime = ((netStudyHours * 0.5) / otherSubs.length).toFixed(1); // الباقي على الباقي
+    <div class="box">
+        <label>🔥 المادة البعبع (اللي مطلع عينك):</label>
+        <input type="text" id="boss" placeholder="فيزياء، كيمياء...">
+    </div>
 
-    // 3. بناء الجدول المربع الاحترافي
-    let tableHTML = `
-        <div style="border: 2px solid #1e40af; padding: 15px; background: #f8fafc; border-radius: 10px;">
-            <p style="color: #1e40af; font-weight: bold;">✅ تحليل المساعد الذكي ليومك:</p>
-            <table style="width: 100%; border-collapse: collapse;">
-                <tr style="background: #1e40af; color: white;"><th>الفترة</th><th>المهمة المقترحة</th></tr>
-                <tr><td>الصباح (الذروة)</td><td>مذاكرة <b>${mainSub}</b> لمدة ${mainSubTime} ساعات (لأنها الأهم)</td></tr>
-                <tr><td>الظهر</td><td>وقت الدروس والمواصلات المذكورة</td></tr>
-                <tr><td>المساء</td><td>مراجعة سريعة لـ: ${otherSubs.join(' - ')} (${othersTime} ساعة لكل مادة)</td></tr>
-                <tr style="background: #dcfce7;"><td>وقت الراحة</td><td>فواصل 10 دقائق كل 50 دقيقة مذاكرة</td></tr>
-            </table>
-            <div style="margin-top: 15px; padding: 10px; border-right: 4px solid #16a34a; background: #f0fdf4;">
-                <b>نصيحة المساعد:</b> مادة ${mainSub} محتاجة تركيز عالي، ابدأ بيها أول ما تصحى وقفل موبايلك!
-            </div>
+    <div class="box">
+        <label>📚 مواد التحدي (ضيف براحتك):</label>
+        <div id="subs">
+            <input type="text" class="sub-in" placeholder="اسم المادة">
         </div>
-    `;
-    document.getElementById('table-content').innerHTML = tableHTML;
+        <button class="btn-plus" onclick="addInput('subs', 'اسم المادة')">+ مادة كمان</button>
+    </div>
+
+    <div class="box">
+        <label>🚶 عندك دروس بره؟</label>
+        <select id="is_lesson" onchange="checkLesson()">
+            <option value="no">لأ، يومي في البيت</option>
+            <option value="yes">آه، عندي مواعيد</option>
+        </select>
+        <div id="lesson_zone" class="hidden">
+            <p style="font-size:0.8rem; color:#94a3b8;">دخل مواعيد الدروس بالظبط:</p>
+            <div id="lessons">
+                <div style="display:flex; gap:5px;"><input type="time" class="l-start"> <input type="time" class="l-end"></div>
+            </div>
+            <button class="btn-plus" onclick="addLesson()">+ درس كمان</button>
+        </div>
+    </div>
+
+    <button class="btn-main" onclick="startAI()">توليد الخطة القاتلة 🔥</button>
+</div>
+
+<div class="container hidden" id="result-page">
+    <h2 id="ai-msg">Command Center</h2>
+    <div id="output"></div>
+    <button class="btn-main" style="background:#059669; margin-top:20px;" onclick="window.location.reload()">🔄 إعادة التخطيط</button>
+</div>
+
+<script>
+const tips = [
+    "ابعد الموبايل عنك 10 متر، إشعاراتك عدوك الأول 📵", "لو زهقت غير مكانك، روح البلكونة أو الصالة ☀️", "ذاكر 50 دقيقة وفصل 10 دقايق، ده نظام الـ AI ⏱️",
+    "اشرب مية كتير، مخك بيعشق الهيدرجة 💧", "التكرار سر الشطار، راجع العناوين قبل ما تبدأ 🔁", "ابدأ بالأصعب دايماً وأنت في قمة نشاطك 💪",
+    "نظم مكتبك، الفوضى في المكان بتعمل فوضى في الدماغ 🧹", "لو مادة تقيلة، قسمها أجزاء صغيرة جداً ✂️", "كافئ نفسك بحاجة حلوة بعد كل إنجاز 🍫",
+    "ماتسهرش بعد الساعة 12، ده وقت حرق الخلايا 😴", "استخدم ورق وقلم، الكتابة بتثبت المعلومة ✍️", "تخيل فرحة أهلك يوم النتيجة، تستاهل التعب 🎓",
+    "أنت قد التحدي، مفيش حاجة صعبة على واحد زيك 🔥", "ثق في قدراتك، أنت أذكى مما تتخيل 💡", "ابدأ دلوقتي، مش بكرة! 🏹",
+    "قاعدة الـ 5 ثواني: عد 5-4-3-2-1 وقوم فوراً! 🚀", "اشرح الدرس لحيطة أو كلبك، المعلومة هتثبت 🗣️", "كل فاكهة بلاش سكريات مصنعة 🍎",
+    "الرياضة 5 دقايق بتجدد الدورة الدموية 🏃", "اسمع صوت مطر لو الدوشة حواليك كتير 🌧️", "خد سكرين شوت للجدول وخليه خلفية للموبايل 📸",
+    "حول الدرس لقصة مضحكة عشان تفتكرها 🎭", "غمض عينك وتخيل إنك بتشرح الدرس في لجنة 🧠", "بلاش كافيين كتير، كوباية واحدة كفاية ☕",
+    "لو تعبت نام 20 دقيقة (Power Nap) ⚡", "ركز في مادة واحدة، بلاش تشتت نفسك 🎯", "المذاكرة الجماعية فاشلة لو فيها رغي 🗣️",
+    "خلي هدفك الإتقان مش السرعة ✨", "النجاح محتاج استمرار مش ذكاء خارق 📈", "يا وحش، المنهج ده لُقمة في زورك، ابلعها! ⚔️"
+];
+
+function addInput(id, ph) {
+    let i = document.createElement('input'); i.type = 'text'; i.className = 'sub-in'; i.placeholder = ph;
+    document.getElementById(id).appendChild(i);
 }
+
+function addLesson() {
+    let d = document.createElement('div'); d.style.display = 'flex'; d.style.gap = '5px';
+    d.innerHTML = `<input type="time" class="l-start"> <input type="time" class="l-end">`;
+    document.getElementById('lessons').appendChild(d);
+}
+
+function checkLesson() { document.getElementById('lesson_zone').classList.toggle('hidden', document.getElementById('is_lesson').value === 'no'); }
+
+function toMin(t) { let [h, m] = t.split(':').map(Number); return h * 60 + m; }
+function toStr(m) { let hh = Math.floor(m/60)%24, mm = m%60, p = hh>=12?'م':'ص'; hh = hh%12||12; return `${hh}:${mm<10?'0'+mm:mm} ${p}`; }
+
+function startAI() {
+    let cur = toMin(document.getElementById('wake').value);
+    let boss = document.getElementById('boss').value;
+    let subs = Array.from(document.getElementsByClassName('sub-in')).map(i=>i.value).filter(v=>v);
+    let lessons = Array.from(document.querySelectorAll('#lessons div')).map(d=>({s:toMin(d.children[0].value), e:toMin(d.children[1].value)})).filter(l=>l.s&&l.e).sort((a,b)=>a.s-b.s);
+
+    let res = `<p style="background:#1e3a8a; padding:10px; border-radius:10px; text-align:center;">🌟 نصيحة الـ AI: ${tips[Math.floor(Math.random()*tips.length)]}</p>`;
+
+    // بلوك 1: الوحش
+    let e1 = cur + 120;
+    res += `<div class="task"><span class="time">🕒 ${toStr(cur)} - ${toStr(e1)}</span><h3>⚔️ مهمة كسر العظام: ${boss}</h3><p>أصعب جزء في يومك، اخلص منه وأنت لسه فريش.</p></div>`;
+    cur = e1 + 30;
+
+    // توزيع المواد مع مراعاة الدروس
+    subs.forEach(sub => {
+        lessons.forEach(l => {
+            if (cur + 60 > l.s - 30 && cur < l.e) {
+                res += `<div class="task" style="border-color:#ef4444; background:#450a0a;"><span class="time">🚶 ${toStr(l.s-30)} - ${toStr(l.e+45)}</span><h3>⚠️ منطقة السنتر (خارج التغطية)</h3><p>حسبنا وقت لبس ومواصلات ورجوع. افصل تماماً.</p></div>`;
+                cur = l.e + 45;
+            }
+        });
+        let eS = cur + 60;
+        res += `<div class="task" style="border-color:#10b981;"><span class="time">🕒 ${toStr(cur)} - ${toStr(eS)}</span><h3>✅ تحدي المادة: ${sub}</h3><p>مهمة سريعة، حل وتطبيق بتركيز عالي.</p></div>`;
+        cur = eS + 20;
+    });
+
+    document.getElementById('input-page').classList.add('hidden');
+    document.getElementById('result-page').classList.remove('hidden');
+    document.getElementById('output').innerHTML = res;
+}
+</script>
+</body>
+</html>
