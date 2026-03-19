@@ -566,6 +566,56 @@ function sharePlatform() {
             `;
             lucide.createIcons();
         }
+      <div id="eidModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 99999; align-items: center; justify-content: center; backdrop-filter: blur(10px); font-family: 'Cairo', sans-serif;">
+    <div style="background: #fff; color: #000; width: 90%; max-width: 400px; padding: 30px; border-radius: 30px; border: 8px solid #ffcc00; text-align: center;">
+        <div id="loadingView">
+            <h2 style="color:#ffcc00">🎲 استنى بننقي لك الأحلى...</h2>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJtZzZycW13eHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxXLyGOS64/giphy.gif" width="80">
+        </div>
+        <div id="resultView" style="display:none;">
+            <span id="resIcon" style="font-size: 100px; display: block;"></span>
+            <h2 id="resPrize" style="font-size: 30px; font-weight: 900; margin: 15px 0; color: #ff4757;"></h2>
+            <p id="resMsg" style="font-weight:bold; margin-bottom:20px; color: #333;"></p>
+            <button onclick="closeModal()" style="background: #000; color: #fff; padding: 12px; border-radius: 10px; font-size: 1.1rem; width: 100%; border: none; cursor: pointer; font-weight: bold;">رضينا باللي انكتب 😂</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const gifts = [
+        { t: "1000 جنيه (كاش)", m: "مبروك يا وحش! روح اشتري بيهم بنك الحظ كله وعيش ملك.", i: "💵" },
+        { t: "آيفون 17 برو ماكس", m: "مبروك! الجهاز هيوصلك لما تطلع الأول على الجمهورية في تالتة.. شد حيلك!", i: "📱" },
+        { t: "نص جنيه مخروم", m: "ده تذكار نادر.. روح بوسي إيد طنط وقولها المنصة بتعيد عليكي.", i: "🥨" },
+        { t: "عزومة على كشري", m: "المنصة عزماك على كشري.. بس الحساب على صاحبك اللي جنبك!", i: "🍜" },
+        { t: "بوسة من الأدمن", m: "أغلى حاجة في المنصة والله.. كل سنة وأنت طيب يا حبيب قلبي.", i: "😘" }
+    ];
+
+    function claimEdeya() {
+        if (localStorage.getItem("eid_2026")) {
+            alert("إيه يا زميلي؟ هي تكية؟ هي مرة واحدة بس في السنة! 😂");
+            return;
+        }
+        document.getElementById("eidModal").style.display = "flex";
+        setTimeout(() => {
+            const pick = gifts[Math.floor(Math.random() * gifts.length)];
+            document.getElementById("loadingView").style.display = "none";
+            document.getElementById("resultView").style.display = "block";
+            document.getElementById("resIcon").innerText = pick.i;
+            document.getElementById("resPrize").innerText = pick.t;
+            document.getElementById("resMsg").innerText = pick.m;
+            localStorage.setItem("eid_2026", "true");
+        }, 2000);
+    }
+
+    function closeModal() {
+        document.getElementById("eidModal").style.display = "none";
+        const btn = document.getElementById("giftBtn");
+        btn.innerText = "أنت استلمت عيديتك خلاص! 😉";
+        btn.style.background = "#666";
+        btn.style.color = "#ccc";
+        btn.onclick = () => alert("خلاص يا وحش.. كُل كحك بقى! 😂");
+    }
+</script>
     </script>
 </body>
 <style>
