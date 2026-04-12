@@ -1,129 +1,260 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطوير | منصة تانية ثانوي الرسمية</title>
+    <title>⚡ العودة قريباً | منصة تانية ثانوي ⚡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --main-color: #007bff;
-            --accent-glow: rgba(0, 123, 255, 0.15);
+            --bg-color: #050509;
+            --primary-neon: #00f2fe;
+            --secondary-neon: #4facfe;
+            --accent-neon: #ff007a;
+            --text-color: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0d0d0e;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ffffff;
+            color: var(--text-color);
             overflow: hidden;
-        }
-
-        .bg-glow {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0;
-        }
-
-        .container {
             position: relative;
+        }
+
+        /* حاوية الخلفية المتحركة */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
             z-index: 1;
-            background: rgba(25, 25, 27, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 50px 40px;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 60px 40px;
             text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            max-width: 650px;
+            width: 92%;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(79, 172, 254, 0.2);
+            transform: translateY(20px);
+            animation: containerIn 1s ease-out forwards;
         }
 
-        h1 {
-            font-size: 2.1rem;
+        @keyframes containerIn {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* تأثير الشوشرة على العناوين */
+        .glitch-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            background: linear-gradient(to bottom, #fff, var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
             margin-bottom: 10px;
-            font-weight: 700;
         }
 
-        .sub-title {
-            color: #999;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+        .glitch-title::before, .glitch-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
         }
 
-        .categories {
+        .glitch-title::after {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent-neon);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            100% { clip: rect(62px, 9999px, 43px, 0); }
+        }
+
+        .sub-message {
+            font-size: 1.4rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .typing-text {
+            color: var(--primary-neon);
+            font-weight: bold;
+        }
+
+        /* بطاقات الفئات المتحركة */
+        .category-grid {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 20px;
+            margin-bottom: 50px;
         }
 
-        .cat-tag {
-            background: rgba(255, 255, 255, 0.05);
+        .cat-card {
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 6px 20px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            color: #efefef;
-        }
-
-        .loader-line {
-            width: 100%;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            transition: 0.4s ease;
+            position: relative;
             overflow: hidden;
-            margin-bottom: 25px;
+            cursor: default;
         }
 
-        .loader-fill {
-            width: 30%;
+        .cat-card:hover {
+            border-color: var(--primary-neon);
+            background: rgba(0, 242, 254, 0.05);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 20px var(--accent-neon);
+        }
+
+        /* شريط التحميل القوي */
+        .loading-zone {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .loading-bar {
+            width: 80%; /* نسبة التحميل الوهمية */
             height: 100%;
-            background: var(--main-color);
-            box-shadow: 0 0 10px var(--main-color);
-            animation: loading 1.8s infinite ease-in-out;
+            background: linear-gradient(90deg, var(--secondary-neon), var(--primary-neon));
+            box-shadow: 0 0 15px var(--primary-neon);
+            border-radius: 50px;
+            animation: pulseBar 2s infinite ease-in-out;
         }
 
-        @keyframes loading {
-            0% { transform: translateX(-150%); }
-            100% { transform: translateX(350%); }
+        @keyframes pulseBar {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
-        .note {
-            font-weight: 600;
-            color: var(--main-color);
-            letter-spacing: 0.5px;
+        .fire-icon {
+            font-size: 2rem;
+            animation: flicker 1s infinite alternate;
         }
+
+        @keyframes flicker {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* زر الاشتراك في التليجرام (حماس إضافي) */
+        .telegram-btn {
+            background: linear-gradient(135deg, var(--secondary-neon), #fff);
+            color: #000;
+            padding: 10px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1rem;
+            display: inline-block;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .telegram-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--primary-neon);
+        }
+
     </style>
 </head>
 <body>
-    <div class="bg-glow"></div>
 
-    <div class="container">
-        <h1>منصة تانية ثانوي الرسمية</h1>
-        <p class="sub-title">الموقع تحت التطوير الشامل حالياً</p>
+    <div id="particles-js"></div>
+
+    <div class="main-container">
+        <h1 class="glitch-title" data-text="المنصة القوية">المنصة القوية</h1>
+        <p class="sub-message">
+            بنجهز لكم تجربة مذاكرة <span class="typing-text">جاري التحميل...</span>
+        </p>
         
-        <div class="categories">
-            <span class="cat-tag">ثانوي عام</span>
-            <span class="cat-tag">أزهر</span>
+        <div class="category-grid">
+            <div class="cat-card">تانية ثانوي #عام</div>
+            <div class="cat-card">تانية ثانوي #أزهر</div>
         </div>
 
-        <div class="loader-line">
-            <div class="loader-fill"></div>
+        <div class="loading-zone">
+            <div class="loading-bar"></div>
         </div>
 
-        <p class="note">انتظروا المفاجآت قريباً جداً 🔥</p>
-        <p style="margin-top: 30px; font-size: 0.8rem; color: #444;">2026 © جميع الحقوق محفوظة</p>
+        <p style="font-size: 1.3rem; color: #fff; font-weight: 900;">
+            انتظروا المفاجآت، العودة قريبة جداً.. <span class="fire-icon">🔥</span>
+        </p>
+
+        <p style="margin-top: 40px; font-size: 0.8rem; color: #444;">Copyright © 2026 - Official Platform</p>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        /* إعدادات الخلفية المتحركة */
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "repulse" } },
+                "modes": { "repulse": { "distance": 100, "duration": 0.4 } }
+            }
+        });
+
+        /* تأثير الكتابة المتحرك */
+        const text = "جاري التحميل...";
+        const speed = 150;
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.querySelector(".typing-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                setTimeout(() => {
+                    document.querySelector(".typing-text").innerHTML = "";
+                    i = 0;
+                    typeWriter();
+                }, 2000); // إيقاف مؤقت قبل الإعادة
+            }
+        }
+        typeWriter();
+    </script>
 </body>
 </html>
-
-
