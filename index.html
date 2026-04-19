@@ -2,183 +2,29 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚡ العودة قريباً | منصة تانية ثانوي ⚡</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #050509;
-            --primary-neon: #00f2fe;
-            --secondary-neon: #4facfe;
-            --accent-neon: #ff007a;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .main-container {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            width: 90%;
-            max-width: 700px;
-            margin: 20px auto;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-        }
-
-        /* عنوان متجاوب */
-        .glitch-title {
-            font-size: clamp(1.8rem, 8vw, 3.2rem);
-            font-weight: 900;
-            background: linear-gradient(to bottom, #fff, var(--secondary-neon));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .sub-message {
-            font-size: clamp(1rem, 4vw, 1.3rem);
-            color: #ccc;
-            margin-bottom: 2.5rem;
-        }
-
-        /* شبكة الفئات المتجاوبة */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 2.5rem;
-        }
-
-        .cat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 15px;
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .cat-card:hover {
-            border-color: var(--primary-neon);
-            box-shadow: 0 0 20px var(--primary-neon);
-            transform: translateY(-3px);
-        }
-
-        .loading-zone {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50px;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-
-        .loading-bar {
-            width: 85%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary-neon), var(--primary-neon));
-            box-shadow: 0 0 15px var(--primary-neon);
-            animation: pulseBar 2s infinite ease-in-out;
-        }
-
-        @keyframes pulseBar { 50% { opacity: 0.5; } }
-
-        .fire-icon { font-size: 1.5rem; }
-
-        .footer-text {
-            margin-top: 2rem;
-            font-size: 0.75rem;
-            color: #444;
-        }
-
-        /* تحسينات للشاشات الصغيرة جداً */
-        @media (max-width: 480px) {
-            .main-container { padding: 2rem 1rem; }
-            .category-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ثانية ثانوي الرسمية</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="particles-js"></div>
+    <nav style="position: fixed; top: 0; width: 100%; padding: 20px 5%; display: flex; justify-content: space-between; z-index: 1000;">
+        <div class="logo" style="font-weight: 900; font-size: 1.4rem;">ثانية ثانوي الرسمية</div>
+        <button id="theme-toggle" style="background: none; border: 1px solid #ccc; padding: 5px 15px; border-radius: 8px; cursor: pointer; color: inherit;">تبديل الوضع</button>
+    </nav>
 
-    <div class="main-container">
-        <h1 class="glitch-title">المنصة القوية</h1>
-        <p class="sub-message">
-            بنجهز لكم تجربة مذاكرة <br>
-            <span id="typing" style="color: var(--primary-neon); font-weight: 900;"></span>
+    <header>
+        <h1 class="main-title">منصة ثانية ثانوي الرسمية</h1>
+        <p class="description">
+            المنصة التعليمية الشاملة لطلاب الصف الثاني الثانوي. نجمع لك المصادر التعليمية، الكتب، ومجتمع المذاكرة التفاعلي في بيئة رقمية متطورة.
         </p>
-        
-        <div class="category-grid">
-            <div class="cat-card">ثانوي عام</div>
-            <div class="cat-card">ثانوي أزهر</div>
-        </div>
+        <button class="btn-primary">ابدأ الاستكشاف</button>
+    </header>
 
-        <div class="loading-zone">
-            <div class="loading-bar"></div>
-        </div>
-
-        <p style="font-size: clamp(1.1rem, 5vw, 1.4rem); font-weight: 900;">
-            انتظروا المفاجآت، العودة قريبة.. 🔥
-        </p>
-
-        <p class="footer-text">2026 © جميع الحقوق محفوظة</p>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS('particles-js', {
-            "particles": {
-                "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#ffffff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.3 },
-                "size": { "value": 2 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.1 },
-                "move": { "enable": true, "speed": 1.5 }
-            }
-        });
-
-        const text = "جاري التطوير...";
-        let i = 0;
-        function type() {
-            if (i < text.length) {
-                document.getElementById("typing").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, 150);
-            } else {
-                setTimeout(() => { document.getElementById("typing").innerHTML = ""; i = 0; type(); }, 2000);
-            }
-        }
-        type();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
