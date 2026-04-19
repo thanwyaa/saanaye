@@ -1,0 +1,77 @@
+/* الألوان والمتغيرات الرسمية */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #7c3aed;
+    --bg-light: #f8fafc;
+    --text-light: #1e293b;
+    --card-light: #ffffff;
+    
+    --bg-dark: #0f172a;
+    --text-dark: #f8fafc;
+    --card-dark: #1e293b;
+    
+    --transition-speed: 0.3s;
+}
+
+/* الإعدادات العامة */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    line-height: 1.6;
+}
+
+/* وضع المظهر الداكن */
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+/* الهيدر (رأس الصفحة) */
+header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.main-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+}
+
+.description {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* الأزرار الرسمية */
+.btn-primary {
+    padding: 12px 35px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
