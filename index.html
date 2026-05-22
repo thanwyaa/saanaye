@@ -2,9 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>قريباً | منصة الثانوية الرسمية بلس</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,32 +13,31 @@
     }
 
     body {
-      background: #0a0a0a;
+      background: #0c0c0c;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
-      font-family: 'Tajawal', sans-serif;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
       padding: 20px;
     }
 
-    /* الكارد الرئيسي */
     .card {
       background: #111111;
-      border-radius: 48px;
+      border-radius: 40px;
       padding: 48px 40px;
-      max-width: 520px;
+      max-width: 500px;
       width: 100%;
       text-align: center;
       border: 1px solid #222;
-      box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 30px 40px rgba(0,0,0,0.4);
     }
 
     .icon {
-      font-size: 64px;
-      margin-bottom: 24px;
+      font-size: 58px;
+      margin-bottom: 20px;
       display: inline-block;
-      animation: spin 4s infinite linear;
+      animation: spin 3s infinite linear;
     }
 
     @keyframes spin {
@@ -47,37 +46,35 @@
     }
 
     h1 {
-      font-size: 36px;
-      font-weight: 900;
+      font-size: 32px;
+      font-weight: 800;
       color: #f5b041;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .sub {
-      color: #888;
-      font-size: 15px;
-      margin-bottom: 32px;
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 28px;
     }
 
-    /* أنيميشن الكتابة */
     .typing-area {
       background: #1a1a1a;
-      padding: 16px 20px;
-      border-radius: 60px;
+      padding: 14px 16px;
+      border-radius: 50px;
       margin: 24px 0;
       border: 1px solid #2a2a2a;
     }
 
     .typing-text {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 18px;
+      font-weight: 700;
       color: #f5b041;
       display: inline-block;
       overflow: hidden;
       white-space: nowrap;
       border-left: 3px solid #f5b041;
-      animation: typing 2s steps(22, end), blink 0.6s step-end infinite;
+      animation: typing 2s steps(20, end), blink 0.6s step-end infinite;
     }
 
     @keyframes typing {
@@ -90,29 +87,28 @@
       50% { border-color: #f5b041; }
     }
 
-    /* شريط التقدم */
     .progress-section {
-      margin: 32px 0 28px;
+      margin: 30px 0 32px;
     }
 
     .progress-label {
       display: flex;
       justify-content: space-between;
       color: #aaa;
-      font-size: 13px;
+      font-size: 12px;
       margin-bottom: 8px;
     }
 
     .progress-bar {
       width: 100%;
-      height: 6px;
+      height: 5px;
       background: #222;
       border-radius: 10px;
       overflow: hidden;
     }
 
     .progress-fill {
-      width: 68%;
+      width: 70%;
       height: 100%;
       background: #f5b041;
       border-radius: 10px;
@@ -120,25 +116,31 @@
     }
 
     @keyframes progress {
-      from { width: 65%; }
-      to { width: 73%; }
+      from { width: 68%; }
+      to { width: 76%; }
     }
 
-    /* نموذج الإشعار */
+    .notify-text {
+      color: #ccc;
+      font-size: 15px;
+      margin: 20px 0 12px;
+    }
+
     .form-group {
-      margin: 16px 0;
+      margin: 14px 0;
     }
 
     .form-group input {
       width: 100%;
-      padding: 14px 20px;
+      padding: 14px 18px;
       border-radius: 60px;
       border: 1px solid #2a2a2a;
       background: #1a1a1a;
       color: #fff;
-      font-family: 'Tajawal', sans-serif;
-      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       outline: none;
+      transition: 0.2s;
     }
 
     .form-group input:focus {
@@ -156,12 +158,12 @@
       border: none;
       padding: 14px;
       border-radius: 60px;
-      font-weight: 800;
-      font-size: 16px;
+      font-weight: 700;
+      font-size: 15px;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 12px;
       transition: 0.2s;
-      font-family: 'Tajawal', sans-serif;
+      font-family: 'Inter', sans-serif;
     }
 
     .btn:hover {
@@ -172,25 +174,14 @@
     .success-msg {
       color: #4ade80;
       font-size: 13px;
-      margin-top: 12px;
+      margin-top: 14px;
       display: none;
-    }
-
-    .admin-link {
-      margin-top: 24px;
-      font-size: 12px;
-      color: #555;
-    }
-
-    .admin-link a {
-      color: #f5b041;
-      text-decoration: none;
     }
 
     @media (max-width: 500px) {
       .card { padding: 32px 24px; }
-      h1 { font-size: 28px; }
-      .typing-text { white-space: normal; animation: none; border-left: none; font-size: 16px; }
+      h1 { font-size: 26px; }
+      .typing-text { white-space: normal; animation: none; border-left: none; font-size: 15px; }
     }
   </style>
 </head>
@@ -198,8 +189,8 @@
 
 <div class="card">
   <div class="icon">⚙️</div>
-  <h1>تحت التطوير</h1>
-  <div class="sub">نعمل على منصة تعليمية متكاملة</div>
+  <h1>قريباً جداً</h1>
+  <div class="sub">منصة تعليمية متكاملة بطريقة مختلفة</div>
 
   <div class="typing-area">
     <div class="typing-text">⚡ انتظروا العظمة ⚡</div>
@@ -207,44 +198,36 @@
 
   <div class="progress-section">
     <div class="progress-label">
-      <span>📈 نسبة الإنجاز</span>
-      <span>68%</span>
+      <span>نسبة الإنجاز</span>
+      <span>70%</span>
     </div>
     <div class="progress-bar">
       <div class="progress-fill"></div>
     </div>
   </div>
 
+  <div class="notify-text">
+    ✨ عاوز نبلغك أول ما ننزل المنصة؟<br>
+    اكتب بياناتك واحنا نوصلك رسالة فور الافتتاح ✨
+  </div>
+
   <div class="form-group">
-    <input type="text" id="userName" placeholder="الاسم كاملاً">
+    <input type="text" id="userName" placeholder="الاسم بالكامل">
   </div>
   <div class="form-group">
-    <input type="email" id="userEmail" placeholder="البريد الإلكتروني">
-  </div>
-  <div class="form-group">
-    <input type="text" id="userWhatsapp" placeholder="رقم واتساب (اختياري)">
+    <input type="text" id="userPhone" placeholder="رقم الهاتف أو واتساب">
   </div>
   <button class="btn" onclick="registerInterest()">🔔 أبلغني عند الافتتاح</button>
-  <div id="successMsg" class="success-msg">✅ تم تسجيل اهتمامك! سنخبرك فوراً</div>
-  
-  <div class="admin-link">
-    <a href="admin.html" target="_blank">📊 دخول لوحة الإدارة</a>
-  </div>
+  <div id="successMsg" class="success-msg">✅ تم استلام طلبك! هنبلغك فوراً 🤍</div>
 </div>
 
 <script>
   function registerInterest() {
     let name = document.getElementById('userName').value.trim();
-    let email = document.getElementById('userEmail').value.trim();
-    let whatsapp = document.getElementById('userWhatsapp').value.trim();
+    let phone = document.getElementById('userPhone').value.trim();
 
-    if (!name || !email) {
-      alert('❌ من فضلك أدخل الاسم والبريد الإلكتروني');
-      return;
-    }
-
-    if (!email.includes('@')) {
-      alert('❌ أدخل بريداً إلكترونياً صحيحاً');
+    if (!name || !phone) {
+      alert('❌ من فضلك اكتب اسمك ورقم هاتفك');
       return;
     }
 
@@ -252,8 +235,7 @@
     waitingList.push({
       id: Date.now(),
       name: name,
-      email: email,
-      whatsapp: whatsapp || 'غير مدخل',
+      phone: phone,
       date: new Date().toLocaleString('ar-EG')
     });
     localStorage.setItem('waitingList', JSON.stringify(waitingList));
@@ -261,8 +243,7 @@
     let msg = document.getElementById('successMsg');
     msg.style.display = 'block';
     document.getElementById('userName').value = '';
-    document.getElementById('userEmail').value = '';
-    document.getElementById('userWhatsapp').value = '';
+    document.getElementById('userPhone').value = '';
 
     setTimeout(() => { msg.style.display = 'none'; }, 4000);
   }
