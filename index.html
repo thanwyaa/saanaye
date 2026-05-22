@@ -142,7 +142,7 @@
             text-align: right;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 16px 20px;
             border-radius: 60px;
@@ -157,7 +157,7 @@
             direction: rtl;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: #f5b041;
             box-shadow: 0 0 0 3px rgba(245, 176, 65, 0.1);
         }
@@ -259,7 +259,7 @@
         <p>
             <span class="highlight">🎓 بص يا صديقي...</span><br>
             احنا حالياً شغالين على تطوير المنصة عشان تطلع بشكل يليق بيك.<br><br>
-            <span class="highlight">📱 فانت دلوقتي تقدر تدخل بياناتك</span> (الاسم ورقم الهاتف)،<br>
+            <span class="highlight">📱 فانت دلوقتي تقدر تدخل بياناتك</span> (الاسم - رقم الهاتف - الصف الدراسي)،<br>
             واحنا هنبعتلك رسالة فوراً لما المنصة تخلص وتكون جاهزة!<br><br>
             <span class="highlight">✅ وعد مننا</span> – هنكون معاك خطوة بخطوة.
         </p>
@@ -283,10 +283,18 @@
     <div id="warningMsg" class="warning-msg"></div>
 
     <div class="form-group">
-        <input type="text" id="userName" placeholder="📝 الاسم بالكامل (ثلاثي)">
+        <input type="text" id="userName" placeholder="📝 الاسم بالكامل">
     </div>
     <div class="form-group">
         <input type="tel" id="userPhone" placeholder="📱 رقم الهاتف (مثال: 01012345678)">
+    </div>
+    <div class="form-group">
+        <select id="userGrade">
+            <option value="">🎓 اختر الصف الدراسي</option>
+            <option value="اولى ثانوي">📘 أولى ثانوي</option>
+            <option value="تانية ثانوي" selected>📙 تانية ثانوي</option>
+            <option value="تالتة ثانوي">📕 تالتة ثانوي</option>
+        </select>
     </div>
 
     <button class="btn" onclick="register()">🔔 خلاص.. أنا في الانتظار</button>
@@ -294,115 +302,75 @@
     <div class="footer-note">منصة الثانوية الرسمية بلس | التعليم أولاً</div>
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, push, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+<script>
+    // تسجيل في LocalStorage (بدون Firebase)
+    let students = JSON.parse(localStorage.getItem('students_platform')) || [];
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
-        authDomain: "sanaayee.firebaseapp.com",
-        databaseURL: "https://sanaayee-default-rtdb.firebaseio.com",
-        projectId: "sanaayee",
-        storageBucket: "sanaayee.firebasestorage.app",
-        messagingSenderId: "1048456368002",
-        appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
-        measurementId: "G-XCYY1H22CQ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // التحقق من وجود الرقم في Firebase
-    async function isPhoneExists(phone) {
-        const snapshot = await get(ref(db, 'waitingList'));
-        const data = snapshot.val();
-        if(data) {
-            for(let key in data) {
-                if(data[key].phone === phone) {
-                    return data[key];
-                }
-            }
-        }
-        return null;
+    function showMessage(elementId, msg, type) {
+        const div = document.getElementById(elementId);
+        div.textContent = msg;
+        div.style.display = 'block';
+        setTimeout(() => div.style.display = 'none', 5000);
     }
 
-    window.register = async function() {
+    function validatePhone(phone) {
+        let clean = phone.replace(/[^\d]/g, '');
+        const arabic = /[٠١٢٣٤٥٦٧٨٩]/g;
+        if(arabic.test(clean)) {
+            clean = clean.replace(/[٠١٢٣٤٥٦٧٨٩]/g, d => d.charCodeAt(0) - 1632);
+        }
+        if(clean.length !== 11) return { valid: false, msg: 'رقم الهاتف لازم يكون 11 رقم بالضبط' };
+        if(!clean.startsWith('01')) return { valid: false, msg: 'رقم الهاتف لازم يبدأ بـ 01' };
+        return { valid: true, phone: clean };
+    }
+
+    window.register = function() {
         const name = document.getElementById('userName').value.trim();
         let phone = document.getElementById('userPhone').value.trim();
-        
+        const grade = document.getElementById('userGrade').value;
+
         document.querySelectorAll('.error, .warning-msg, .success-msg').forEach(m => m.style.display = 'none');
 
         if (!name) {
-            showError('❌ من فضلك اكتب اسمك بالكامل');
+            showMessage('errorMsg', '❌ من فضلك اكتب اسمك بالكامل');
             return;
         }
 
-        // تنظيف الرقم
-        let cleanPhone = phone.replace(/[^\d]/g, '');
-        
-        // تحويل الأرقام العربية
-        const arabicNumbers = /[٠١٢٣٤٥٦٧٨٩]/g;
-        if (arabicNumbers.test(cleanPhone)) {
-            cleanPhone = cleanPhone.replace(/[٠١٢٣٤٥٦٧٨٩]/g, function(d) {
-                return d.charCodeAt(0) - 1632;
-            });
-        }
-
-        // التحقق من صحة الرقم
-        if (cleanPhone.length !== 11) {
-            showError('❌ رقم الهاتف لازم يكون 11 رقم بالضبط');
+        if (!grade) {
+            showMessage('errorMsg', '❌ من فضلك اختر الصف الدراسي');
             return;
         }
 
-        if (!cleanPhone.startsWith('01')) {
-            showError('❌ رقم الهاتف لازم يبدأ بـ 01 (فودافون - اتصالات - أورنج - وي)');
+        const validation = validatePhone(phone);
+        if(!validation.valid) {
+            showMessage('errorMsg', validation.msg);
             return;
         }
+        phone = validation.phone;
 
-        phone = cleanPhone;
-
-        // منع التكرار
-        const existing = await isPhoneExists(phone);
+        // التحقق من عدم تكرار الرقم
+        const existing = students.find(s => s.phone === phone);
         if(existing) {
-            showWarning(`✅ هذا الرقم ${phone} مسجل بالفعل باسم ${existing.name}\nوجاري مراجعة طلبك`);
+            showMessage('warningMsg', `✅ هذا الرقم ${phone} مسجل بالفعل باسم ${existing.name}\nوجاري مراجعة طلبك`);
             return;
         }
 
         // تسجيل جديد
-        try {
-            await push(ref(db, 'waitingList'), {
-                name: name,
-                phone: phone,
-                date: new Date().toLocaleString('ar-EG'),
-                status: 'pending'
-            });
-            
-            const successDiv = document.getElementById('successMsg');
-            successDiv.style.display = 'block';
-            document.getElementById('userName').value = '';
-            document.getElementById('userPhone').value = '';
-            
-            setTimeout(() => {
-                successDiv.style.display = 'none';
-            }, 5000);
-        } catch (error) {
-            showError('حدث خطأ تقني: ' + error.message);
-        }
+        students.push({
+            id: Date.now(),
+            name: name,
+            phone: phone,
+            grade: grade,
+            date: new Date().toLocaleString('ar-EG'),
+            status: 'pending'
+        });
+        localStorage.setItem('students_platform', JSON.stringify(students));
+
+        showMessage('successMsg', `✅ تم تسجيل رقمك ${phone} بنجاح!\nجارٍ مراجعة طلبك، هنبلغك فور الافتتاح 🤍`);
+        document.getElementById('userName').value = '';
+        document.getElementById('userPhone').value = '';
+        document.getElementById('userGrade').value = 'تانية ثانوي';
     };
-
-    function showError(msg) {
-        const div = document.getElementById('errorMsg');
-        div.textContent = msg;
-        div.style.display = 'block';
-        setTimeout(() => div.style.display = 'none', 5000);
-    }
-
-    function showWarning(msg) {
-        const div = document.getElementById('warningMsg');
-        div.textContent = msg;
-        div.style.display = 'block';
-        setTimeout(() => div.style.display = 'none', 5000);
-    }
 </script>
 </body>
 </html>
