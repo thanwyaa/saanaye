@@ -1,253 +1,64 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>قريباً | منصة الثانوية الرسمية بلس</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #0c0c0c;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      padding: 20px;
-    }
-
-    .card {
-      background: #111111;
-      border-radius: 40px;
-      padding: 48px 40px;
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-      border: 1px solid #222;
-      box-shadow: 0 30px 40px rgba(0,0,0,0.4);
-    }
-
-    .icon {
-      font-size: 58px;
-      margin-bottom: 20px;
-      display: inline-block;
-      animation: spin 3s infinite linear;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    h1 {
-      font-size: 32px;
-      font-weight: 800;
-      color: #f5b041;
-      margin-bottom: 10px;
-    }
-
-    .sub {
-      color: #777;
-      font-size: 14px;
-      margin-bottom: 28px;
-    }
-
-    .typing-area {
-      background: #1a1a1a;
-      padding: 14px 16px;
-      border-radius: 50px;
-      margin: 24px 0;
-      border: 1px solid #2a2a2a;
-    }
-
-    .typing-text {
-      font-size: 18px;
-      font-weight: 700;
-      color: #f5b041;
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      border-left: 3px solid #f5b041;
-      animation: typing 2s steps(20, end), blink 0.6s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      0%, 100% { border-color: transparent; }
-      50% { border-color: #f5b041; }
-    }
-
-    .progress-section {
-      margin: 30px 0 32px;
-    }
-
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      color: #aaa;
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 5px;
-      background: #222;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      width: 70%;
-      height: 100%;
-      background: #f5b041;
-      border-radius: 10px;
-      animation: progress 1.5s ease infinite alternate;
-    }
-
-    @keyframes progress {
-      from { width: 68%; }
-      to { width: 76%; }
-    }
-
-    .notify-text {
-      color: #ccc;
-      font-size: 15px;
-      margin: 20px 0 12px;
-    }
-
-    .form-group {
-      margin: 14px 0;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 60px;
-      border: 1px solid #2a2a2a;
-      background: #1a1a1a;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      outline: none;
-      transition: 0.2s;
-    }
-
-    .form-group input:focus {
-      border-color: #f5b041;
-    }
-
-    .form-group input::placeholder {
-      color: #555;
-    }
-
-    .btn {
-      width: 100%;
-      background: #f5b041;
-      color: #000;
-      border: none;
-      padding: 14px;
-      border-radius: 60px;
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-      margin-top: 12px;
-      transition: 0.2s;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .btn:hover {
-      background: #e2a02a;
-      transform: scale(1.01);
-    }
-
-    .success-msg {
-      color: #4ade80;
-      font-size: 13px;
-      margin-top: 14px;
-      display: none;
-    }
-
-    @media (max-width: 500px) {
-      .card { padding: 32px 24px; }
-      h1 { font-size: 26px; }
-      .typing-text { white-space: normal; animation: none; border-left: none; font-size: 15px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قريباً | منصة الثانوية الرسمية بلس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:#0a0a0a;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;padding:20px;}
+        .card{background:#111;border-radius:48px;padding:40px 32px;max-width:480px;width:100%;text-align:center;border:1px solid #222;box-shadow:0 25px 40px rgba(0,0,0,0.5);}
+        .icon{font-size:56px;margin-bottom:16px;display:inline-block;animation:spin 3s infinite linear;}
+        @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+        h1{font-size:30px;font-weight:800;color:#f5b041;margin-bottom:8px;}
+        .sub{color:#777;font-size:13px;margin-bottom:24px;}
+        .typing-area{background:#1a1a1a;padding:12px 16px;border-radius:50px;margin:20px 0;border:1px solid #2a2a2a;}
+        .typing-text{font-size:17px;font-weight:700;color:#f5b041;display:inline-block;overflow:hidden;white-space:nowrap;border-left:3px solid #f5b041;animation:typing 2s steps(20,end),blink 0.6s step-end infinite;}
+        @keyframes typing{from{width:0;}to{width:100%;}}
+        @keyframes blink{0%,100%{border-color:transparent;}50%{border-color:#f5b041;}}
+        .progress-section{margin:28px 0 30px;}
+        .progress-label{display:flex;justify-content:space-between;color:#aaa;font-size:12px;margin-bottom:6px;}
+        .progress-bar{width:100%;height:5px;background:#222;border-radius:10px;overflow:hidden;}
+        .progress-fill{width:70%;height:100%;background:#f5b041;border-radius:10px;animation:progress 1.5s ease infinite alternate;}
+        @keyframes progress{from{width:68%;}to{width:76%;}}
+        .notify-text{color:#ccc;font-size:14px;margin:18px 0 12px;}
+        .form-group{margin:12px 0;}
+        .form-group input{width:100%;padding:14px 18px;border-radius:60px;border:1px solid #2a2a2a;background:#1a1a1a;color:#fff;font-family:'Inter',sans-serif;font-size:14px;outline:none;}
+        .form-group input:focus{border-color:#f5b041;}
+        .btn{width:100%;background:#f5b041;color:#000;border:none;padding:14px;border-radius:60px;font-weight:700;font-size:15px;cursor:pointer;margin-top:12px;transition:0.2s;}
+        .btn:hover{background:#e2a02a;transform:scale(1.01);}
+        .success-msg{color:#4ade80;font-size:13px;margin-top:14px;display:none;}
+        @media (max-width:500px){.card{padding:28px 20px;}h1{font-size:24px;}.typing-text{white-space:normal;animation:none;border-left:none;font-size:14px;}}
+    </style>
 </head>
 <body>
-
 <div class="card">
-  <div class="icon">⚙️</div>
-  <h1>قريباً جداً</h1>
-  <div class="sub">منصة تعليمية متكاملة بطريقة مختلفة</div>
-
-  <div class="typing-area">
-    <div class="typing-text">⚡ انتظروا العظمة ⚡</div>
-  </div>
-
-  <div class="progress-section">
-    <div class="progress-label">
-      <span>نسبة الإنجاز</span>
-      <span>70%</span>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
-    </div>
-  </div>
-
-  <div class="notify-text">
-    ✨ عاوز نبلغك أول ما ننزل المنصة؟<br>
-    اكتب بياناتك واحنا نوصلك رسالة فور الافتتاح ✨
-  </div>
-
-  <div class="form-group">
-    <input type="text" id="userName" placeholder="الاسم بالكامل">
-  </div>
-  <div class="form-group">
-    <input type="text" id="userPhone" placeholder="رقم الهاتف أو واتساب">
-  </div>
-  <button class="btn" onclick="registerInterest()">🔔 أبلغني عند الافتتاح</button>
-  <div id="successMsg" class="success-msg">✅ تم استلام طلبك! هنبلغك فوراً 🤍</div>
+    <div class="icon">⚙️</div>
+    <h1>قريباً جداً</h1>
+    <div class="sub">منصة تعليمية متكاملة بطريقة مختلفة</div>
+    <div class="typing-area"><div class="typing-text">⚡ انتظروا العظمة ⚡</div></div>
+    <div class="progress-section"><div class="progress-label"><span>نسبة الإنجاز</span><span>70%</span></div><div class="progress-bar"><div class="progress-fill"></div></div></div>
+    <div class="notify-text">✨ عاوز نبلغك أول ما ننزل المنصة؟<br>اكتب بياناتك واحنا نوصلك رسالة ✨</div>
+    <div class="form-group"><input type="text" id="userName" placeholder="الاسم بالكامل"></div>
+    <div class="form-group"><input type="text" id="userPhone" placeholder="رقم الهاتف أو واتساب"></div>
+    <button class="btn" onclick="register()">🔔 أبلغني عند الافتتاح</button>
+    <div id="successMsg" class="success-msg">✅ تم استلام طلبك! هنبلغك فوراً 🤍</div>
 </div>
-
 <script>
-  function registerInterest() {
-    let name = document.getElementById('userName').value.trim();
-    let phone = document.getElementById('userPhone').value.trim();
-
-    if (!name || !phone) {
-      alert('❌ من فضلك اكتب اسمك ورقم هاتفك');
-      return;
+    function register() {
+        let name = document.getElementById('userName').value.trim();
+        let phone = document.getElementById('userPhone').value.trim();
+        if(!name || !phone) { alert('❌ من فضلك اكتب اسمك ورقم هاتفك'); return; }
+        let list = localStorage.getItem('waitingList');
+        let waitingList = list ? JSON.parse(list) : [];
+        waitingList.push({ id: Date.now(), name: name, phone: phone, date: new Date().toLocaleString('ar-EG') });
+        localStorage.setItem('waitingList', JSON.stringify(waitingList));
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('userName').value = '';
+        document.getElementById('userPhone').value = '';
+        setTimeout(() => { document.getElementById('successMsg').style.display = 'none'; }, 3000);
     }
-
-    let waitingList = JSON.parse(localStorage.getItem('waitingList')) || [];
-    waitingList.push({
-      id: Date.now(),
-      name: name,
-      phone: phone,
-      date: new Date().toLocaleString('ar-EG')
-    });
-    localStorage.setItem('waitingList', JSON.stringify(waitingList));
-
-    let msg = document.getElementById('successMsg');
-    msg.style.display = 'block';
-    document.getElementById('userName').value = '';
-    document.getElementById('userPhone').value = '';
-
-    setTimeout(() => { msg.style.display = 'none'; }, 4000);
-  }
 </script>
-
 </body>
 </html>
