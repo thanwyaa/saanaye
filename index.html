@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قريباً | منصة الثانوية الرسمية بلس</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,28 +13,28 @@
         }
 
         body {
-            background: #ffffff;
+            background: #0a0a0a;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Inter', sans-serif;
             padding: 20px;
         }
 
         .card {
-            background: #ffffff;
+            background: #111;
             border-radius: 48px;
-            padding: 48px 40px;
-            max-width: 520px;
+            padding: 40px 32px;
+            max-width: 480px;
             width: 100%;
             text-align: center;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #222;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
         }
 
         .icon {
-            font-size: 64px;
+            font-size: 56px;
             margin-bottom: 16px;
             display: inline-block;
             animation: spin 3s infinite linear;
@@ -46,45 +46,29 @@
         }
 
         h1 {
-            font-size: 36px;
-            font-weight: 900;
+            font-size: 30px;
+            font-weight: 800;
             color: #f5b041;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
-        .welcome-message {
-            background: #fef9e6;
-            border-right: 5px solid #f5b041;
-            padding: 20px;
-            border-radius: 24px;
-            margin: 20px 0;
-            text-align: right;
-        }
-
-        .welcome-message p {
-            color: #334155;
-            font-size: 15px;
-            line-height: 1.7;
-            font-weight: 500;
-        }
-
-        .welcome-message .highlight {
-            color: #f5b041;
-            font-weight: 900;
-            font-size: 16px;
+        .sub {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 24px;
         }
 
         .typing-area {
-            background: #f8fafc;
+            background: #1a1a1a;
             padding: 12px 16px;
             border-radius: 50px;
             margin: 20px 0;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #2a2a2a;
         }
 
         .typing-text {
-            font-size: 18px;
-            font-weight: 900;
+            font-size: 17px;
+            font-weight: 700;
             color: #f5b041;
             display: inline-block;
             overflow: hidden;
@@ -110,16 +94,15 @@
         .progress-label {
             display: flex;
             justify-content: space-between;
-            color: #64748b;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 6px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
-            background: #e2e8f0;
+            height: 5px;
+            background: #222;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -137,68 +120,46 @@
             to { width: 76%; }
         }
 
+        .notify-text {
+            color: #ccc;
+            font-size: 14px;
+            margin: 18px 0 12px;
+        }
+
         .form-group {
-            margin: 16px 0;
+            margin: 12px 0;
             text-align: right;
         }
 
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 60px;
-            border: 2px solid #e2e8f0;
-            background: #ffffff;
-            color: #1e293b;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 15px;
-            font-weight: 500;
+            border: 1px solid #2a2a2a;
+            background: #1a1a1a;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
             outline: none;
             transition: 0.2s;
             direction: rtl;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus {
             border-color: #f5b041;
-            box-shadow: 0 0 0 3px rgba(245, 176, 65, 0.1);
         }
 
         .form-group input::placeholder {
-            color: #94a3b8;
-            font-weight: 400;
+            color: #555;
         }
 
         .error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
+            background: rgba(220, 38, 38, 0.15);
+            border: 1px solid #dc2626;
+            color: #f87171;
             padding: 12px;
             border-radius: 60px;
             font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 12px;
-            display: none;
-        }
-
-        .success-msg {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            color: #16a34a;
-            padding: 12px;
-            border-radius: 60px;
-            font-size: 13px;
-            font-weight: 500;
-            margin-top: 14px;
-            display: none;
-        }
-
-        .warning-msg {
-            background: #fef9e6;
-            border: 1px solid #fde68a;
-            color: #d97706;
-            padding: 12px;
-            border-radius: 60px;
-            font-size: 13px;
-            font-weight: 500;
             margin-bottom: 12px;
             display: none;
         }
@@ -206,16 +167,16 @@
         .btn {
             width: 100%;
             background: #f5b041;
-            color: #ffffff;
+            color: #000;
             border: none;
-            padding: 16px;
+            padding: 14px;
             border-radius: 60px;
-            font-weight: 900;
-            font-size: 17px;
+            font-weight: 700;
+            font-size: 15px;
             cursor: pointer;
-            margin-top: 16px;
+            margin-top: 12px;
             transition: 0.2s;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn:hover {
@@ -223,28 +184,25 @@
             transform: scale(1.01);
         }
 
-        .footer-note {
-            margin-top: 24px;
-            font-size: 12px;
-            color: #94a3b8;
-            font-weight: 500;
+        .success-msg {
+            color: #4ade80;
+            font-size: 13px;
+            margin-top: 14px;
+            display: none;
         }
 
-        @media (max-width: 550px) {
+        @media (max-width: 500px) {
             .card {
-                padding: 32px 24px;
+                padding: 28px 20px;
             }
             h1 {
-                font-size: 28px;
+                font-size: 24px;
             }
             .typing-text {
                 white-space: normal;
                 animation: none;
                 border-left: none;
-                font-size: 15px;
-            }
-            .welcome-message p {
-                font-size: 13px;
+                font-size: 14px;
             }
         }
     </style>
@@ -253,25 +211,16 @@
 
 <div class="card">
     <div class="icon">⚙️</div>
-    <h1>منصة الثانوية الرسمية بلس</h1>
-
-    <div class="welcome-message">
-        <p>
-            <span class="highlight">🎓 بص يا صديقي...</span><br>
-            احنا حالياً شغالين على تطوير المنصة عشان تطلع بشكل يليق بيك.<br><br>
-            <span class="highlight">📱 فانت دلوقتي تقدر تدخل بياناتك</span> (الاسم - رقم الهاتف - الصف الدراسي)،<br>
-            واحنا هنبعتلك رسالة فوراً لما المنصة تخلص وتكون جاهزة!<br><br>
-            <span class="highlight">✅ وعد مننا</span> – هنكون معاك خطوة بخطوة.
-        </p>
-    </div>
+    <h1>قريباً جداً</h1>
+    <div class="sub">منصة تعليمية متكاملة بطريقة مختلفة</div>
 
     <div class="typing-area">
-        <div class="typing-text">⚡ قريباً جداً.. استعد للانطلاق ⚡</div>
+        <div class="typing-text">⚡ انتظروا العظمة ⚡</div>
     </div>
 
     <div class="progress-section">
         <div class="progress-label">
-            <span>🚀 نسبة الإنجاز</span>
+            <span>نسبة الإنجاز</span>
             <span>73%</span>
         </div>
         <div class="progress-bar">
@@ -279,98 +228,107 @@
         </div>
     </div>
 
+    <div class="notify-text">
+        ✨ عاوز نبلغك أول ما ننزل المنصة؟<br>
+        اكتب بياناتك واحنا نوصلك رسالة ✨
+    </div>
+
     <div id="errorMsg" class="error"></div>
-    <div id="warningMsg" class="warning-msg"></div>
 
     <div class="form-group">
-        <input type="text" id="userName" placeholder="📝 الاسم بالكامل">
+        <input type="text" id="userName" placeholder="الاسم بالكامل (مثال: محمد أحمد)">
     </div>
     <div class="form-group">
-        <input type="tel" id="userPhone" placeholder="📱 رقم الهاتف (مثال: 01012345678)">
-    </div>
-    <div class="form-group">
-        <select id="userGrade">
-            <option value="">🎓 اختر الصف الدراسي</option>
-            <option value="اولى ثانوي">📘 أولى ثانوي</option>
-            <option value="تانية ثانوي" selected>📙 تانية ثانوي</option>
-            <option value="تالتة ثانوي">📕 تالتة ثانوي</option>
-        </select>
+        <input type="tel" id="userPhone" placeholder="رقم الهاتف (مثال: 01012345678)">
     </div>
 
-    <button class="btn" onclick="register()">🔔 خلاص.. أنا في الانتظار</button>
-    <div id="successMsg" class="success-msg">✅ تم استلام طلبك! هنبعتلك رسالة فور الافتتاح 🤍</div>
-    <div class="footer-note">منصة الثانوية الرسمية بلس | التعليم أولاً</div>
+    <button class="btn" onclick="register()">🔔 أبلغني عند الافتتاح</button>
+    <div id="successMsg" class="success-msg">✅ تم استلام طلبك! هنبلغك فوراً 🤍</div>
 </div>
 
-<script>
-    // تسجيل في LocalStorage (نفس مكان الأدمن)
-    let students = JSON.parse(localStorage.getItem('students_platform')) || [];
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    function showMessage(elementId, msg) {
-        const div = document.getElementById(elementId);
-        div.textContent = msg;
-        div.style.display = 'block';
-        setTimeout(() => div.style.display = 'none', 5000);
-    }
+    const firebaseConfig = {
+        apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
+        authDomain: "sanaayee.firebaseapp.com",
+        databaseURL: "https://sanaayee-default-rtdb.firebaseio.com",
+        projectId: "sanaayee",
+        storageBucket: "sanaayee.firebasestorage.app",
+        messagingSenderId: "1048456368002",
+        appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
+        measurementId: "G-XCYY1H22CQ"
+    };
 
-    function validatePhone(phone) {
-        let clean = phone.replace(/[^\d]/g, '');
-        const arabic = /[٠١٢٣٤٥٦٧٨٩]/g;
-        if(arabic.test(clean)) {
-            clean = clean.replace(/[٠١٢٣٤٥٦٧٨٩]/g, d => d.charCodeAt(0) - 1632);
-        }
-        if(clean.length !== 11) return { valid: false, msg: 'رقم الهاتف لازم يكون 11 رقم بالضبط' };
-        if(!clean.startsWith('01')) return { valid: false, msg: 'رقم الهاتف لازم يبدأ بـ 01' };
-        return { valid: true, phone: clean };
-    }
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    window.register = function() {
+    window.register = async function() {
         const name = document.getElementById('userName').value.trim();
         let phone = document.getElementById('userPhone').value.trim();
-        const grade = document.getElementById('userGrade').value;
+        const errorDiv = document.getElementById('errorMsg');
+        const successDiv = document.getElementById('successMsg');
 
-        document.querySelectorAll('.error, .warning-msg, .success-msg').forEach(m => m.style.display = 'none');
+        errorDiv.style.display = 'none';
+        successDiv.style.display = 'none';
 
         if (!name) {
-            showMessage('errorMsg', '❌ من فضلك اكتب اسمك بالكامل');
+            showError('❌ من فضلك اكتب اسمك');
             return;
         }
 
-        if (!grade) {
-            showMessage('errorMsg', '❌ من فضلك اختر الصف الدراسي');
+        // تنظيف الرقم من أي مسافات أو أحرف
+        let cleanPhone = phone.replace(/[^\d]/g, '');
+        
+        // تحويل الأرقام العربية إلى أرقام إنجليزية
+        const arabicNumbers = /[٠١٢٣٤٥٦٧٨٩]/g;
+        if (arabicNumbers.test(cleanPhone)) {
+            cleanPhone = cleanPhone.replace(/[٠١٢٣٤٥٦٧٨٩]/g, function(d) {
+                return d.charCodeAt(0) - 1632;
+            });
+        }
+
+        // التحقق من أن الرقم يبدأ بـ 01 ويتكون من 11 رقم
+        if (cleanPhone.length !== 11) {
+            showError('❌ رقم الهاتف يجب أن يكون 11 رقم بالضبط');
             return;
         }
 
-        const validation = validatePhone(phone);
-        if(!validation.valid) {
-            showMessage('errorMsg', validation.msg);
-            return;
-        }
-        phone = validation.phone;
-
-        // التحقق من عدم تكرار الرقم
-        const existing = students.find(s => s.phone === phone);
-        if(existing) {
-            showMessage('warningMsg', `✅ هذا الرقم ${phone} مسجل بالفعل باسم ${existing.name}\nوجاري مراجعة طلبك`);
+        if (!cleanPhone.startsWith('01')) {
+            showError('❌ رقم الهاتف يجب أن يبدأ بـ 01 (جميع الشبكات المصرية)');
             return;
         }
 
-        // تسجيل جديد
-        students.push({
-            id: Date.now(),
-            name: name,
-            phone: phone,
-            grade: grade,
-            date: new Date().toLocaleString('ar-EG'),
-            status: 'pending'
-        });
-        localStorage.setItem('students_platform', JSON.stringify(students));
+        phone = cleanPhone;
 
-        showMessage('successMsg', `✅ تم تسجيل رقمك ${phone} بنجاح!\nجارٍ مراجعة طلبك، هنبلغك فور الافتتاح 🤍`);
-        document.getElementById('userName').value = '';
-        document.getElementById('userPhone').value = '';
-        document.getElementById('userGrade').value = 'تانية ثانوي';
+        try {
+            await push(ref(db, 'waitingList'), {
+                name: name,
+                phone: phone,
+                date: new Date().toLocaleString('ar-EG')
+            });
+            
+            successDiv.style.display = 'block';
+            document.getElementById('userName').value = '';
+            document.getElementById('userPhone').value = '';
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 4000);
+        } catch (error) {
+            showError('حدث خطأ في التسجيل: ' + error.message);
+        }
     };
+
+    function showError(msg) {
+        const errorDiv = document.getElementById('errorMsg');
+        errorDiv.textContent = msg;
+        errorDiv.style.display = 'block';
+        setTimeout(() => {
+            errorDiv.style.display = 'none';
+        }, 4000);
+    }
 </script>
 </body>
 </html>
