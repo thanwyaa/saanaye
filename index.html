@@ -48,7 +48,7 @@
         h1 {
             font-size: 36px;
             font-weight: 900;
-            color: #1e293b;
+            color: #f5b041;
             margin-bottom: 12px;
         }
 
@@ -303,10 +303,10 @@
 </div>
 
 <script>
-    // تسجيل في LocalStorage (بدون Firebase)
+    // تسجيل في LocalStorage (نفس مكان الأدمن)
     let students = JSON.parse(localStorage.getItem('students_platform')) || [];
 
-    function showMessage(elementId, msg, type) {
+    function showMessage(elementId, msg) {
         const div = document.getElementById(elementId);
         div.textContent = msg;
         div.style.display = 'block';
